@@ -1,0 +1,217 @@
+ShipUI = {}
+
+function ShipUI:create(ship)
+    _shipui = {}
+    _shipui.ship = ship
+
+    
+    function _shipui:get_str_cannons(position)
+        local data = self.ship.current_cannons[position]
+        local str = ""
+        if position == 'Port' or position == 'Starboard' then
+            str = "Broadsides: "
+        else
+            str = position .. ": "
+        end
+        local previous = false
+        if data.heavy > 0 then
+            str = str .. "H " .. data.heavy
+            previous = true
+        end
+        if data.light > 0 then
+            if previous then
+                str = str .. ","
+            end
+            str = str .. "L " .. data.light
+            previous = true
+        end
+        if data.mortar > 0 then
+            if previous then
+                str = str .. ","
+            end
+            str = str .. "M " .. data.mortar
+            previous = true
+        end
+        if data.carronade > 0 then
+            if previous then
+                str = str .. ","
+            end
+            str = str .. "C " .. data.carronade
+        end
+        return str
+    end
+
+    function _shipui:update_knots_ui()
+        UI.setAttribute('slider_knots', 'value', self.ship.current_knots)
+
+        local text = 'Move ' .. self.ship.current_knots .. ' Knots'
+        UI.setValue('button_move', text)
+        UI.setAttribute('button_move', 'text', text)
+    end
+
+    function _shipui:update_degrees_ui()
+        UI.setAttribute('slider_turn', 'value', self.ship.current_turn)
+
+        local text = 'Turn ' .. self.ship.current_turn .. 'º'
+        UI.setValue('button_turn', text)
+        UI.setAttribute('button_turn', 'text', text)
+    end
+
+    function _shipui:show_ui_status()
+        if self.ship:has_status(ship_statuses.Fire) then
+            UI.setAttribute("btn_status_fire", "image", "ui_fire")
+            self.ship.hull_obj.AssetBundle.playLoopingEffect(1)
+        else
+            UI.setAttribute("btn_status_fire", "image", "ui_fire_disabled")
+            self.ship.hull_obj.AssetBundle.playLoopingEffect(0)
+        end
+        
+        if self.ship:has_status(ship_statuses.CrewHit) then
+            UI.setAttribute("btn_status_crewhit", "image", "ui_crewhit")
+        else
+            UI.setAttribute("btn_status_crewhit", "image", "ui_crewhit_disabled")
+        end
+        
+        if self.ship:has_status(ship_statuses.QuarterDeckHit) then
+            UI.setAttribute("btn_status_quarterdeckhit", "image", "ui_quarterdeckhit")
+        else
+            UI.setAttribute("btn_status_quarterdeckhit", "image", "ui_quarterdeckhit_disabled")
+        end
+
+        if self.ship:has_status(ship_statuses.RudderHit) then
+            UI.setAttribute("btn_status_rudderhit", "image", "ui_rudderhit")
+        else
+            UI.setAttribute("btn_status_rudderhit", "image", "ui_rudderhit_disabled")
+        end
+
+        if self.ship:has_status(ship_statuses.GunDeckHit) then
+            UI.setAttribute("btn_status_gundeckhit", "image", "ui_gundeckhit")
+        else
+            UI.setAttribute("btn_status_gundeckhit", "image", "ui_gundeckhit_disabled")
+        end
+
+        if self.ship:has_status(ship_statuses.SailHit) then
+            UI.setAttribute("btn_status_sailhit", "image", "ui_sailhit")
+        else
+            UI.setAttribute("btn_status_sailhit", "image", "ui_sailhit_disabled")
+        end
+    end
+    
+    function _shipui:show_ui_cannons()
+        UI.setAttribute("text_bow_weapons", "text", self:get_str_cannons('Bow'))
+        UI.setAttribute("text_broadsides_weapons", "text", self:get_str_cannons('Port'))
+        UI.setAttribute("text_stern_weapons", "text", self:get_str_cannons('Stern'))
+    end
+
+    function _shipui:show_ui()
+        self.ship.hull_obj.UI.show("panel_starboard_fire")
+        self.ship.hull_obj.UI.show("panel_port_fire")
+        self.ship.hull_obj.UI.show("panel_bow_fire")
+        self.ship.hull_obj.UI.show("panel_stern_fire")
+        self.ship.hull_obj.UI.show("panel_move")
+        self.ship.hull_obj.UI.show("panel_turn")
+
+        UI.setAttribute("text_ship_name", "text", self.ship.display_name)
+        UI.setAttribute("text_ship_points", "text", "Ship points: " 
+            .. self.ship.current_ship_points .. "/" 
+            ..  data_ships[self.ship.type].ship_points)
+
+        if data_ships[self.ship.type].turn_angle == turn_angles.Red then
+            UI.setAttribute("text_turn", "text", "Turn: Red")
+        else
+            UI.setAttribute("text_turn", "text", "Turn: Yellow")
+        end
+
+        self:show_ui_cannons()
+        
+        UI.setAttribute('text_knots', 'value', data_ships[self.ship.type].knots)
+        UI.setAttribute("text_break_value", "text", "Break Value: " .. data_ships[self.ship.type].break_value)
+        UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)
+        UI.setAttribute("text_faction", "text", "Faction: " .. self.ship.faction)
+        self:show_ui_status()
+
+        for _, sail_id in pairs(sails_setups) do
+            if sail_id == self.ship.current_sail_setup then
+                UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
+                    "isOn", true)
+            else
+                UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
+                    "isOn", false)
+            end
+        end
+        UI.show('panel_ship_bg')
+        UI.show('panel_ship')
+
+    end
+
+    function _shipui:hide_ui()
+        self.ship.hull_obj.UI.hide("panel_starboard_fire")
+        self.ship.hull_obj.UI.hide("panel_port_fire")
+        self.ship.hull_obj.UI.hide("panel_bow_fire")
+        self.ship.hull_obj.UI.hide("panel_stern_fire")
+        self.ship.hull_obj.UI.hide("panel_move")
+        self.ship.hull_obj.UI.hide("panel_turn")
+
+        UI.hide('panel_ship_bg')
+        UI.hide('panel_ship')
+    end
+
+    function _shipui:internal_spawn_buttons(hull_obj)
+        hull_obj.UI.setXml([[
+            <Panel id="panel_starboard_fire" position="0 -70 -40" width="100" height="50" rotation="0 0 180" active="false">
+                <Button onClick="fire_starboard">Fire!</Button>"
+            </Panel>
+            <Panel id="panel_port_fire" position="0 70 -40" width="100" height="50" active="false">
+                <Button onClick="fire_port">Fire!</Button>"
+            </Panel>
+            <Panel id="panel_stern_fire" position="-170 0 -40" width="100" height="50" rotation="0 0 90" active="false">
+                <Button onClick="fire_stern">Fire!</Button>"
+            </Panel>
+            <Panel id="panel_bow_fire" position="160 0 -40" width="100" height="50" rotation="0 0 270" active="false">
+                <Button onClick="fire_bow">Fire!</Button>"
+            </Panel>
+            ]])
+
+        hull_obj.setLuaScript([[
+            function fire_port(player, value, id)
+                Global.call("send_to_ship", {
+                    guid = self.guid,
+                    fn = "fire",
+                    params = {player, "Port"}
+                })
+            end
+
+            function fire_starboard(player, value, id)
+                Global.call("send_to_ship", {
+                    guid = self.guid,
+                    fn = "fire",
+                    params = {player, "Starboard"}
+                })
+            end
+
+            function fire_stern(player, value, id)
+                Global.call("send_to_ship", {
+                    guid = self.guid,
+                    fn = "fire",
+                    params = {player, "Stern"}
+                })
+            end
+
+            function fire_bow(player, value, id)
+                Global.call("send_to_ship", {
+                    guid = self.guid,
+                    fn = "fire",
+                    params = {player,"Bow"}
+                })
+            end
+        ]])
+    end
+
+    function _shipui:update_ship_points()
+        UI.setAttribute("text_ship_points", "text", "Ship points: " 
+            .. self.ship.current_ship_points .. "/" 
+            ..  data_ships[self.ship.type].ship_points)
+    end
+
+    return _shipui
+end

@@ -1,0 +1,5 @@
+g_current_version = "0.1.0"
+
+g_release_notes = {
+    ["0.1.0"] = "Initial Release. Limited to brig."
+}

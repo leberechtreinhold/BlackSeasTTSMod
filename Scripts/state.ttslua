@@ -1,0 +1,208 @@
+
+State = {}
+
+function State:create()
+    local _state = {}
+
+    -------- Properties
+
+    -- Dictionary of GUID to Ship
+    _state.ships = {}
+    -- Array of ship objects
+    _state.ship_objs_selected = {}
+
+    -- Water objects
+    _state.water_core_obj = nil
+    _state.water_exterior_obj = nil
+
+    _state.current_wind = 'North'
+    _state.board_size = 'medium'
+
+    math.randomseed(os.time())
+
+    -------- Functions
+
+    function _state:register_water_core(water_core)
+        self.water_core_obj = water_core
+    end
+
+    function _state:register_water_exterior(water_exterior)
+        self.water_exterior_obj = water_exterior
+    end
+
+    function _state:set_water_to_state(state)
+        if not sea_weathers_reverse[state] then
+            print_error('The state given does not exist')
+            log(state)
+        end
+        if state == sea_weathers.normal then
+            print_info('Normal weather, no modifiers.')
+        elseif state == sea_weathers.storm then
+            print_info('Storm! -2 to hit. Only travel at Light Sails.')
+        elseif state == sea_weathers.rough then
+            print_info('Rough seas! -1 to hit. Change above Light Sails requires a Skill Test. Full Sails not allowed.')
+        elseif state == sea_weathers.calm then
+            print_info('The sea is smooth as glass! +1 to hit.')
+        end
+        set_seas(self.water_core_obj, self.water_exterior_obj, state)
+    end
+
+    function _state:register_ship(ship)
+        self.ships[ship.hull_obj.guid] = ship
+    end
+
+    function _state:unregister_ship(ship)
+        self.ships[ship.hull_obj.guid] = nil
+
+        if tlen(self.ships) > 0 then
+            ui_update_summary()
+        else
+            UI.setValue('text_summary', '')
+        end
+    end
+
+    function _state:get_ship(guid)
+        return self.ships[guid]
+    end
+
+    function _state:how_many_ships_selected()
+        return tlen(self.ship_objs_selected)
+    end
+
+    function _state:do_to_ships(f)
+        for _,ship in pairs(self.ships) do
+            f(ship)
+        end
+    end
+
+    -- Returns the Ship selected, if there's one and only one
+    -- In any other case, return nil
+    function _state:return_single_ship_selected()
+        if #self.ship_objs_selected ~= 1 then
+            return nil
+        end
+        return self.ships[self.ship_objs_selected[1].guid]
+    end
+
+    -- Recalculates the number of objects selected, returns true if there's
+    -- a change. If there is a change, returns the list of old ships and
+    -- the new one
+    function _state:calculate_ship_objs_selected()
+        local current_ships = {}
+        local players = Player.getPlayers()
+        for _, player in ipairs(players) do
+            local selected_objs = player.getSelectedObjects()
+            if selected_objs ~= nil then
+                array_concat(current_ships, self:filter_ships(selected_objs))
+            end
+        end
+
+
+        local are_the_same = array_equals(current_ships, self.ship_objs_selected,
+            function(obj1, obj2)
+                return obj1.guid == obj2.guid
+            end)
+
+        if are_the_same then
+            return false
+        end
+
+        print_debug("There are " .. #current_ships .. " ships selected")
+
+        local old_selected = self.ship_objs_selected
+        self.ship_objs_selected = current_ships
+        return true, old_selected, self.ship_objs_selected
+    end
+
+    -- Given an array ob objects, returns another table with the
+    -- objects that correspond with registered ships
+    function _state:filter_ships(list)
+        local filtered = {}
+        for _,obj in ipairs(list) do
+            if self:get_ship(obj.guid) then
+                table.insert(filtered, obj)
+            end
+        end
+        return filtered
+    end
+
+    function _state:random_wind()
+        _,self.current_wind = random_kv(wind_directions)
+        print_important('The wind blows to the ' .. self.current_wind)
+        self:list_ship_order(self.current_wind)
+        self:do_to_ships(function(ship)
+            ship:update_flags_with_wind()
+        end)
+        return self.current_wind
+    end
+
+    function _state:roll_wind()
+        local roll = math.random(1,6) + math.random(1,6)
+        if roll == 2 then
+            print_important('The wind is becalmed!')
+        elseif roll == 12 then
+            print_important('Wind swell!')
+        elseif roll == 3 then
+            local index = wind_directions_reverse[self.current_wind]
+            self.current_wind = wind_directions[(index + 1) % 8]
+            print_important('Winds of change! The wind blows to the ' .. self.current_wind)
+        elseif roll == 11 then
+            local index = wind_directions_reverse[self.current_wind]
+            self.current_wind = wind_directions[(index - 1) % 8]
+            print_important('Winds of change! The wind blows to the ' .. self.current_wind)
+        else
+            print_important('No wind change, continues blowing to the '  .. self.current_wind)
+        end
+        self:list_ship_order(self.current_wind)
+        self:do_to_ships(function(ship)
+            ship:update_flags_with_wind()
+        end)
+        return self.current_wind
+    end
+
+    function _state:list_ship_order(new_wind_direction)
+        local oder_fn = nil
+
+        if new_wind_direction == 'East' then
+            order_fn = function(t,a,b)
+                return t[a].hull_obj.getPosition().x < t[b].hull_obj.getPosition().x
+            end        
+        elseif new_wind_direction == 'Southeast' then
+            order_fn = function(t,a,b)
+                return (t[a].hull_obj.getPosition().z - t[a].hull_obj.getPosition().x) > (t[b].hull_obj.getPosition().z - t[b].hull_obj.getPosition().x)
+            end        
+        elseif new_wind_direction == 'South' then
+            order_fn = function(t,a,b)
+                return t[a].hull_obj.getPosition().z > t[b].hull_obj.getPosition().z
+            end
+        elseif new_wind_direction == 'Southwest' then
+            order_fn = function(t,a,b)
+                return (t[a].hull_obj.getPosition().x + t[a].hull_obj.getPosition().z) > (t[b].hull_obj.getPosition().x + t[b].hull_obj.getPosition().z)
+            end
+        elseif new_wind_direction == 'West' then
+            order_fn = function(t,a,b)
+                return t[a].hull_obj.getPosition().x > t[b].hull_obj.getPosition().x
+            end        
+        elseif new_wind_direction == 'Northwest' then
+            order_fn = function(t,a,b)
+                return (t[a].hull_obj.getPosition().x - t[a].hull_obj.getPosition().z) > (t[b].hull_obj.getPosition().x - t[b].hull_obj.getPosition().z)
+            end        
+        elseif new_wind_direction == 'North' then
+            order_fn = function(t,a,b)
+                return t[a].hull_obj.getPosition().z < t[b].hull_obj.getPosition().z
+            end
+        elseif new_wind_direction == 'Northeast' then
+            order_fn = function(t,a,b)
+                return (t[a].hull_obj.getPosition().x + t[a].hull_obj.getPosition().z) < (t[b].hull_obj.getPosition().x + t[b].hull_obj.getPosition().z)
+            end        
+        end
+
+        local msg = 'The new ship order is: '
+        for _, el in sorted_array(self.ships, order_fn) do
+            msg = msg .. el.display_name .. ", "
+        end
+        print_important(msg)
+    end
+
+    return _state
+end

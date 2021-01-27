@@ -1,0 +1,202 @@
+
+faction_ids = {
+    Spain = 0,
+    USA = 1,
+    UK = 2,
+    UK_Canada = 3,
+    UK_Commerce = 4,
+    France_Napoleonic = 5,
+    Ottoman = 6,
+    Russia = 7,
+    Netherlands = 8,
+    Sweeden = 9,
+    Pirates = 10,
+    France_Kingdom = 11,
+    Denmark = 12,
+    Barbary_Pirates = 13,
+    Greece = 14,
+    Black = 15
+}
+
+faction_ids_reverse = {
+    [0] = "Spain",
+    [1] = "USA",
+    [2] = "UK",
+    [3] = "UK_Canada",
+    [4] = "UK_Commerce",
+    [5] = "France_Napoleonic",
+    [6] = "Ottoman",
+    [7] = "Russia",
+    [8] = "Netherlands",
+    [9] = "Sweeden",
+    [10] = "Pirates",
+    [11] = "France_Kingdom",
+    [12] = "Denmark",
+    [13] = "Barbary_Pirates",
+    [14] = "Greece",
+    [15] = "Black"
+}
+
+
+turn_angles = {
+    Yellow = 30,
+    Red = 45
+}
+
+cannon_positions = {
+    Bow = 0,
+    Port = 1,
+    Starboard = 2,
+    Stern = 3
+}
+
+cannon_ranges = {
+    heavy = 20,
+    light = 14,
+    mortar = 22,
+    carronade = 8
+}
+
+shooting_ranges = {
+    entanglement = 1,
+    short = 3,
+    long = 10
+}
+
+wind_directions = {
+    [0] = 'East',
+    [1] = 'Southeast',
+    [2] = 'South',
+    [3] = 'Southwest',
+    [4] = 'West',
+    [5] = 'Northwest',
+    [6] = 'North',
+    [7] = 'Northeast'
+}
+
+wind_directions_reverse = {
+    East = 0,
+    Southeast = 1,
+    South = 2,
+    Southwest = 3,
+    West = 4,
+    Northwest = 5,
+    North = 6,
+    Northeast = 7
+}
+
+wind_angles = {
+    East = 180,
+    Southeast = 225,
+    South = 270,
+    Southwest = 315,
+    West = 0,
+    Northwest = 45,
+    North = 90,
+    Northeast = 135
+}
+
+sails_setups = {
+    Full_Sails = 0,
+    Battle_Sails = 1,
+    Light_Sails = 2,
+    Anchored = 3
+}
+
+sails_setups_reverse = {
+    [0] = "Full_Sails",
+    [1] = "Battle_Sails",
+    [2] = "Light_Sails",
+    [3] = "Anchored"
+}
+
+ship_statuses = {
+    Fire = 1,
+    CrewHit = 2,
+    QuarterDeckHit = 3,
+    RudderHit = 4,
+    GunDeckHit = 5,
+    SailHit = 6
+}
+
+
+sea_weathers = {
+    normal = 1,
+    calm = 2,
+    rough = 3,
+    storm = 4
+}
+
+sea_weathers_reverse = {
+    [1] = "normal",
+    [2] = "calm",
+    [3] = "rough",
+    [4] = "storm"
+}
+
+crew_levels = {
+    regular = 1,
+    veteran = 2,
+    inexperienced = 3
+}
+
+-- Due to a bug in TTS, we require a different asset per nation
+-- https://forums.tabletopsimulator.com/showthread.php?9307-obj-addAttachment(child)-resets-the-child-material-if-they-are-an-assetbundle
+flag_ensign = {
+    Spain = "http://cloud-3.steamusercontent.com/ugc/1776075006866438584/349D09E23AA97C7584C21AFD982A236C75E2C5DF/",
+    USA = "http://cloud-3.steamusercontent.com/ugc/1776075006866439247/BAFF178756CA7B98EF4515C59E54A12EDFBB8CBD/",
+    UK = "http://cloud-3.steamusercontent.com/ugc/1776075006866438865/8CCFD67800086B501D45453B9BABBC6FA4BD38C9/",
+    UK_Canada = "http://cloud-3.steamusercontent.com/ugc/1776075006866438986/D79807B1CD299D80CAFA612A0B0E4A22A8A06CEB/",
+    UK_Commerce = "http://cloud-3.steamusercontent.com/ugc/1776075006866439124/D9191AA31F4C732941A7E0F315835AB8E7E9BD5A/",
+    France_Napoleonic = "http://cloud-3.steamusercontent.com/ugc/1776075006866437725/929FC8006239C16B80D791C5CFD8CB7865DB9BF2/",
+    Ottoman = "http://cloud-3.steamusercontent.com/ugc/1776075006866438161/32A718579D25878CD92810CE67C2EFAEBBD3F890/",
+    Russia = "http://cloud-3.steamusercontent.com/ugc/1776075006866438432/3F98F6347C15FAD7471BC9E95BCE5EF5BE2110AD/",
+    Netherlands = "http://cloud-3.steamusercontent.com/ugc/1776075006866438044/C1562692BE13F58FC23641BBBC0B2BD51E9E9781/",
+    Sweeden = "http://cloud-3.steamusercontent.com/ugc/1776075006866438704/49EE86D54F243931CCE299C0F3F8F42CFAA02565/",
+    Pirates = "http://cloud-3.steamusercontent.com/ugc/1776075006866438316/08A6467F571D81F70CB8E9B2688DC5FE807A8EDE/",
+    France_Kingdom = "http://cloud-3.steamusercontent.com/ugc/1776075006866437584/C65DD0C5BB14E9D5521492C8437D00FD306A9EC6/",
+    Denmark = "http://cloud-3.steamusercontent.com/ugc/1776075006866437428/83CFD15F91F04E5E5779CF571AAB2E4B994387EB/",
+    Barbary_Pirates = "http://cloud-3.steamusercontent.com/ugc/1776075006866437153/63C13A72D6505150FDC4B002DC4C9CBF7884DE2E/",
+    Greece = "http://cloud-3.steamusercontent.com/ugc/1776075006866437906/896BF665C776ABD4565C9154ABE8DFA7952264C6/",
+    Black = "http://cloud-3.steamusercontent.com/ugc/1776075006866437273/6B38565F63293A091B592DA199C37D71DC913E12/"
+}
+
+flag_pendon = {
+    Spain = "http://cloud-3.steamusercontent.com/ugc/1776075006866440704/E4DEE85430AD7C44CA9AE0AF8EB4867E960A5CCB/",
+    USA = "http://cloud-3.steamusercontent.com/ugc/1776075006866441356/BDA078669A13FB3D7CD130EAA08229AEB57DCFF1/",
+    UK = "http://cloud-3.steamusercontent.com/ugc/1776075006866440961/221E9053F7DE58EEF567E301303C2934F0AB077E/",
+    UK_Canada = "http://cloud-3.steamusercontent.com/ugc/1776075006866441086/6B66EB477D4539DAF6668E1041118C08F5D3E562/",
+    UK_Commerce = "http://cloud-3.steamusercontent.com/ugc/1776075006866441205/F696AD7F5A7D72395226B740F181E229F368A816/",
+    France_Napoleonic = "http://cloud-3.steamusercontent.com/ugc/1776075006866439971/8863D34EC704E5721C0D028F6213F5977795E59E/",
+    Ottoman = "http://cloud-3.steamusercontent.com/ugc/1776075006866440304/EDAE16DBA32DEB3EF636DF5623F235D3341916B8/",
+    Russia = "http://cloud-3.steamusercontent.com/ugc/1776075006866440570/20967C18A98C71CEA81A6C1AB22C1161FA048922/",
+    Netherlands = "http://cloud-3.steamusercontent.com/ugc/1776075006866440192/D1B9FB294A916AD6BCD41C6B9D4B13C451F112D9/",
+    Sweeden = "http://cloud-3.steamusercontent.com/ugc/1776075006866440821/8622C703A2A8E5C927A7406F589C0545491B4699/",
+    Pirates = "http://cloud-3.steamusercontent.com/ugc/1776075006866440437/0052E768FDA1A3BD6A84E27B0F1F943E869D551F/",
+    France_Kingdom = "http://cloud-3.steamusercontent.com/ugc/1776075006866439858/2DAD410CC6082AEB0D81DAEB1F8A0768F7E001E3/",
+    Denmark = "http://cloud-3.steamusercontent.com/ugc/1776075006866439749/E565BA0935BD30367F75B432F23ED92A6C46B708/",
+    Barbary_Pirates = "http://cloud-3.steamusercontent.com/ugc/1776075006866439490/A58A10AFC4038B230ECCC959C6B5BF15876FC912/",
+    Greece = "http://cloud-3.steamusercontent.com/ugc/1776075006866440086/74C6A20B45606F766BA755078ADE48AE28109876/",
+    Black = "http://cloud-3.steamusercontent.com/ugc/1776075006866439632/89C3FDE4B540E7423C6E5713AB834A4190E3E188/"
+}
+
+sails_assets = {
+    jib = "http://cloud-3.steamusercontent.com/ugc/1776075791925068571/4455EB0FAADBB926C4644B8D5CDA9FCCFC49A9C6/",
+    jib_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992515/CF3A91C49CBA9BD277B03227C227B644CD04309E/",
+    main_xl = "http://cloud-3.steamusercontent.com/ugc/1776075791924993237/101E1784EFC6C9D979679303B799B5603A349881/",
+    main_xl_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924993158/6C7F1DB8790FFE855BA50DAAE927773A87D78D5A/",
+    main_l = "http://cloud-3.steamusercontent.com/ugc/1776075791924992750/838B38E8082DDCA17AEDE928C947FC0ADD8C8F31/",
+    main_l_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992675/B0D00FCB13BF3667F77453A2E7E87E2165AEB0B0/",
+    gallant_xl = "http://cloud-3.steamusercontent.com/ugc/1776075791924992433/A6EB2B42E036591678090E2B51C0875A92844F6C/",
+    gallant_xl_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992357/BFCEC16B6FCFBFCD33572150AAF0D2E10610189B/",
+    gallant_l = "http://cloud-3.steamusercontent.com/ugc/1776075791924992208/9C9BAF100D01DFF7E3296CC35C3205BBE8784A81/",
+    gallant_l_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992285/B7704FB2B3C979BB261CF43BDD44CC4B6B04ADC6/",
+    top_s = "http://cloud-3.steamusercontent.com/ugc/1776075791924993074/97C3750D14C66808E93D47F08CAE1A38C37845E0/",
+    top_s_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992986/8001FFC32F4239D242FCB2995F122B11FB9753FC/",
+    cat = "http://cloud-3.steamusercontent.com/ugc/1776075791925068474/4171F73053A110266F308ED7E5DBD7660382BF72/",
+    cat_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992054/3ED88718F7376485BEE7213FA5778D036D7EEC2E/",
+    bow = "http://cloud-3.steamusercontent.com/ugc/1776075791924991986/451A11A74D472F4F059358893783CBF29C2A5CC2/",
+    bow_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924991913/9788E5817056B61F68D585A207C39AB409DC943C/"
+}
+
+sail_tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"

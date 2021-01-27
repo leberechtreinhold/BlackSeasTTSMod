@@ -1,0 +1,642 @@
+Ship = {}
+
+g_ship_index = 1
+
+-- Example
+-- local myship = Ship:create('shiptype_brig', 'Spain')
+-- myship:spawn({x=0, y=0, z=0})
+function Ship:create(ship_type, faction, crew_level)
+    if not ship_type or not ship_types[ship_type] then
+        print_error('Incorrect ship type given, cannot spawn ship')
+        return
+    end
+
+    if not faction or not faction_ids[faction] then
+        print_error('Incorrect faction given, cannot spawn ship')
+        return
+    end
+
+    local _ship = {}
+
+    -- Properties
+    _ship.id = g_ship_index
+    _ship.type = ship_type
+    _ship.faction = faction
+    _ship.display_name = random_element(faction_shipnames[faction])
+        .. " (" .. ship_type:gsub("shiptype_", "") .. ")" .. " #" .. g_ship_index
+    _ship.name = 'Ship ' .. ship_type .. '#' .. g_ship_index
+    _ship.crew_level = crew_level
+    _ship.hull_obj = nil
+    _ship.size = nil
+    _ship.gizmo = Gizmo:create(_ship)
+    _ship.ui = ShipUI:create(_ship)
+
+    _ship.current_knots = data_ships[ship_type].knots
+    _ship.current_turn = 0
+    _ship.current_ship_points = data_ships[ship_type].ship_points
+    _ship.current_sail_setup = sails_setups.Full_Sails
+    _ship.current_cannons = deep_copy(data_ships[ship_type].cannons)
+    _ship.current_statuses = {}
+
+    g_ship_index = g_ship_index + 1
+
+    -- Functions
+
+    function _ship:get_cannons(position)
+        if not position or not cannon_positions[position] then
+            print_error('The position for the cannons does not exist')
+            log(position)
+            return
+        end
+        return _ship.current_cannons[position]
+    end
+
+    function _ship:has_cannons(position)
+        local cannons = self:get_cannons(position)
+        if cannons then
+            if cannons.heavy == 0
+                and cannons.light == 0
+                and cannons.mortar == 0
+                and cannons.carronade == 0 then
+                return false
+            else
+                return true
+            end
+        else
+            return false
+        end
+    end
+
+    function _ship:get_max_turn()
+        return data_ships[self.type].turn_angle
+    end
+
+    -- Given a position of fire, returns a text saying the result of rolling
+    -- those dice
+    function _ship:calculate_fire(player, position)
+        if not self:has_cannons(position) then
+            return self.display_name .. ' is shooting from the '
+                .. position .. ',' .. ' but it has no weapons there.'
+        end
+
+        local cannons = self:get_cannons(position)
+        if not cannons then
+            return 'Error while calculating the fire'
+        end
+
+        local text = self.display_name .. ' is shooting from the ' .. position .. ','
+
+        for cannon_type, cannon_number in pairs(cannons) do
+            if cannon_number > 0 then
+                text = text .. ' ' .. cannon_type .. ': '
+                for i = 1, cannon_number, 1 do
+                    text = text .. math.random(1,10)
+                    if i < cannon_number then
+                        text = text .. ', '
+                    else
+                        text = text .. ';'
+                    end
+                end
+            end
+        end
+
+        self.hull_obj.removeFromPlayerSelection(player.color)
+        Wait.frames(function()
+            if position == "Starboard" then
+                self.hull_obj.AssetBundle.playTriggerEffect(0)
+            elseif position == "Port" then
+                self.hull_obj.AssetBundle.playTriggerEffect(1)
+            end
+        end, 1)
+        return text
+    end
+
+    -- Advances the ship the number of knots currently assigned
+    function _ship:move()
+        Transform:from_ship(self):advance(self.current_knots):apply_obj(self.hull_obj)
+        print_info(self.display_name .. ' is moving forward ' .. self.current_knots .. ' yards')
+        Wait.frames(function()
+            self.gizmo:update_gizmo()
+        end, 1)
+    end
+
+    -- Turns the ship from the stern the degrees currently assigned
+    function _ship:turn()
+        Transform:from_ship(self):turn('stern', self.current_turn):apply_obj(self.hull_obj)
+        if self.current_turn > 0 then
+            print_info(self.display_name .. ' has turned ' .. self.current_turn .. 'º to port')
+        else
+            print_info(self.display_name .. ' has turned ' .. math.abs(self.current_turn) .. 'º to starboard')
+        end
+        Wait.frames(function()
+            self:set_turn(0)
+            self:update_flags_with_wind()
+        end, 1)
+    end
+
+    function _ship:fire(player, position)
+        print_important(self:calculate_fire(player, position))
+    end
+
+    function _ship:update_flag_with_wind(flag_name, new_wind_direction)
+        Wait.frames(function ()
+            local attachs = self.hull_obj.getAttachments()
+            for _,value in pairs(attachs) do
+                if value.name == flag_name then
+                    local obj = self.hull_obj.removeAttachment(value.index)
+                    local rot = obj.getRotation()
+                    rot.y = new_wind_direction
+                    obj.setRotation(rot)
+                    self.hull_obj.addAttachment(obj)
+                end
+            end
+        end, 1)
+    end
+
+    function _ship:update_flags_with_wind()
+        local wind_angle = positive_angle_deg(wind_angles[g_state.current_wind])
+
+        local attachs = self.hull_obj.getAttachments()
+        for _,value in pairs(attachs) do
+            if str_starts_with(value.name, 'flag') then
+                self:update_flag_with_wind(value.name, wind_angle)
+            end
+        end
+    end
+
+    function _ship:internal_spawn_flags_queue(queue, wind_angle)
+        local flag_name, flag_data = random_kv(queue)
+        local flag_tts_name =  'flag ' .. flag_name
+        if flag_data.references_nation then
+            flag_data.customasset = _G[flag_data.references_nation][self.faction]
+        end
+        queue[flag_name] = nil
+        print_debug('Creating ' .. flag_tts_name)
+        spawn_asset_by_data(
+            flag_data, flag_tts_name, self.position, wind_angle,
+            function(obj)
+                obj.setLock(true)
+                self.hull_obj.addAttachment(obj)
+                if tlen(queue) > 0 then
+                    self:internal_spawn_flags_queue(queue, wind_angle)
+                else
+                    self:internal_spawn_masts()
+                end
+            end)
+    end
+
+    function _ship:internal_spawn_flags()
+        local flags = data_ships[self.type].flags
+        local wind_angle = positive_angle_deg(wind_angles[g_state.current_wind] + 180)
+        if flags then
+            self:internal_spawn_flags_queue(deep_copy(flags), wind_angle)
+        else
+            self:internal_spawn_masts()
+        end
+    end
+
+    function _ship:internal_spawn_sails_queue(queue)
+        local sail_name, sail_data = random_kv(queue)
+        local sail_tts_name =  'sail ' .. sail_name
+        if sail_data.references_sail then
+            sail_data.mesh = sails_assets[sail_data.references_sail]
+        end
+        sail_data.tex = sail_tex
+        queue[sail_name] = nil
+        print_debug('Creating ' .. sail_tts_name)
+        log(sail_data)
+        local obj = spawn_model(
+            sail_data, sail_tts_name, self.position, 0, minimal_collider,
+            function(obj)
+                self.hull_obj.addAttachment(obj)
+                if tlen(queue) > 0 then
+                    self:internal_spawn_sails_queue(queue)
+                else
+                    self:on_end_spawning()
+                end
+            end)
+        obj.setLock(true)
+    end
+
+    function _ship:internal_spawn_sails()
+        local sails = data_ships[self.type].sails
+        if sails then
+            self:internal_spawn_sails_queue(deep_copy(sails))
+        else
+            self:on_end_spawning()
+        end
+    end
+
+    function _ship:internal_spawn_masts_queue(queue)
+        local mast_name, mast_data = random_kv(queue)
+        local mast_tts_name =  'mast ' .. mast_name
+        queue[mast_name] = nil
+        print_debug('Creating ' .. mast_tts_name)
+        local obj = spawn_model(
+            mast_data, mast_tts_name, self.position, 0, minimal_collider,
+            function(obj)
+                self.hull_obj.addAttachment(obj)
+                if tlen(queue) > 0 then
+                    self:internal_spawn_masts_queue(queue)
+                else
+                    self:internal_spawn_sails()
+                end
+            end)
+        obj.setLock(true)
+    end
+
+    function _ship:internal_spawn_masts()
+        local masts = data_ships[self.type].masts
+        if masts then
+            self:internal_spawn_masts_queue(deep_copy(masts))
+        else
+            self:internal_spawn_sails()
+        end
+    end
+
+    function _ship:set_knots(knots)
+        if not knots then
+            knots = data_ships[self.type].knots
+        end
+        self.current_knots = knots
+        self.ui:update_knots_ui()
+        self.gizmo:update_gizmo()
+    end
+
+    function _ship:set_turn(degrees)
+        if not degrees then
+            degrees = 0
+        end
+        self.current_turn = tonumber(degrees)
+        self.ui:update_degrees_ui()
+        self.gizmo:update_gizmo()
+    end
+
+    function _ship:has_status(status)
+        return self.current_statuses[status]
+    end
+
+    function _ship:toggle_status(status)
+        if self.current_statuses[status] then
+            self.current_statuses[status] = false
+        else
+            self.current_statuses[status] = true
+        end
+        self.ui:show_ui_status()
+    end
+
+    -- Despite being a fucking callback on the API for the end
+    -- of the spawning object, the object is now fully spawned until
+    -- several frames later, at least 60! Sometimes more
+    -- So we chain all with the callbacks of object laod
+    function _ship:after_hull_spawn(size)
+        if not size then
+            local _size = self.hull_obj.getBoundsNormalized().size
+            if _size.x == 0 then
+                Wait.frames(function ()
+                    self:after_hull_spawn()
+                end, 10)
+            else
+                self:after_hull_spawn(_size)
+            end
+        else
+            self.size = size
+            self.hull_obj.setLock(true)
+            self.hull_obj.interactable = false
+            self:internal_spawn_flags()
+            self.ui:internal_spawn_buttons(self.hull_obj)
+            g_state:register_ship(self)
+            ui_update_summary()
+        end
+    end
+
+    function _ship:on_end_spawning()
+        self.hull_obj.interactable = true
+        self.hull_obj.setLock(false)
+        print_important(self.display_name .. ' ready!')
+    end
+
+    function _ship:spawn(pos)
+        local hull_data = data_ships[self.type].hull
+        self.position = pos
+        self.hull_obj = spawn_asset_by_data(hull_data, self.display_name, self.position, 0,
+            function (obj)
+                self:after_hull_spawn()
+            end)
+    end
+
+    function _ship:is_furled(bool)
+        if bool then
+            return "furled"
+        else
+            return "deployed"
+        end
+    end
+
+    -- Destroying attachments and adding them while looping them makes
+    -- all sort of problems because TTS uses an Index internally, which
+    -- is modified constantly. Therefore, we destroy them all on the frame
+    function _ship:destroy_attach(sail_attachment_name)
+        Wait.frames(function()
+            local attachs = self.hull_obj.getAttachments()
+            for _,value in pairs(attachs) do
+                if value.name == sail_attachment_name then
+                    self.hull_obj.destroyAttachment(value.index)
+                end
+            end
+        end, 1)
+    end
+
+    function _ship:set_sail_setup(new_sail_setup)
+        if not new_sail_setup or not sails_setups_reverse[new_sail_setup] then
+            print_error("Trying to set a sail setup which doesn\'t exist")
+            log(new_sail_setup)
+            return
+        end
+
+        if new_sail_setup == sails_setups["Full_Sails"] and self:is_damaged() then
+            print_warning("Setting sails to Full Sails, but the ship is damaged")
+        end
+
+        local eq = function(a,b)
+            return a == b
+        end
+        local attachs = self.hull_obj.getAttachments()
+        local base_rotation = self.hull_obj.getRotation()
+        local base_position = self.hull_obj.getPosition()
+        for _,value in pairs(attachs) do
+            if str_starts_with(value.name, "sail") then
+                local name = value.name
+                local sail_id = name:gsub("sail ", "")
+                local sail_data = deep_copy(data_ships[ship_type].sails[sail_id])
+                local is_furled = find_in_array(sail_data.furled_on, self.current_sail_setup, eq)
+                local should_be_furled = find_in_array(sail_data.furled_on, new_sail_setup, eq)
+
+                if is_furled ~= should_be_furled then
+                    print_debug("Found " .. name .. "(" .. value.index .. ")"
+                    .. " which is " .. self:is_furled(is_furled)
+                    .. " but should be " .. self:is_furled(should_be_furled))
+
+                    self:destroy_attach(value.name)
+
+                    if sail_data.references_sail then
+                        if should_be_furled then
+                            sail_data.mesh = sails_assets[sail_data.references_sail .. "_furled"]
+                        else
+                            sail_data.mesh = sails_assets[sail_data.references_sail]
+                        end
+                    end
+                    sail_data.tex = sail_tex
+                    if sail_data.rotation_vector then
+                        sail_data.rotation_vector = vec_add(base_rotation, sail_data.rotation_vector)
+                    else
+                        sail_data.rotation_vector = base_rotation
+                    end
+                    sail_data.pos_offset = rotate_point_relative(sail_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
+
+                    spawn_model(
+                        sail_data, name, base_position, 0, minimal_collider,
+                        function(obj)
+                            obj.setLock(true)
+                            self.hull_obj.addAttachment(obj)
+                        end)
+                end
+            end
+        end
+
+        self.current_sail_setup = new_sail_setup
+    end
+
+    function _ship:capsize()
+        print_important("The ship " .. self.display_name .. " has capsized")
+        self.hull_obj.setLock(true)
+        self.hull_obj.interactable = false
+        local rotation = self.hull_obj.getRotation()
+        local position = self.hull_obj.getPosition()
+        if math.random() > 0.5 then
+            rotation.z = rotation.z - 30
+            rotation.x = rotation.x - 10
+            position.y = position.y - self.size.y / 3
+        else
+            rotation.z = rotation.z + 20
+            rotation.x = rotation.x + 10
+            position.y = position.y - self.size.y / 2
+        end
+        self:set_sail_setup(sails_setups.Anchored)
+        Wait.frames(function()
+            self.hull_obj.setRotation(rotation)
+            self.hull_obj.setPosition(position)
+        end, 2)
+    end
+
+    function _ship:reduce_cannons_to_half()
+        for position_name, position_data in pairs(self.current_cannons) do
+            for cannon_name, number in pairs(position_data) do
+                self.current_cannons[position_name][cannon_name] = math.ceil(number/2)
+            end
+        end
+        self.ui:show_ui_cannons()
+    end
+
+    function _ship:restore_cannons()
+        self.current_cannons = deep_copy(data_ships[ship_type].cannons)
+        self.ui:show_ui_cannons()
+    end
+
+    function _ship:is_damaged()
+        return self.current_ship_points < (data_ships[ship_type].ship_points / 2)
+    end
+
+    function _ship:change_ship_points(how_many)
+        if self.current_ship_points <= 0 then
+            return
+        end
+        local had_more_than_half = not self:is_damaged()
+
+        self.current_ship_points = self.current_ship_points + how_many
+        if self.current_ship_points > data_ships[ship_type].ship_points then
+            self.current_ship_points = data_ships[ship_type].ship_points
+        end
+        if self.current_ship_points <= 0 then
+            self:capsize()
+            self.current_ship_points = 0
+        end
+
+        local has_more_than_half = not self:is_damaged()
+
+        if had_more_than_half and not has_more_than_half then
+            self:reduce_cannons_to_half()
+        elseif not had_more_than_half and has_more_than_half then
+            self:restore_cannons()
+        end
+
+        self.ui:update_ship_points()
+        ui_update_summary()
+        return self.ship_points
+    end
+
+    function _ship:display_wind_attitude()
+        local angle = normalize_angle(math.rad(self.hull_obj.getRotation().y))
+        local wind_angle = normalize_angle(math.rad(positive_angle_deg(wind_angles[g_state.current_wind] - 180)))
+        local relative_angle = math.abs(angle - wind_angle)
+        if relative_angle > math.pi then
+            relative_angle = 2*math.pi - relative_angle
+        end
+        -- Do rounding in favor of the user
+        local rounded_angle = math.rad(math.floor(math.deg(relative_angle)))
+
+        local description = ""
+        local max_sail = ""
+        if rounded_angle <= math.rad(turn_angles.Yellow / 2) then
+            description = "running downwind"
+            max_sail = "Battle Sails"
+        elseif rounded_angle <= (math.pi / 2) then
+            description = "in broad reach"
+            max_sail = "Full Sails"
+        elseif rounded_angle <= math.rad(180 - (turn_angles.Red / 2)) then
+            description = "close hauled"
+            max_sail = "Light Sails"
+        else
+            description = "in irons"
+            max_sail = "Anchored"
+        end
+
+        print_info(self.display_name .. ' is ' .. description
+            .. ', max sail is ' .. max_sail
+            .. ' (angle: ' .. math.deg(rounded_angle) ..  ')')
+        UI.setAttribute("text_max_sail", "text",
+            '(Current max is ' .. max_sail .. ')')
+    end
+
+    function _ship:critical_roll_hull()
+        local roll = math.random(1,6)
+        if roll == 1 then
+            print_important(self.display_name .. ' has caused Quarter Deck Hit!')
+        elseif roll == 2 then
+            print_important(self.display_name .. ' has caused Gun Deck Hit!')
+        elseif roll == 3 then
+            print_important(self.display_name .. ' has caused Rudder Hit!')
+        elseif roll == 4 then
+            print_important(self.display_name .. ' has caused Crew Hit!')
+        elseif roll == 5 then
+            print_important(self.display_name .. ' has caused Extra Damage!')
+        elseif roll == 6 then
+            print_important(self.display_name .. ' has caused Fire!')
+        end
+    end
+
+    function _ship:critical_roll_high()
+        local roll = math.random(1,6)
+        if roll == 1 then
+            print_important(self.display_name .. ' has caused Quarter Deck Hit!')
+        elseif roll == 2 then
+            print_important(self.display_name .. ' has caused Sails Hit!')
+        elseif roll == 3 then
+            print_important(self.display_name .. ' has caused Crew Hit!')
+        elseif roll == 4 then
+            print_important(self.display_name .. ' has caused Upper Deck Damage!')
+        elseif roll == 5 then
+            print_important(self.display_name .. ' has caused Fire!')
+        elseif roll == 6 then
+            print_important(self.display_name .. ' has caused Mast Hit!')
+        end
+    end
+
+    function _ship:skill_test()
+        local roll = math.random(1,6)
+        if self.crew_level == crew_levels.inexperienced then
+            if roll == 6 then
+                print_important(self.display_name .. ' has surpassed a Skill Test! (Roll: ' .. roll .. ')')
+            else
+                print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
+            end
+        elseif self.crew_level == crew_levels.regular then
+            if roll >= 5 then
+                print_important(self.display_name .. ' has surpassed a Skill Test! (Roll: ' .. roll .. ')')
+            else
+                print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
+            end
+        elseif self.crew_level == crew_levels.veteran then
+            if roll >= 4 then
+                print_important(self.display_name .. ' has surpassed a Skill Test! (Roll: ' .. roll .. ')')
+            else
+                print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
+            end
+        end
+    end
+
+    function _ship:surrender()
+        print_important(self.display_name .. ' has surrendered!')
+        local attachs = self.hull_obj.getAttachments()
+        local base_rotation = self.hull_obj.getRotation()
+        local base_position = self.hull_obj.getPosition()
+        for _,value in pairs(attachs) do
+            if str_starts_with(value.name, "flag") then
+                local name = value.name
+                local flag_id = name:gsub("flag ", "")
+                local flag_data = deep_copy(data_ships[self.type].flags[flag_id])
+                flag_data.customasset = _G[flag_data.references_nation]["France_Kingdom"]
+
+                print_debug("Found " .. name .. "(" .. value.index .. ") which has to change")
+                self:destroy_attach(name)
+
+                if flag_data.rotation_vector then
+                    flag_data.rotation_vector = vec_add(base_rotation, flag_data.rotation_vector)
+                else
+                    flag_data.rotation_vector = base_rotation
+                end
+                flag_data.pos_offset = rotate_point_relative(flag_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
+
+                spawn_asset_by_data(
+                    flag_data, name, base_position, 0,
+                    function(obj)
+                        obj.setLock(true)
+                        self.hull_obj.addAttachment(obj)
+                    end)
+            end
+        end
+    end
+
+    -- This is called when ONLY this ship is selected
+    function _ship:on_select()
+        print_debug('Selected ' .. self.name)
+        self:display_wind_attitude()
+        self:set_knots()
+        self:set_turn()
+        self.gizmo:update_gizmo()
+        self.ui:show_ui()
+    end
+
+    -- This is called when ONLY this ship is deselected
+    function _ship:on_deselect()
+        print_debug('Deselected ' .. self.name)
+        self.gizmo:remove_gizmo()
+        self.ui:hide_ui()
+    end
+
+    function _ship:on_drop()
+        self:display_wind_attitude()
+        self:update_flags_with_wind()
+    end
+
+    return _ship
+end
+
+-- This exists as a hack. We want to send data from the ships's UI (which is
+-- object-mode XML UI and exists in the code context of the hull object) to the
+-- Ship object itself. So we use
+-- Global.call("send_to_ship", {
+--    guid = self.guid,
+--    fn = "shipclass_function",
+--    params = {param1, param2, param3}
+-- })
+function send_to_ship(args)
+    local guid = args.guid
+    local fn = args.fn
+    local params = args.params
+
+    local ship = g_state.ships[guid]
+
+    print_debug('Received call from ' .. guid .. ' to call ' .. fn)
+    ship[fn](ship, table.unpack(params))
+end

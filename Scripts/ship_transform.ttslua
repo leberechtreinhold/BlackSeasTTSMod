@@ -1,0 +1,149 @@
+Transform = {}
+
+function Transform:from_ship(ship)
+    local obj = ship.hull_obj
+
+    local _rotation = normalize_angle(math.rad(obj.getRotation()['y']))
+    local _position = obj.getPosition()
+    local _size = ship.size
+
+    return Transform:from_coords(_rotation, _position, _size)
+end
+
+function Transform:from_relative_ship(ship)
+    local obj = ship.hull_obj
+
+    local _rotation = 0
+    local _position = {x=0,y=0,z=0}
+    local _size = ship.size
+
+    return Transform:from_coords(_rotation, _position, _size)
+end
+
+function Transform:from_coords(_rotation, _position, _size, _optional_corners)
+    local _transform = {}
+
+    -- Properties
+
+    _transform.rotation = _rotation
+    _transform.position = _position
+    _transform.size = _size
+    _transform.corners = _optional_corners
+
+    -- Functions
+    
+    function _transform:compute_corners_coords()
+        local xhalf = self.size['x'] / 2
+        local zhalf = self.size['z'] / 2
+        local rot = self.rotation
+        local pos = self.position
+
+        _transform.corners = {
+            bow       = rotate_point_relative({x = xhalf, y = 0, z =     0}, pos, rot),
+            starboard = rotate_point_relative({x =     0, y = 0, z =-zhalf}, pos, rot),
+            topright  = rotate_point_relative({x = xhalf, y = 0, z =-zhalf}, pos, rot),
+            botright  = rotate_point_relative({x =-xhalf, y = 0, z =-zhalf}, pos, rot),
+            port      = rotate_point_relative({x =     0, y = 0, z = zhalf}, pos, rot),
+            topleft   = rotate_point_relative({x = xhalf, y = 0, z = zhalf}, pos, rot),
+            botleft   = rotate_point_relative({x =-xhalf, y = 0, z = zhalf}, pos, rot),
+            stern     = rotate_point_relative({x =-xhalf, y = 0, z =     0}, pos, rot)
+        }
+    end
+
+    
+    function _transform:get_strokes(y_axis_correction)
+        local stroke_points = {}
+        if not self.corners then
+            self:compute_corners_coords()
+        end
+
+        if not y_axis_correction then
+            y_axis_correction = g_gizmo_raise
+        end
+
+        table.insert(stroke_points, {
+            x = self.corners.topright.x,
+            y = self.corners.topright.y + y_axis_correction,
+            z = self.corners.topright.z,
+        })
+        table.insert(stroke_points, {
+            x = self.corners.topleft.x,
+            y = self.corners.topleft.y + y_axis_correction,
+            z = self.corners.topleft.z,
+        })
+        table.insert(stroke_points, {
+            x = self.corners.botleft.x,
+            y = self.corners.botleft.y + y_axis_correction,
+            z = self.corners.botleft.z,
+        })
+        table.insert(stroke_points, {
+            x = self.corners.botright.x,
+            y = self.corners.botright.y + y_axis_correction,
+            z = self.corners.botright.z,
+        })
+        table.insert(stroke_points, {
+            x = self.corners.topright.x,
+            y = self.corners.topright.y + y_axis_correction,
+            z = self.corners.topright.z,
+        })
+
+        local color = { 0.9, 0.1, 0.1 }
+
+        return
+        {
+            points    = stroke_points,
+            color     = color,
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        }
+    end
+
+    function _transform:transform_to_rotation_vector()
+        -- The normalization of a normalized is the original
+        return {
+            x = 0,
+            y = math.deg(normalize_angle(self.rotation)),
+            z = 0
+        }
+    end
+    
+    function _transform:apply_obj(obj)
+        obj.setPositionSmooth(self.position, false, false)
+        obj.setRotationSmooth(self:transform_to_rotation_vector(), false, false)
+    end
+
+    function _transform:advance(how_much)
+        local displacement_vector = rad_to_vector_xz(self.rotation)
+        local destination = vec_add(self.position, vec_mul_escalar(displacement_vector, how_much))
+
+        return Transform:from_coords(self.rotation, destination, self.size)
+    end
+
+    function _transform:turn_radians(corner_reference, rotation_radians)
+        if not self.corners then
+            self:compute_corners_coords()
+        end
+        local new_angle = positive_angle(self.rotation + rotation_radians)
+        local effective_angle = rotation_radians
+    
+        local reference_point = self.corners[corner_reference]
+        local new_pos = rotate_point(self.position, reference_point, effective_angle)
+        
+        return Transform:from_coords(new_angle, new_pos, self.size)
+    end
+
+    -- Rotates the object from one of the reference points (8, each corner and 
+    -- middle point of the bounding box), several rotation degrees, with positive
+    -- being to the left or port, and negative to the right or starboard
+    function _transform:turn(corner_reference, rotation_degrees)
+        return self:turn_radians(corner_reference, math.rad(rotation_degrees))
+    end
+
+    function _transform:to_str()
+        return "Position: " .. vec_to_str(self.position)
+            .. " Rotation: " .. string.format('%.2f', self.rotation)
+            .. " Size: " .. vec_to_str(self.size)
+    end
+    return _transform
+end
+

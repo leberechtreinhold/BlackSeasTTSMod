@@ -1,0 +1,195 @@
+g_ui_nation_selected = "Spain"
+function on_ui_nation_selected(player, value, id)
+    g_ui_nation_selected = value
+end
+
+function on_ui_cancel_deploy_fleet(player, value, id)
+    UI.hide('panel_fleet_selection_bg')
+    UI.setAttribute('panel_fleet_selection_bg', 'active', false)
+    UI.hide('panel_fleet_selection')
+    UI.setAttribute('panel_fleet_selection', 'active', false)
+end
+
+function on_ui_deploy_fleet(player, value, id)
+    UI.hide('panel_fleet_selection_bg')
+    UI.setAttribute('panel_fleet_selection_bg', 'active', false)
+    UI.hide('panel_fleet_selection')
+    UI.setAttribute('panel_fleet_selection', 'active', false)
+
+    local myship = Ship:create('shiptype_brig', g_ui_nation_selected,crew_levels.regular)
+    myship:spawn({x=0, y=0, z=0})
+end
+
+function on_deploy_ship(obj, color, alt_click)
+    local is_active = UI.getAttribute('panel_fleet_selection_bg', 'active')
+    if is_active == 'true' then
+        print_error('Another player is spawning a ship, please wait.')
+        return
+    end
+
+    UI.show('panel_fleet_selection_bg')
+    UI.show('panel_fleet_selection')
+    Wait.frames(function()
+        UI.setAttribute('panel_fleet_selection_bg', 'visibility', color)
+        UI.setAttribute('panel_fleet_selection', 'visibility', color)
+    end, 1)
+
+end
+
+function on_add_ship_points(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:change_ship_points(1)
+end
+
+function on_remove_ship_points(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:change_ship_points(-1)
+end
+
+function on_toggle_sail_setup(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    UI.setAttribute('togglegroup_sail_setup_' .. value, 'isOn', true)
+    ship:set_sail_setup(tonumber(value))
+end
+
+function on_toggle_fire(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:toggle_status(ship_statuses.Fire)
+end
+
+function on_toggle_crewhit(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:toggle_status(ship_statuses.CrewHit)
+end
+
+function on_toggle_quarterdeckhit(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:toggle_status(ship_statuses.QuarterDeckHit)
+end
+
+function on_toggle_rudderhit(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:toggle_status(ship_statuses.RudderHit)
+end
+
+function on_toggle_gundeckhit(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:toggle_status(ship_statuses.GunDeckHit)
+end
+
+function on_toggle_sailhit(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:toggle_status(ship_statuses.SailHit)
+end
+
+function ui_update_summary()
+    local summary_per_faction = {}
+    for _, ship in pairs(g_state.ships) do
+        if not summary_per_faction[ship.faction] then
+            summary_per_faction[ship.faction] = ''
+        end
+        summary_per_faction[ship.faction] = summary_per_faction[ship.faction]
+            .. ship.display_name .. ' - '
+            .. ship.current_ship_points .. "/"
+            .. data_ships[ship.type].ship_points
+            .. '\n'
+    end
+    local summary = "<b>"
+    for faction_name, summary_individual in pairs(summary_per_faction) do
+        summary = summary .. faction_name .. '\n' .. summary_individual .. '\n'
+    end
+    summary = summary .. '</b>'
+    UI.setValue('text_summary', summary)
+end
+
+
+function on_slider_knots_changed(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:set_knots(value)
+end
+
+function on_move(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:move()
+end
+
+function on_slider_wheel_changed(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:set_turn(value)
+end
+
+function on_turn(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:turn()
+end
+
+function on_skill_test(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:skill_test()
+end
+
+function on_critical_roll_hull(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:critical_roll_hull()
+end
+
+function on_critical_roll_high(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:critical_roll_high()
+end
+
+function on_surrender(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:surrender()
+end

@@ -1,0 +1,93 @@
+windrose_assetbundle = {
+    scale = {x=0.3, y=0.3, z=0.3},
+    rotation = 0,
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1664602272544473478/CBEE3C6049E7C6CD5BF93F1F362B0BD73DA592CA/"
+}
+
+water_core_assetbundle = {
+    rotation = 0,
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1776075791925565869/360004C52A6BB3F556966320891F0E5D73E902DC/"
+}
+
+water_exterior_assetbundle = {
+    rotation = 0,
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1776075791925566093/2F1083A8D2966B5FA21B4E7F60902205073FBB8E/"
+}
+
+ruler_3 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=0,y=-0,z=1.5},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289662124/C24E971A710CF25C03F82F6181D1F362D130F783/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1776075500289660950/609E69395F4C905EF41E6E3F942D1BD325A34679/"
+}
+
+ruler_6 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=0,y=-0,z=3},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289662204/31AF02352E44D59EB7E452F8449A0B99EAEFB943/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1776075500289660950/609E69395F4C905EF41E6E3F942D1BD325A34679/"
+}
+
+ruler_12 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=0,y=-0,z=6},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289662288/F7747A5AA67DA980C6B890E46240E952C9A5A599/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1776075500289660950/609E69395F4C905EF41E6E3F942D1BD325A34679/"
+}
+
+ruler_24 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=0,y=-0,z=12},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289662369/630644E75FDAD45847C21F67420282EC4B0171E6/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1776075500289660950/609E69395F4C905EF41E6E3F942D1BD325A34679/"
+}
+
+qrf_critical = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=0,y=-0,z=0},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289660859/6FFFA240139AF36FD158CED759934F9D22D918E9/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1776075500292725222/D16848A668AAF96A41300E988CB521E6A9E9644E/"
+}
+
+qrf_shooting = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=0,y=-0,z=0},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289660859/6FFFA240139AF36FD158CED759934F9D22D918E9/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1776075500292725611/1E64A9B23BE13DE6387C171532149EC0D5A8026E/"
+}
+
+board_4x3 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=24,y=-0.5,z=18},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1669112763167974322/32BC1092CBFE6619743D9EA1EE367A0338534AC1/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1669112763167976039/A64D19B0FF00078D0333E4FA4D935602991CF560/",
+    tex_normal = "http://cloud-3.steamusercontent.com/ugc/1669112763167976319/A787FC94AD8911681C3F4F623E2BC002B36F18DA/"
+}
+
+board_6x4 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=36,y=-0.5,z=24},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1669112763167974424/5678B394CCF61EC6553026A15C97BC96506BA940/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1669112763167976039/A64D19B0FF00078D0333E4FA4D935602991CF560/",
+    tex_normal = "http://cloud-3.steamusercontent.com/ugc/1669112763167976319/A787FC94AD8911681C3F4F623E2BC002B36F18DA/"
+}
+
+board_8x6 = {
+    scale = 1,
+    rotation = 0,
+    pos_offset = {x=48,y=-0.5,z=36},
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1669112763167974528/0159E2856F878B152A08FFC50D6AC2144CC7EF47/",
+    tex = "http://cloud-3.steamusercontent.com/ugc/1669112763167976039/A64D19B0FF00078D0333E4FA4D935602991CF560/",
+    tex_normal = "http://cloud-3.steamusercontent.com/ugc/1669112763167976319/A787FC94AD8911681C3F4F623E2BC002B36F18DA/"
+}
+
+minimal_collider = 'http://cloud-3.steamusercontent.com/ugc/1022823184773057328/6E2E42ECBBD40D7501018921FC5898568FF9D748/'
+

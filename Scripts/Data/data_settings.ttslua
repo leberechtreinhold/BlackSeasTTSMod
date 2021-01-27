@@ -1,0 +1,18 @@
+-- How thick the lines for the gizmos are
+g_line_thickness = 0.05
+
+-- How frequently the main loop runs, in seconds
+g_seconds_main_loop = 0.5
+
+-- Initial spawns points
+g_spawn_first_blue_ship_x = -11.54
+g_spawn_first_blue_ship_z = -31.87
+g_spawn_first_red_ship_x = 58.77
+g_spawn_first_red_ship_z = 22.87
+
+-- Gizmos appearing at base level can end underwater which is
+-- obviously, bad for legibility. This setting raises them a bit
+g_gizmo_raise = 0.5
+
+-- Number of intermediate stroke points for circles
+g_precision_circle = 32

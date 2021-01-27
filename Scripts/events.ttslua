@@ -1,0 +1,101 @@
+
+-- TODO fix
+function onObjectSpawn(new_obj)
+    -- local name = new_obj.getName()
+    -- local my_guid = new_obj.getGUID()
+    -- if name ~= nil then
+    --     -- Check if the name as an old one
+    --     local all_objs = getAllObjects()
+    --     local bases = g_state:filter_ships(all_objs)
+    --     local found_ship = nil
+    --     for _,ship in ipairs(bases) do
+    --         if ship.getName() == name and ship.getGUID() ~= my_guid then
+    --             found_ship = ship
+    --             break
+    --         end
+    --     end
+
+    --     if found_ship ~= nil then
+    --         on_clone(found_ship, new_obj)
+    --     end
+    -- end
+end
+
+function on_cloned_ship(source_obj, new_obj)
+    local name = source_obj.getName()
+    print_info(name .. " has been duplicated.")
+    local new_name = name .. " clone " .. new_obj.getGUID()
+    new_obj.setName(new_name)
+end
+
+function check_selection_change()
+    local changed, old, new = g_state:calculate_ship_objs_selected()
+    if changed then
+        if old and #old == 1 then
+            if g_state.ships[old[1].guid] then
+                g_state.ships[old[1].guid]:on_deselect()
+            else
+                -- Deleted while selected
+                UI.hide('panel_ship_bg')
+                UI.hide('panel_ship')
+            end
+        end
+        if new and #new == 1 then
+            g_state.ships[new[1].guid]:on_select()
+        end
+    end
+end
+
+function on_ship_selection_changed()
+    --update_ship_preview()
+end
+
+
+function onObjectPickUp(player_color, picked_up_object)
+    local ship = g_state:get_ship(picked_up_object.guid)
+    if ship then
+        print_warning('Player has picked ship ' .. ship.display_name
+            .. ' at position ' .. vec_to_str(picked_up_object.getPosition())
+            .. '. Please use the movement tools instead.')
+    end
+end
+
+
+function onObjectDrop(player_color, picked_up_object)
+    local ship = g_state:get_ship(picked_up_object.guid)
+    if ship then
+        picked_up_object.setVelocity({x=0, y=0, z=0})
+        picked_up_object.setAngularVelocity({x=0, y=0, z=0})
+        ship:on_drop()
+    end
+end
+
+function onChat(message, player)
+    if message == '!bs_debug' then
+        print_info(player.get_steam_name() .. ': ' .. message)
+        if g_debug_mode then
+            print_info('Disabling debug mode')
+            g_debug_mode = false
+        else
+            print_info('Enabling debug mode, will take effect in three seconds. Note, this will cause decreased performance.')
+            Wait.time(function()
+                g_debug_mode = true
+                print_info('Debug mode ON')
+            end, 3)
+        end
+        return false
+    end
+
+    if str_starts_with(message, '!bs') then
+        print_info(player.get_steam_name() .. ': ' .. message)
+        print_error('Command not recognized. Please, use !bs_help')
+    end
+    return true
+end
+
+function onObjectDestroy(dying_object)
+    local ship = g_state:get_ship(dying_object.guid)
+    if ship then
+        g_state:unregister_ship(ship)
+    end
+end

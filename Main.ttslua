@@ -1,0 +1,34 @@
+#include scripts/uievents
+#include scripts/log
+#include scripts/utilities
+#include scripts/utilities_lua
+#include scripts/data/data_settings
+#include scripts/events
+#include scripts/state
+#include scripts/ship
+#include scripts/ship_transform
+#include scripts/ship_gizmo
+#include scripts/ship_ui
+#include scripts/logic_board
+#include scripts/data/data_ship_settings
+#include scripts/data/data_ships
+#include scripts/data/data_ship_names
+#include scripts/data/data_tokens
+#include scripts/data/data_version
+
+g_state = nil
+
+function onLoad()
+    print_info("Black Seas TTS Mod loading...")
+    
+    g_state = State:create()
+    Wait.time(main_loop, g_seconds_main_loop, -1)
+    spawn_board_start()
+
+    print_info("Black Seas TTS Mod ".. g_current_version .. " loaded")
+end
+
+-- There's no event in TTS for selection change, so we loop and recheck
+function main_loop()
+    check_selection_change()
+end

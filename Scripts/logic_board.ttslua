@@ -1,0 +1,425 @@
+g_boards = {
+    small = {
+        asset = "board_4x3",
+        width = 48,
+        height = 36,
+        size_feet = "4x3ft",
+        size_cm = "120x90cm"
+    },
+    medium = {
+        asset = "board_6x4",
+        width = 72,
+        height = 48,
+        size_feet = "6x4ft",
+        size_cm = "180x120cm"
+
+    },
+    large = {
+        asset = "board_8x6",
+        width = 96,
+        height = 72,
+        size_feet = "8x6ft",
+        size_cm = "240x180cm"
+    }
+}
+
+function delete_all_boards_and_water()
+    local all_objs = getAllObjects()
+    for _,obj in ipairs(all_objs) do
+        local name = obj.getName()
+        if str_starts_with(name, 'Board') then
+            obj.destroy()
+        end
+        if str_starts_with(name, 'Water') then
+            obj.destroy()
+        end
+        if str_starts_with(name, 'Windrose') then
+            obj.destroy()
+        end
+        if str_starts_with(name, 'Ruler') then
+            obj.destroy()
+        end
+        if str_starts_with(name, 'QRF') then
+            obj.destroy()
+        end
+        if str_starts_with(name, 'Tray') then
+            obj.destroy()
+        end
+        if str_starts_with(name, 'Dice') then
+            obj.destroy()
+        end
+    end
+end
+
+function spawn_board_start()
+    delete_all_boards_and_water()
+    Wait.frames(function()
+        spawn_water(function ()
+            spawn_board(g_boards.medium)
+            spawn_rulers()
+            spawn_qrf()
+        end)
+    end, 1)
+end
+
+function set_seas(water_core, water_exterior, sea_weather)
+    if sea_weather == sea_weathers.normal then
+        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
+        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.05,w=9})
+        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.1,w=5})
+        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
+        water_core.setMaterialValue(0, '_NormalSpeed', 1, 1)
+        
+        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
+        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.005,w=9})
+        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.01,w=5})
+        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
+        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 1)
+        
+    elseif sea_weather == sea_weathers.storm then
+        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.03,w=92})
+        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.11,w=9})
+        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.3,w=5})
+        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.01,w=200})
+        water_core.setMaterialValue(0, '_NormalSpeed', 1, 2)
+        
+        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.03,w=92})
+        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.03,w=9})
+        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.05,w=5})
+        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.01,w=200})
+        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 2)
+
+    elseif sea_weather == sea_weathers.rough then
+        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.02,w=70})
+        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.08,w=5})
+        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.12,w=3})
+        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.005,w=120})
+        water_core.setMaterialValue(0, '_NormalSpeed', 1, 1.5)
+        
+        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.02,w=70})
+        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.008,w=5})
+        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.02,w=3})
+        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.005,w=120})
+        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 1.5)
+
+    elseif sea_weather == sea_weathers.calm then
+        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
+        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.01,w=3})
+        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.02,w=2})
+        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
+        water_core.setMaterialValue(0, '_NormalSpeed', 1, 0.6)
+        
+        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
+        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.001,w=3})
+        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.002,w=2})
+        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
+        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 0.6)
+    end
+end
+
+function spawn_water(callback_after_water)
+    local water_core = spawn_asset('water_core_assetbundle', 'Water Core', 
+        {x=0,y=0,z=0}, 0, 
+        function (obj)
+            g_state:register_water_core(obj)
+            
+            local water_exterior = spawn_asset('water_exterior_assetbundle', 'Water Exterior', 
+                {x=0,y=0,z=0}, 0, 
+                function (obj)
+                    g_state:register_water_exterior(obj)
+
+                    callback_after_water()
+                end)
+                water_exterior.setLock(true)
+            water_exterior.interactable = false
+        end)
+    water_core.setLock(true)
+    water_core.interactable = false
+end
+
+function spawn_rulers()
+    spawn_model(
+        "ruler_3",
+        'Ruler 3',
+        {x=-40,y=0.5,z=0}, 0, _G["ruler_3"].mesh)
+    spawn_model(
+        "ruler_6",
+        'Ruler 6',
+        {x=-41,y=0.5,z=0}, 0, _G["ruler_6"].mesh)
+    spawn_model(
+        "ruler_12",
+        'Ruler 12',
+        {x=-42,y=0.5,z=0}, 0, _G["ruler_12"].mesh)
+    spawn_model(
+        "ruler_24",
+        'Ruler 24',
+        {x=-43,y=0.5,z=0}, 0, _G["ruler_24"].mesh)
+end
+
+function spawn_qrf()
+    local qrf = spawn_model(
+        "qrf_critical",
+        'QRF Critical',
+        {x=45,y=0.5,z=-15}, 0, _G["qrf_critical"].mesh)
+    qrf.setLock(true)
+    qrf = spawn_model(
+        "qrf_shooting",
+        'QRF Shooting',
+        {x=45,y=0.5,z=15}, 0, _G["qrf_shooting"].mesh)
+    qrf.setLock(true)
+    local tray = spawn_model(
+        "qrf_critical",
+        'Tray',
+        {x=45,y=0.5,z=0}, 0, _G["qrf_critical"].mesh)
+    Wait.frames(function()
+        tray.flip()
+        tray.setLock(true)
+
+        spawn_dice('Die_6_Rounded', Color.Red, {x = 43, y = 1.25, z = -2})
+        spawn_dice('Die_6_Rounded', Color.Red, {x = 43, y = 1.25, z = 0})
+        spawn_dice('Die_6_Rounded', Color.Red, {x = 43, y = 1.25, z = 2})
+        spawn_dice('Die_6_Rounded', Color.Blue, {x = 41, y = 1.25, z = -2})
+        spawn_dice('Die_6_Rounded', Color.Blue, {x = 41, y = 1.25, z = 0})
+        spawn_dice('Die_6_Rounded', Color.Blue, {x = 41, y = 1.25, z = 2})
+        spawn_dice('Die_10', Color.Green, {x = 45, y = 1.5, z = -2})
+        spawn_dice('Die_10', Color.Green, {x = 45, y = 1.5, z = 0})
+        spawn_dice('Die_10', Color.Green, {x = 45, y = 1.5, z = 2})
+        spawn_dice('Die_10', Color.Blue, {x = 47, y = 1.5, z = -2})
+        spawn_dice('Die_10', Color.Blue, {x = 47, y = 1.5, z = 0})
+        spawn_dice('Die_10', Color.Blue, {x = 47, y = 1.5, z = 2})
+        spawn_dice('Die_10', Color.Red, {x = 49, y = 1.5, z = -2})
+        spawn_dice('Die_10', Color.Red, {x = 49, y = 1.5, z = 0})
+        spawn_dice('Die_10', Color.Red, {x = 49, y = 1.5, z = 2})
+        spawn_dice('Die_10', Color.Black, {x = 49, y = 1.5, z = 4})
+        spawn_dice('Die_10', Color.Black, {x = 47, y = 1.5, z = 4})
+        spawn_dice('Die_10', Color.Black, {x = 45, y = 1.5, z = 4})
+        spawn_dice('Die_10', Color.Grey, {x = 49, y = 1.5, z = -4})
+        spawn_dice('Die_10', Color.Grey, {x = 47, y = 1.5, z = -4})
+        spawn_dice('Die_10', Color.Grey, {x = 45, y = 1.5, z = -4})
+    end, 1)
+end
+
+function spawn_board(board_data)
+    local board_limit = spawn_model(
+        board_data.asset,
+        'Board limit ' .. board_data.size_cm,
+        {x=0,y=0.5,z=0}, 0, _G[board_data.asset].mesh)
+    board_limit.setLock(true)
+    board_limit.interactable = false
+
+    local bottom_left_corner_absolute = {
+        x = -board_data.width / 2 + 11 ,
+        y = 1,
+        z = -board_data.height / 2 - 2}
+    spawn_text(
+        'Board ' .. board_data.size_cm .. '/' .. board_data.size_feet,
+        'Board title', bottom_left_corner_absolute)
+
+    local bottom_left_corner_relative = {
+        x = board_data.width - 6,
+        y = 1,
+        z = -board_data.height - 6}
+    local params = {
+        click_function = "on_change_board_size",
+        function_owner = self,
+        label          = "Change board size",
+        position       = bottom_left_corner_relative,
+        rotation       = {0, 180, 0},
+        width          = 7000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Click to change the board size. It will not alter current pieces.",
+    }
+    -- board_limit.createButton(params)
+
+
+    local params = {
+        click_function = "on_random_wind",
+        function_owner = self,
+        label          = "Random Wind",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z
+        },
+        rotation       = {0, 180, 0},
+        width          = 7000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Click to randomly select a wind direction",
+    }
+    board_limit.createButton(params)
+
+    local windrose = spawn_asset('windrose_assetbundle', 'Windrose', {
+            x = 0,
+            y = 0.5,
+            z = -board_data.height / 2 - 3
+    }, 0)
+    windrose.setLock(true)
+
+    local params = {
+        click_function = "on_wind_turn",
+        function_owner = self,
+        label          = "Wind Turn Roll",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z - 3
+        },
+        rotation       = {0, 180, 0},
+        width          = 7000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Roll in the wind table to see what happens",
+    }
+    board_limit.createButton(params)
+
+    
+    local params = {
+        click_function = "on_sea_calm",
+        function_owner = self,
+        label          = "Calm",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 16,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z - 6
+        },
+        rotation       = {0, 180, 0},
+        width          = 3000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set the sea to calmed.",
+    }
+    -- board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_sea_normal",
+        function_owner = self,
+        label          = "Normal",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 9,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z - 6
+        },
+        rotation       = {0, 180, 0},
+        width          = 3000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set the sea to normal.",
+    }
+    -- board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_sea_rough",
+        function_owner = self,
+        label          = "Rough",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 2,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z - 6
+        },
+        rotation       = {0, 180, 0},
+        width          = 3000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set the sea to rough.",
+    }
+    -- board_limit.createButton(params)
+    
+    local params = {
+        click_function = "on_sea_storm",
+        function_owner = self,
+        label          = "Storm",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 - 5,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z - 6
+        },
+        rotation       = {0, 180, 0},
+        width          = 3000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set the sea to storm.",
+    }
+    -- board_limit.createButton(params)
+
+    local bottom_right_corner_relative = {
+        x = 5,
+        y = 1,
+        z = -board_data.height - 6}
+    local params = {
+        click_function = "on_deploy_ship",
+        function_owner = self,
+        label          = "Deploy ship",
+        position       = bottom_right_corner_relative,
+        rotation       = {0, 180, 0},
+        width          = 5000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Click to create a ship on the table",
+    }
+    board_limit.createButton(params)
+end
+
+function on_change_board_size(obj, color, alt_click)
+    print_important('Board change not implemented yet')
+end
+
+function get_windrose()
+    local all_objs = getAllObjects()
+    for _,obj in ipairs(all_objs) do
+        if str_starts_with(obj.getName(), 'Windrose') then
+            return obj
+        end
+    end
+end
+
+function update_windrose(new_wind)
+    local obj = get_windrose()
+    if not obj then
+        print_error('No windrose found')
+        return
+    end
+    local new_angle = positive_angle_deg(wind_angles[new_wind] - 90)
+    obj.setRotation({x=0,y=new_angle,z=0})
+end
+
+function on_wind_turn(obj, color, alt_click)
+    update_windrose(g_state:roll_wind())
+end
+
+function on_random_wind(obj, color, alt_click)
+    update_windrose(g_state:random_wind())
+end
+
+function on_sea_rough(obj, color, alt_click)
+    g_state:set_water_to_state(sea_weathers.rough)
+end
+
+function on_sea_normal(obj, color, alt_click)
+    g_state:set_water_to_state(sea_weathers.normal)
+end
+
+function on_sea_storm(obj, color, alt_click)
+    g_state:set_water_to_state(sea_weathers.storm)
+end
+
+function on_sea_calm(obj, color, alt_click)
+    g_state:set_water_to_state(sea_weathers.calm)
+end

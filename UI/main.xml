@@ -1,0 +1,250 @@
+
+<Defaults>
+  <Animation
+    name="Custom_SlideIn_Top"
+    duration="0.25"
+    attribute="RectTransform.anchoredPosition3D"
+    from="0 -300 0"
+    to="0 0 0"
+    valueType="Vector3"
+    curve="Linear"
+  />
+  <Animation
+    name="Custom_SlideOut_Bottom"
+    duration="0.25"
+    attribute="RectTransform.anchoredPosition3D"
+    from="0 0 0"
+    to="0 -300 0"
+    valueType="Vector3"
+    curve="Linear"
+  />
+</Defaults>
+
+<Panel id="panel_summary" width="200" height="400" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperLeft" raycastTarget="false" offsetXY="100 -10">
+    <Text id="text_summary" fontSize="12" alignment="UpperLeft" color="#ffffff"></Text>
+</Panel>
+
+<Panel id="panel_ship_bg" width="1000" height="400" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="LowerRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
+    <Image image="ship_card_bg"></Image>
+</Panel>
+
+
+<Panel id="panel_ship" width="600" height="400" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="LowerRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
+    <Text id="text_ship_name" ignoreLayout="true" fontSize="30" position="-90 50">HMS Terror (brig) #2</Text>
+    <Text id="text_ship_points" ignoreLayout="true" fontSize="24" position="-180 0">Ship points: 32/48</Text>
+    <Button id="button_add_ship_points" ignoreLayout="true" onClick="on_add_ship_points" position="-130 -30" width="30" height="30" fontSize="24" textAlignment="MiddleCenter">+</Button>
+    <Button id="button_remove_ship_points" ignoreLayout="true" onClick="on_remove_ship_points" position="-100 -30" width="30" height="30" fontSize="24" textAlignment="UpperCenter">-</Button>
+    <Image width="207" height="250" position="10 -90" image="ship_frigate_card"></Image>
+
+    <Text id="text_turn" alignment="MiddleLeft" fontSize="20" ignoreLayout="true" position="25 -40" >Turn: Red</Text>
+
+    <Panel id="panel_ship_sails" width="200" height="100" position="-180 -110">
+        <ToggleGroup id="togglegroup_sail_setup" onValueChanged="on_toggle_sail_setup">
+            <VerticalLayout>
+                <Toggle id="togglegroup_sail_setup_0" fontSize="18" selected="true">Full Sails</Toggle>
+                <Toggle id="togglegroup_sail_setup_1" fontSize="18">Battle Sails</Toggle>
+                <Toggle id="togglegroup_sail_setup_2" fontSize="18">Light Sails</Toggle>
+                <Toggle id="togglegroup_sail_setup_3" fontSize="18">Anchor</Toggle>
+            </VerticalLayout>
+        </ToggleGroup>
+    </Panel>
+
+    <Panel id="panel_move" position="160 120" width="200" height="50">
+        <HorizontalLayout spacing="20">
+            <VerticalLayout>
+                <Slider id="slider_knots" minValue="0" maxValue="10" wholeNumbers="true" value="3" onValueChanged="on_slider_knots_changed"></Slider>
+                <Button id="button_move" onClick="on_move">Move 3 knots</Button>
+            </VerticalLayout>
+            <VerticalLayout>
+                <Slider id="slider_turn" minValue="-45" maxValue="45" wholeNumbers="true" value="0" fillColor="#00000000" onValueChanged="on_slider_wheel_changed"></Slider>
+                <Button id="button_turn" onClick="on_turn">Turn 0º</Button>
+            </VerticalLayout>
+        </HorizontalLayout>
+
+    </Panel>
+
+    <Panel id="panel_actions" width="140" height="110" position="-575 -135" color="cccccc">
+            <VerticalLayout spacing="3">
+                <Button onClick="on_skill_test">Skill Test</Button>
+                <Button onClick="on_critical_roll_hull">Roll Critical (Hull)</Button>
+                <Button onClick="on_critical_roll_high">Roll Critical (High)</Button>
+                <Button onClick="on_surrender">Surrender</Button>
+            </VerticalLayout>
+    </Panel>
+    <Text id="text_max_sail" alignment="MiddleLeft" fontSize="14" ignoreLayout="true" position="25 -180" >(Current max is Full Sails)</Text>
+    <Panel id="panel_ship_data" width="200" height="200" color="#00000000"  outline="#00000000" ignoreLayout="true" position="215 -80">
+        <VerticalLayout>
+            <Text id="text_knots" alignment="MiddleLeft" fontSize="18">Knots: 5</Text>
+            <Text id="text_crew" alignment="MiddleLeft" fontSize="18">Crew: Regular</Text>
+            <Text id="text_bow_weapons" alignment="MiddleLeft" fontSize="18">Bow: 2H</Text>
+            <Text id="text_broadsides_weapons" alignment="MiddleLeft" fontSize="18">Broadsides: 2H, 1L, 1C</Text>
+            <Text id="text_stern_weapons" alignment="MiddleLeft" fontSize="18">Stern: None</Text>
+            <Text id="text_break_value" alignment="MiddleLeft" fontSize="18">Break Value: 7</Text>
+            <Text id="text_size" alignment="MiddleLeft" fontSize="18">Size: XL</Text>
+            <Text id="text_faction" alignment="MiddleLeft" fontSize="18">Faction: Denmark</Text>
+        </VerticalLayout>
+    </Panel>
+    <Panel id="panel_ship_status" width="150" height="250" color="#00000000"  outline="#00000000" ignoreLayout="true" position="-400 -70">
+        <VerticalLayout>
+            <HorizontalLayout>
+                <Panel>
+                    <Button id="btn_status_fire" ignoreLayout="true" image="ui_fire" width="50" height="50" tooltip="&lt;size=24&gt;Fire!&lt;/size&gt;" tooltipPosition="Above" onClick="on_toggle_fire"></Button>
+                </Panel>
+                <Panel>
+                    <Button id="btn_status_crewhit" ignoreLayout="true" image="ui_crewhit" width="50" height="50" tooltip="&lt;size=24&gt;Crew Hit!&lt;/size&gt;" tooltipPosition="Above" onClick="on_toggle_crewhit"></Button>
+                </Panel>
+            </HorizontalLayout>
+            <HorizontalLayout>
+                <Panel>
+                    <Button id="btn_status_quarterdeckhit" ignoreLayout="true" image="ui_quarterdeckhit" width="50" height="50" tooltip="&lt;size=24&gt;Quarter Deck Hit!&lt;/size&gt;" tooltipPosition="Above" onClick="on_toggle_quarterdeckhit"></Button>
+                </Panel>
+                <Panel>
+                    <Button id="btn_status_rudderhit" ignoreLayout="true" image="ui_rudderhit" width="50" height="50" tooltip="&lt;size=24&gt;Rudder Hit!&lt;/size&gt;" tooltipPosition="Above" onClick="on_toggle_rudderhit"></Button>
+                </Panel>
+            </HorizontalLayout>
+            <HorizontalLayout>
+                <Panel>
+                    <Button id="btn_status_gundeckhit" ignoreLayout="true" image="ui_gundeckhit" width="50" height="50" tooltip="&lt;size=24&gt;Gun Deck Hit!&lt;/size&gt;" tooltipPosition="Above" onClick="on_toggle_gundeckhit"></Button>
+                </Panel>
+                <Panel>
+                    <Button id="btn_status_sailhit" ignoreLayout="true" image="ui_sailhit" width="50" height="50" tooltip="&lt;size=24&gt;Sail Hit!&lt;/size&gt;" tooltipPosition="Above" onClick="on_toggle_sailhit"></Button>
+                </Panel>
+            </HorizontalLayout>
+        </VerticalLayout>
+    </Panel>
+</Panel>
+
+<Panel id="panel_fleet_selection_bg" width="550" height="700" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <Image image="ship_creation"></Image>
+    </Panel>
+<Panel id="panel_fleet_selection" width="550" height="700" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <TableLayout padding="30 30 30 30 " cellSpacing="20">
+        <Row preferredHeight="36">
+            <Text fontSize="32">Ship Creation</Text>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="6" dontUseTableCellBackground="true">
+                <Text fontSize="24" alignment="MiddleLeft">Nation:</Text>
+            </Cell>
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Dropdown id="dropdown_nation" onValueChanged="on_ui_nation_selected" fontSize="20" scrollSensitivity="20">
+                    <Option selected="true">Spain</Option>
+                    <Option>USA</Option>
+                    <Option>UK</Option>
+                    <Option>UK_Canada</Option>
+                    <Option>UK_Commerce</Option>
+                    <Option>France_Napoleonic</Option>
+                    <Option>Ottoman</Option>
+                    <Option>Russia</Option>
+                    <Option>Netherlands</Option>
+                    <Option>Sweeden</Option>
+                    <Option>Pirates</Option>
+                    <Option>France_Kingdom</Option>
+                    <Option>Denmark</Option>
+                    <Option>Barbary_Pirates</Option>
+                    <Option>Greece</Option>
+                    <Option>Black</Option>
+                </Dropdown>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="6" dontUseTableCellBackground="true">
+                <Text fontSize="24" alignment="MiddleLeft">Type:</Text>
+            </Cell>
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Dropdown interactable="false" id="dropdown_nation" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
+                    <Option selected="true">Brig</Option>
+                </Dropdown>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="6" dontUseTableCellBackground="true">
+                <Text fontSize="24" alignment="MiddleLeft">Crew:</Text>
+            </Cell>
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Dropdown interactable="false" id="dropdown_nation" onValueChanged="on_ui_crew_type_selected" fontSize="20" scrollSensitivity="20">
+                    <!-- <Option>Inexperienced</Option> -->
+                    <Option selected="true">Regular</Option>
+                    <!-- <Option>Veteran</Option> -->
+                </Dropdown>
+            </Cell>
+        </Row>
+        <Row preferredHeight="10">
+        <!--Filler-->
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Boarding Nets</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Grappling Hooks</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Grenades</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Lucky</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Master Carpenter</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Master Caulker</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Master Gunner</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Over Gunned</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Carronades</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Privateer</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Sharpshooters</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Surgeon</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Streamlined Hull</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Sturdy</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Swivel Guns</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Trained Marines </Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="5">
+        <!--Filler-->
+        </Row>
+        <Row preferredHeight="40">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Button columnSpan="2" fontSize="18" onClick="on_ui_cancel_deploy_fleet">Cancel</Button>
+            </Cell>
+            <Cell columnSpan="7" dontUseTableCellBackground="true">
+                <!-- Filler -->
+            </Cell>
+            <Cell columnSpan="4" dontUseTableCellBackground="true">
+                <Button columnSpan="1" fontSize="18" onClick="on_ui_deploy_fleet">Deploy</Button>
+            </Cell>
+        </Row>
+    </TableLayout>
+</Panel>

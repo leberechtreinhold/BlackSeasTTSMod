@@ -1,0 +1,350 @@
+Gizmo = {}
+
+function Gizmo:create(ship)
+    _gizmo = {}
+    _gizmo.ship = ship
+
+    -- Removes any gizmo applied
+    function _gizmo:remove_gizmo()
+        self.ship.hull_obj.setVectorLines({})
+    end
+
+    -- The ship always projects its future position depending on knots and angle,
+    -- plus the current firing arcs of the cannons
+    function _gizmo:update_gizmo()
+        local strokes = {}
+
+        -- print('Current: ' .. Transform:from_ship(self.ship):to_str())
+        -- print('Turn: ' .. Transform:from_ship(self.ship):turn('stern', self.ship.current_turn):to_str())
+        -- print('Move: ' .. Transform:from_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots):to_str())
+        local transform = Transform:from_relative_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots)
+        table.insert(strokes, transform:get_strokes())
+
+        local cannons = self.ship:get_cannons('Bow')
+        for cannon_type, number in pairs(cannons) do
+            if number > 0 then
+                table.insert(strokes, self:get_strokes_cannon_bow(cannon_ranges[cannon_type]))
+            end
+        end
+        local cannons = self.ship:get_cannons('Stern')
+        for cannon_type, number in pairs(cannons) do
+            if number > 0 then
+                table.insert(strokes, self:get_strokes_cannon_stern(cannon_ranges[cannon_type]))
+            end
+        end
+
+        -- Assume Port and Starboard symmetry
+        local cannons = self.ship:get_cannons('Port')
+        for cannon_type, number in pairs(cannons) do
+            if number > 0 then
+                table.insert(strokes, self:get_strokes_cannon_port(cannon_ranges[cannon_type]))
+                table.insert(strokes, self:get_strokes_cannon_starboard(cannon_ranges[cannon_type]))
+            end
+        end
+
+        -- Close ranges
+        table.insert(strokes, self:get_strokes_around(shooting_ranges.entanglement))
+        table.insert(strokes, self:get_strokes_around(shooting_ranges.short))
+        table.insert(strokes, self:get_strokes_around(shooting_ranges.long))
+        self.ship.hull_obj.setVectorLines(strokes)
+    end
+
+    function _gizmo:get_strokes_cannon_bow(range)
+        local tr = { x = self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
+        local tl = { x = self.ship.size.x / 2, y = g_gizmo_raise, z = self.ship.size.z / 2 }
+
+        local stroke_points = {}
+        table.insert(stroke_points, {
+            x = tr['x'],
+            y = tr['y'],
+            z = tr['z']
+        })
+        table.insert(stroke_points, {
+            x = tr['x'] + math.sin(math.rad(90 - turn_angles.Yellow))*range,
+            y = tr['y'],
+            z = tr['z'] - math.cos(math.rad(90 - turn_angles.Yellow))*range
+        })
+        local right_arc = get_coordinates_arc(
+            tr,
+            range,
+            g_precision_circle / 8,
+            - turn_angles.Yellow,
+            0)
+        array_concat(stroke_points, right_arc)
+        table.insert(stroke_points, {
+             x = tr['x'] + range,
+             y = tr['y'],
+             z = tr['z']
+        })
+        table.insert(stroke_points, {
+            x = tl['x'] + range,
+            y = tl['y'],
+            z = tl['z']
+        })
+        local left_arc = get_coordinates_arc(
+            tl,
+            range,
+            g_precision_circle / 8,
+            0,
+            turn_angles.Yellow)
+        array_concat(stroke_points, left_arc)
+        table.insert(stroke_points, {
+             x = tl['x'] + math.cos(math.rad(turn_angles.Yellow))*range,
+             y = tl['y'],
+             z = tl['z'] + math.sin(math.rad(turn_angles.Yellow))*range
+         })
+        table.insert(stroke_points, {
+             x = tl['x'],
+             y = tl['y'],
+             z = tl['z']
+        })
+
+        return
+        {
+            points    = stroke_points,
+            color     = { 0.9, 0.1, 0.1 },
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        }
+    end
+
+    function _gizmo:get_strokes_cannon_stern(range)
+        local br = { x = -self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
+        local bl = { x = -self.ship.size.x / 2, y = g_gizmo_raise, z = self.ship.size.z / 2 }
+
+        local stroke_points = {}
+        table.insert(stroke_points, {
+            x = br['x'],
+            y = br['y'],
+            z = br['z']
+        })
+        table.insert(stroke_points, {
+            x = br['x'] - math.sin(math.rad(90 - turn_angles.Yellow))*range,
+            y = br['y'],
+            z = br['z'] - math.cos(math.rad(90 - turn_angles.Yellow))*range
+        })
+        local right_arc = get_coordinates_arc(
+            br,
+            range,
+            g_precision_circle / 8,
+            180 + turn_angles.Yellow,
+            180)
+        array_concat(stroke_points, right_arc)
+        table.insert(stroke_points, {
+             x = br['x'] - range,
+             y = br['y'],
+             z = br['z']
+        })
+        table.insert(stroke_points, {
+            x = bl['x'] - range,
+            y = bl['y'],
+            z = bl['z']
+        })
+        local left_arc = get_coordinates_arc(
+            bl,
+            range,
+            g_precision_circle / 8,
+            180,
+            180 - turn_angles.Yellow)
+        array_concat(stroke_points, left_arc)
+        table.insert(stroke_points, {
+             x = bl['x'] - math.cos(math.rad(turn_angles.Yellow))*range,
+             y = bl['y'],
+             z = bl['z'] + math.sin(math.rad(turn_angles.Yellow))*range
+         })
+        table.insert(stroke_points, {
+             x = bl['x'],
+             y = bl['y'],
+             z = bl['z']
+        })
+
+        return
+        {
+            points    = stroke_points,
+            color     = { 0.9, 0.1, 0.1 },
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        }
+    end
+
+    function _gizmo:get_strokes_cannon_starboard(range)
+        local br = { x = -self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
+        local tr = { x =  self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
+
+        local stroke_points = {}
+        table.insert(stroke_points, {
+            x = tr['x'],
+            y = tr['y'],
+            z = tr['z']
+        })
+        table.insert(stroke_points, {
+            x = tr['x'],
+            y = tr['y'],
+            z = tr['z'] - range
+        })
+        table.insert(stroke_points, {
+            x = br['x'],
+            y = br['y'],
+            z = br['z'] - range
+        })
+        table.insert(stroke_points, {
+             x = br['x'],
+             y = br['y'],
+             z = br['z']
+        })
+
+        return
+        {
+            points    = stroke_points,
+            color     = { 0.9, 0.1, 0.1 },
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        }
+    end
+
+    function _gizmo:get_strokes_cannon_port(range)
+        local bl = { x = -self.ship.size.x / 2, y = g_gizmo_raise, z = self.ship.size.z / 2 }
+        local tl = { x =  self.ship.size.x / 2, y = g_gizmo_raise, z = self.ship.size.z / 2 }
+
+        local stroke_points = {}
+        table.insert(stroke_points, {
+            x = tl['x'],
+            y = tl['y'],
+            z = tl['z']
+        })
+        table.insert(stroke_points, {
+            x = tl['x'],
+            y = tl['y'],
+            z = tl['z'] + range
+        })
+        table.insert(stroke_points, {
+            x = bl['x'],
+            y = bl['y'],
+            z = bl['z'] + range
+        })
+        table.insert(stroke_points, {
+             x = bl['x'],
+             y = bl['y'],
+             z = bl['z']
+        })
+
+        return
+        {
+            points    = stroke_points,
+            color     = { 0.9, 0.1, 0.1 },
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        }
+    end
+
+    function _gizmo:get_strokes_around(range)
+        local stroke_points = {}
+        local p = { x =  self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
+        local depth = self.ship.size.x
+        local width = self.ship.size.z
+
+        table.insert(stroke_points, {
+            x = p['x'] + range,
+            y = p['y'],
+            z = p['z']
+        })
+        table.insert(stroke_points, {
+            x = p['x'] + range,
+            y = p['y'],
+            z = p['z'] + width
+        })
+        local radius_topleft = {
+            x = p['x'],
+            y = p['y'],
+            z = p['z'] + width
+        }
+        local topleft_arc = get_coordinates_arc(
+            radius_topleft,
+            range,
+            g_precision_circle / 4,
+            0,
+            90)
+        array_concat(stroke_points, topleft_arc)
+        table.insert(stroke_points, {
+            x = p['x'],
+            y = p['y'],
+            z = p['z'] + width + range
+        })
+        table.insert(stroke_points, {
+            x = p['x'] - depth,
+            y = p['y'],
+            z = p['z'] + width + range
+        })
+        local radius_botleft = {
+            x = p['x'] - depth,
+            y = p['y'],
+            z = p['z'] + width
+        }
+        local botleft_arc = get_coordinates_arc(
+            radius_botleft,
+            range,
+            g_precision_circle / 4,
+            90,
+            180)
+        array_concat(stroke_points, botleft_arc)
+        table.insert(stroke_points, {
+            x = p['x'] - depth - range,
+            y = p['y'],
+            z = p['z'] + width
+        })
+        table.insert(stroke_points, {
+            x = p['x'] - depth - range,
+            y = p['y'],
+            z = p['z']
+        })
+        local radius_botright = {
+            x = p['x'] - depth,
+            y = p['y'],
+            z = p['z']
+        }
+        local botright_arc = get_coordinates_arc(
+            radius_botright,
+            range,
+            g_precision_circle / 4,
+            180,
+            270)
+        array_concat(stroke_points, botright_arc)
+        table.insert(stroke_points, {
+            x = p['x'] - depth,
+            y = p['y'],
+            z = p['z'] - range
+        })
+        table.insert(stroke_points, {
+            x = p['x'],
+            y = p['y'],
+            z = p['z'] - range
+        })
+        local radius_topright = {
+            x = p['x'],
+            y = p['y'],
+            z = p['z']
+        }
+        local topright_arc = get_coordinates_arc(
+            radius_topright,
+            range,
+            g_precision_circle / 4,
+            270,
+            360)
+        array_concat(stroke_points, topright_arc)
+        table.insert(stroke_points, {
+            x = p['x'] + range,
+            y = p['y'],
+            z = p['z']
+        })
+
+        return
+        {
+            points    = stroke_points,
+            color     = { 0.5, 0.5, 0.5 },
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        }
+    end
+
+    return _gizmo
+end
