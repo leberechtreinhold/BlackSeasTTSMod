@@ -144,7 +144,8 @@ data_ships.shiptype_brig = {
             references_sail = "bow",
             furled_on = {
                 sails_setups.Anchored,
-                sails_setups.Light_Sails
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
             }
         },
         mainfore = {
