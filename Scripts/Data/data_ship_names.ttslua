@@ -603,7 +603,7 @@ faction_shipnames = {
     },
     Ottoman = {
         "Masudiya",
-        "Sadd al-Bahr (or Sedd-ül Bahir)",
+        "Sadd al-Bahr",
         "Anka-yi bahri",
         "Taus-i bahri",
         "Tevfik-numa",
