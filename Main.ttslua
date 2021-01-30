@@ -1,8 +1,12 @@
-#include scripts/uievents
 #include scripts/log
 #include scripts/utilities
 #include scripts/utilities_lua
 #include scripts/data/data_settings
+#include scripts/data/data_ship_settings
+#include scripts/data/data_ships
+#include scripts/data/data_ship_names
+#include scripts/data/data_tokens
+#include scripts/data/data_version
 #include scripts/events
 #include scripts/state
 #include scripts/ship
@@ -10,11 +14,7 @@
 #include scripts/ship_gizmo
 #include scripts/ship_ui
 #include scripts/logic_board
-#include scripts/data/data_ship_settings
-#include scripts/data/data_ships
-#include scripts/data/data_ship_names
-#include scripts/data/data_tokens
-#include scripts/data/data_version
+#include scripts/uievents
 
 g_state = nil
 

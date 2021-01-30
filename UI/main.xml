@@ -152,7 +152,7 @@
                 <Text fontSize="24" alignment="MiddleLeft">Type:</Text>
             </Cell>
             <Cell columnSpan="10" dontUseTableCellBackground="true">
-                <Dropdown interactable="false" id="dropdown_nation" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
+                <Dropdown id="dropdown_nation" interactable="false" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
                     <Option selected="true">Brig</Option>
                 </Dropdown>
             </Cell>
@@ -162,10 +162,10 @@
                 <Text fontSize="24" alignment="MiddleLeft">Crew:</Text>
             </Cell>
             <Cell columnSpan="10" dontUseTableCellBackground="true">
-                <Dropdown interactable="false" id="dropdown_nation" onValueChanged="on_ui_crew_type_selected" fontSize="20" scrollSensitivity="20">
-                    <!-- <Option>Inexperienced</Option> -->
+                <Dropdown id="dropdown_nation" onValueChanged="on_ui_crew_type_selected" fontSize="20" scrollSensitivity="20">
+                    <Option>Inexperienced</Option>
                     <Option selected="true">Regular</Option>
-                    <!-- <Option>Veteran</Option> -->
+                    <Option>Veteran</Option>
                 </Dropdown>
             </Cell>
         </Row>

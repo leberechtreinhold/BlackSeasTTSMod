@@ -16,8 +16,19 @@ function on_ui_deploy_fleet(player, value, id)
     UI.hide('panel_fleet_selection')
     UI.setAttribute('panel_fleet_selection', 'active', false)
 
-    local myship = Ship:create('shiptype_brig', g_ui_nation_selected,crew_levels.regular)
+    local myship = Ship:create('shiptype_brig', g_ui_nation_selected, g_ui_crew_selected)
     myship:spawn({x=0, y=0, z=0})
+end
+
+g_ui_crew_selected = crew_levels.regular
+function on_ui_crew_type_selected(player, value, id)
+    if value == "Inexperienced" then
+        g_ui_crew_selected = crew_levels.inexperienced
+    elseif value == "Veteran" then
+        g_ui_crew_selected = crew_levels.veteran
+    else
+        g_ui_crew_selected = crew_levels.regular
+    end
 end
 
 function on_deploy_ship(obj, color, alt_click)

@@ -140,6 +140,12 @@ crew_levels = {
     inexperienced = 3
 }
 
+crew_levels_reverse = {
+    [1] = "regular",
+    [2] = "veteran",
+    [3] = "inexperienced"
+}
+
 -- Due to a bug in TTS, we require a different asset per nation
 -- https://forums.tabletopsimulator.com/showthread.php?9307-obj-addAttachment(child)-resets-the-child-material-if-they-are-an-assetbundle
 flag_ensign = {

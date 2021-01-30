@@ -124,9 +124,10 @@ function ShipUI:create(ship)
 
         self:show_ui_cannons()
         
-        UI.setAttribute('text_knots', 'value', data_ships[self.ship.type].knots)
+        UI.setAttribute('text_crew', 'text', "Crew: " .. crew_levels_reverse[self.ship.crew_level])
+        UI.setAttribute('text_knots', 'text', "Knots: " .. data_ships[self.ship.type].knots)
         UI.setAttribute("text_break_value", "text", "Break Value: " .. data_ships[self.ship.type].break_value)
-        UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)
+        UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)        
         UI.setAttribute("text_faction", "text", "Faction: " .. self.ship.faction)
         self:show_ui_status()
 
