@@ -51,13 +51,17 @@ function delete_all_boards_and_water()
     end
 end
 
-function spawn_board_start()
+function spawn_board_start(board_size)
     delete_all_boards_and_water()
     Wait.frames(function()
         spawn_water(function ()
-            spawn_board(g_boards.medium)
-            spawn_rulers()
-            spawn_qrf()
+            if not board_size then
+                board_size = g_boards.medium
+            end
+            log(board_size)
+            spawn_board(board_size)
+            spawn_rulers(board_size)
+            spawn_qrf(board_size)
         end)
     end, 1)
 end
@@ -137,65 +141,66 @@ function spawn_water(callback_after_water)
     water_core.interactable = false
 end
 
-function spawn_rulers()
+function spawn_rulers(board_size)
     spawn_model(
         "ruler_3",
         'Ruler 3',
-        {x=-40,y=0.5,z=0}, 0, _G["ruler_3"].mesh)
+        {x=-board_size.width/2 - 4,y=0.5,z=0}, 0, _G["ruler_3"].mesh)
     spawn_model(
         "ruler_6",
         'Ruler 6',
-        {x=-41,y=0.5,z=0}, 0, _G["ruler_6"].mesh)
+        {x=-board_size.width/2 - 5,y=0.5,z=0}, 0, _G["ruler_6"].mesh)
     spawn_model(
         "ruler_12",
         'Ruler 12',
-        {x=-42,y=0.5,z=0}, 0, _G["ruler_12"].mesh)
+        {x=-board_size.width/2 - 6,y=0.5,z=0}, 0, _G["ruler_12"].mesh)
     spawn_model(
         "ruler_24",
         'Ruler 24',
-        {x=-43,y=0.5,z=0}, 0, _G["ruler_24"].mesh)
+        {x=-board_size.width/2 - 7,y=0.5,z=0}, 0, _G["ruler_24"].mesh)
 end
 
-function spawn_qrf()
+function spawn_qrf(board_size)
+    local w = board_size.width / 2
     local qrf = spawn_model(
         "qrf_critical",
         'QRF Critical',
-        {x=45,y=0.5,z=-15}, 0, _G["qrf_critical"].mesh)
+        {x=w + 9,y=0.5,z=-15}, 0, _G["qrf_critical"].mesh)
     qrf.setLock(true)
     qrf = spawn_model(
         "qrf_shooting",
         'QRF Shooting',
-        {x=45,y=0.5,z=15}, 0, _G["qrf_shooting"].mesh)
+        {x=w + 9,y=0.5,z=15}, 0, _G["qrf_shooting"].mesh)
     qrf.setLock(true)
     local tray = spawn_model(
         "qrf_critical",
         'Tray',
-        {x=45,y=0.5,z=0}, 0, _G["qrf_critical"].mesh)
+        {x=w + 9,y=0.5,z=0}, 0, _G["qrf_critical"].mesh)
     Wait.frames(function()
         tray.flip()
         tray.setLock(true)
-
-        spawn_dice('Die_6_Rounded', Color.Red, {x = 43, y = 1.25, z = -2})
-        spawn_dice('Die_6_Rounded', Color.Red, {x = 43, y = 1.25, z = 0})
-        spawn_dice('Die_6_Rounded', Color.Red, {x = 43, y = 1.25, z = 2})
-        spawn_dice('Die_6_Rounded', Color.Blue, {x = 41, y = 1.25, z = -2})
-        spawn_dice('Die_6_Rounded', Color.Blue, {x = 41, y = 1.25, z = 0})
-        spawn_dice('Die_6_Rounded', Color.Blue, {x = 41, y = 1.25, z = 2})
-        spawn_dice('Die_10', Color.Green, {x = 45, y = 1.5, z = -2})
-        spawn_dice('Die_10', Color.Green, {x = 45, y = 1.5, z = 0})
-        spawn_dice('Die_10', Color.Green, {x = 45, y = 1.5, z = 2})
-        spawn_dice('Die_10', Color.Blue, {x = 47, y = 1.5, z = -2})
-        spawn_dice('Die_10', Color.Blue, {x = 47, y = 1.5, z = 0})
-        spawn_dice('Die_10', Color.Blue, {x = 47, y = 1.5, z = 2})
-        spawn_dice('Die_10', Color.Red, {x = 49, y = 1.5, z = -2})
-        spawn_dice('Die_10', Color.Red, {x = 49, y = 1.5, z = 0})
-        spawn_dice('Die_10', Color.Red, {x = 49, y = 1.5, z = 2})
-        spawn_dice('Die_10', Color.Black, {x = 49, y = 1.5, z = 4})
-        spawn_dice('Die_10', Color.Black, {x = 47, y = 1.5, z = 4})
-        spawn_dice('Die_10', Color.Black, {x = 45, y = 1.5, z = 4})
-        spawn_dice('Die_10', Color.Grey, {x = 49, y = 1.5, z = -4})
-        spawn_dice('Die_10', Color.Grey, {x = 47, y = 1.5, z = -4})
-        spawn_dice('Die_10', Color.Grey, {x = 45, y = 1.5, z = -4})
+    
+        spawn_dice('Die_6_Rounded', Color.Red, {x = w + 7, y = 1.25, z = -2})
+        spawn_dice('Die_6_Rounded', Color.Red, {x = w + 7, y = 1.25, z = 0})
+        spawn_dice('Die_6_Rounded', Color.Red, {x = w + 7, y = 1.25, z = 2})
+        spawn_dice('Die_6_Rounded', Color.Blue, {x = w + 5, y = 1.25, z = -2})
+        spawn_dice('Die_6_Rounded', Color.Blue, {x = w + 5, y = 1.25, z = 0})
+        spawn_dice('Die_6_Rounded', Color.Blue, {x = w + 5, y = 1.25, z = 2})
+        spawn_dice('Die_10', Color.Green, {x = w + 9, y = 1.5, z = -2})
+        spawn_dice('Die_10', Color.Green, {x = w + 9, y = 1.5, z = 0})
+        spawn_dice('Die_10', Color.Green, {x = w + 9, y = 1.5, z = 2})
+        spawn_dice('Die_10', Color.Blue, {x = w + 11, y = 1.5, z = -2})
+        spawn_dice('Die_10', Color.Blue, {x = w + 11, y = 1.5, z = 0})
+        spawn_dice('Die_10', Color.Blue, {x = w + 11, y = 1.5, z = 2})
+        spawn_dice('Die_10', Color.Red, {x = w + 13, y = 1.5, z = -2})
+        spawn_dice('Die_10', Color.Red, {x = w + 13, y = 1.5, z = 0})
+        spawn_dice('Die_10', Color.Red, {x = w + 13, y = 1.5, z = 2})
+        spawn_dice('Die_10', Color.Black, {x = w + 13, y = 1.5, z = 4})
+        spawn_dice('Die_10', Color.Black, {x = w + 11, y = 1.5, z = 4})
+        spawn_dice('Die_10', Color.Black, {x = w + 9, y = 1.5, z = 4})
+        spawn_dice('Die_10', Color.Grey, {x = w + 13, y = 1.5, z = -4})
+        spawn_dice('Die_10', Color.Grey, {x = w + 11, y = 1.5, z = -4})
+        spawn_dice('Die_10', Color.Grey, {x = w + 9, y = 1.5, z = -4})
     end, 1)
 end
 
@@ -232,7 +237,7 @@ function spawn_board(board_data)
         font_color     = {1, 1, 1},
         tooltip        = "Click to change the board size. It will not alter current pieces.",
     }
-    -- board_limit.createButton(params)
+    board_limit.createButton(params)
 
 
     local params = {
@@ -375,10 +380,6 @@ function spawn_board(board_data)
         tooltip        = "Click to create a ship on the table",
     }
     board_limit.createButton(params)
-end
-
-function on_change_board_size(obj, color, alt_click)
-    print_important('Board change not implemented yet')
 end
 
 function get_windrose()

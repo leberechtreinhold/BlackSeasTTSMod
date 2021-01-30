@@ -28,7 +28,6 @@
     <Image image="ship_card_bg"></Image>
 </Panel>
 
-
 <Panel id="panel_ship" width="600" height="400" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="LowerRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
     <Text id="text_ship_name" ignoreLayout="true" fontSize="30" position="-90 50">HMS Terror (brig) #2</Text>
     <Text id="text_ship_points" ignoreLayout="true" fontSize="24" position="-180 0">Ship points: 32/48</Text>
@@ -116,7 +115,8 @@
 
 <Panel id="panel_fleet_selection_bg" width="550" height="700" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
     <Image image="ship_creation"></Image>
-    </Panel>
+</Panel>
+
 <Panel id="panel_fleet_selection" width="550" height="700" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
     <TableLayout padding="30 30 30 30 " cellSpacing="20">
         <Row preferredHeight="36">
@@ -244,6 +244,42 @@
             </Cell>
             <Cell columnSpan="4" dontUseTableCellBackground="true">
                 <Button columnSpan="1" fontSize="18" onClick="on_ui_deploy_fleet">Deploy</Button>
+            </Cell>
+        </Row>
+    </TableLayout>
+</Panel>
+
+
+<Panel id="panel_select_board_size_bg" width="400" height="250" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <Image image="ship_creation"></Image>
+</Panel>
+
+<Panel id="panel_select_board_size" width="400" height="200" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <TableLayout padding="30 30 30 30 " cellSpacing="20">
+        <Row preferredHeight="36">
+            <Text fontSize="32">Table Size</Text>
+        </Row>
+        <Row preferredHeight="36">
+            <ToggleGroup id="togglegroup_table_size" onValueChanged="on_toggle_table_size">
+                <HorizontalLayout>
+                    <Toggle id="togglegroup_table_size_0" fontSize="16">Small (4x3)</Toggle>
+                    <Toggle id="togglegroup_table_size_1" fontSize="16" isOn="true">Medium (6x4)</Toggle>
+                    <Toggle id="togglegroup_table_size_2" fontSize="16">Large (8x6)</Toggle>
+                </HorizontalLayout>
+            </ToggleGroup>
+        </Row>
+        <Row preferredHeight="5">
+        <!--Filler-->
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <Button columnSpan="2" fontSize="20" onClick="on_cancel_board_change">Cancel</Button>
+            </Cell>
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <!-- Filler -->
+            </Cell>
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <Button fontSize="20" onClick="on_accept_board_change">Load</Button>
             </Cell>
         </Row>
     </TableLayout>

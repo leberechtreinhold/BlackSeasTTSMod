@@ -119,6 +119,17 @@ ship_statuses = {
     SailHit = 6
 }
 
+board_sizes = {
+    small = 0,
+    medium = 1,
+    large = 2
+}
+
+board_sizes_reverse = {
+    [0] = "small",
+    [1] = "medium",
+    [2] = "large"
+}
 
 sea_weathers = {
     normal = 1,

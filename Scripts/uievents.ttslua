@@ -63,6 +63,32 @@ function on_remove_ship_points(player, value, id)
     ship:change_ship_points(-1)
 end
 
+function on_change_board_size(obj, color, alt_click)
+    UI.show('panel_select_board_size_bg')
+    UI.show('panel_select_board_size')
+end
+
+function on_cancel_board_change(obj, color, alt_click)
+    UI.hide('panel_select_board_size_bg')
+    UI.setAttribute('panel_select_board_size_bg', 'active', false)
+    UI.hide('panel_select_board_size') 
+    UI.setAttribute('panel_select_board_size', 'active', false)
+end
+
+function on_accept_board_change(obj, color, alt_click)
+    UI.hide('panel_select_board_size_bg')
+    UI.setAttribute('panel_select_board_size_bg', 'active', false)
+    UI.hide('panel_select_board_size') 
+    UI.setAttribute('panel_select_board_size', 'active', false)
+
+    spawn_board_start(g_boards[board_sizes_reverse[g_ui_table_size_selected]])
+end
+
+g_ui_table_size_selected = board_sizes.regular
+function on_toggle_table_size(player, value, id)
+    g_ui_table_size_selected = tonumber(value)
+end
+
 function on_toggle_sail_setup(player, value, id)
     local ship = g_state:return_single_ship_selected()
     if not ship then
