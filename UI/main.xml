@@ -358,57 +358,57 @@
             <ToggleGroup id="toggle_group_ammo_type" onValueChanged="on_toggle_ammo_type" >
                 <TableLayout childForceExpandHeight="false" cellSpacing="10">
                     <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
-                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight" dontUseTableCellBackground="true">
                             <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_round"></Image>
                         </Cell>
-                        <Cell>
+                        <Cell dontUseTableCellBackground="true">
                             <Toggle id="toggle_group_ammo_type_0" fontSize="16" isOn="true">Round</Toggle>
                         </Cell>
-                        <Cell columnSpan="2">
+                        <Cell columnSpan="2" dontUseTableCellBackground="true">
                             <Text fontSize="10" alignment="MiddleLeft">No special effect</Text>
                         </Cell>
                     </Row>
                     <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
-                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight" dontUseTableCellBackground="true">
                             <Image preferredHeight="60" preferredWidth="60"  image="ui_icon_ammo_double"></Image>
                         </Cell>
-                        <Cell>
+                        <Cell dontUseTableCellBackground="true">
                             <Toggle id="toggle_group_ammo_type_1" fontSize="16" >Double</Toggle>
                         </Cell>
-                        <Cell columnSpan="2">
+                        <Cell columnSpan="2" dontUseTableCellBackground="true">
                             <Text fontSize="10" alignment="MiddleLeft" >Range reduced to 8", -1 to hit. Double damage, triple if point blank, quadruple if point blank stern.</Text>
                         </Cell>
                     </Row>
                     <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
-                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight" dontUseTableCellBackground="true">
                             <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_chain"></Image>
                         </Cell>
-                        <Cell>
+                        <Cell dontUseTableCellBackground="true">
                             <Toggle id="toggle_group_ammo_type_2" fontSize="16">Chain</Toggle>
                         </Cell>
-                        <Cell columnSpan="2">
+                        <Cell columnSpan="2" dontUseTableCellBackground="true">
                             <Text fontSize="10" alignment="MiddleLeft">-1 to hit Sails, -2 hull. Roll twice of critical high and select. Range halved.</Text>
                         </Cell>
                     </Row>
                     <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
-                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight" dontUseTableCellBackground="true">
                             <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_hot"></Image>
                         </Cell>
-                        <Cell>
+                        <Cell dontUseTableCellBackground="true">
                             <Toggle id="toggle_group_ammo_type_3" fontSize="16">Red Hot</Toggle>
                         </Cell>
-                        <Cell columnSpan="2">
+                        <Cell columnSpan="2" dontUseTableCellBackground="true">
                             <Text fontSize="10" alignment="MiddleLeft">No carronades. If critical, add Fire. If rolled 10, set yourself on fire.</Text>
                         </Cell>
                     </Row>
                     <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
-                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight" dontUseTableCellBackground="true">
                             <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_grape"></Image>
                         </Cell>
-                        <Cell>
+                        <Cell dontUseTableCellBackground="true">
                             <Toggle id="toggle_group_ammo_type_4" fontSize="16">Grape</Toggle>
                         </Cell>
-                        <Cell columnSpan="2">
+                        <Cell columnSpan="2" dontUseTableCellBackground="true">
                             <Text fontSize="10" alignment="MiddleLeft" >Range is point blank. No point blank modifier. Each hit does 4 damage, no critical. +2 to first boarding.</Text>
                         </Cell>
                     </Row>
