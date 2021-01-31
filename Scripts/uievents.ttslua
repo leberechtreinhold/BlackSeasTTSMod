@@ -63,6 +63,100 @@ function on_remove_ship_points(player, value, id)
     ship:change_ship_points(-1)
 end
 
+function on_change_ammo_stern(obj, color, alt_click)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+
+    UI.show('panel_select_ammo_bg')
+    UI.show('panel_select_ammo')
+
+    g_ui_ammo_position = cannon_positions.Stern
+    local ammo = ship.current_ammo[g_ui_ammo_position]
+    g_ui_ammo_type = ammo
+    UI.setAttribute('toggle_group_ammo_type_' .. ammo, 'isOn', true)
+end
+
+function on_change_ammo_bow(obj, color, alt_click)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+
+    UI.show('panel_select_ammo_bg')
+    UI.show('panel_select_ammo')
+
+    g_ui_ammo_position = cannon_positions.Bow
+    local ammo = ship.current_ammo[g_ui_ammo_position]
+    g_ui_ammo_type = ammo
+    UI.setAttribute('toggle_group_ammo_type_' .. ammo, 'isOn', true)
+end
+
+function on_change_ammo_port(obj, color, alt_click)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+
+    UI.show('panel_select_ammo_bg')
+    UI.show('panel_select_ammo')
+
+    g_ui_ammo_position = cannon_positions.Port
+    local ammo = ship.current_ammo[g_ui_ammo_position]
+    g_ui_ammo_type = ammo
+    UI.setAttribute('toggle_group_ammo_type_' .. ammo, 'isOn', true)
+end
+
+function on_change_ammo_starboard(obj, color, alt_click)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+
+    UI.show('panel_select_ammo_bg')
+    UI.show('panel_select_ammo')
+
+    g_ui_ammo_position = cannon_positions.Starboard
+    local ammo = ship.current_ammo[g_ui_ammo_position]
+    g_ui_ammo_type = ammo
+    UI.setAttribute('toggle_group_ammo_type_' .. ammo, 'isOn', true)
+end
+
+g_ui_ammo_type = ammo_types.round
+g_ui_ammo_position = ammo_types.Bow
+function on_toggle_ammo_type(player, value, id)
+    g_ui_ammo_type = tonumber(value)
+    UI.setAttribute('toggle_group_ammo_type_' .. g_ui_ammo_type, 'isOn', true)
+end
+
+function on_change_ammo(player, value, id)
+    UI.hide('panel_select_ammo_bg')
+    UI.setAttribute('panel_select_ammo_bg', 'active', false)
+    UI.hide('panel_select_ammo')
+    UI.setAttribute('panel_select_ammo', 'active', false)
+
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+
+    ship.current_ammo[g_ui_ammo_position] = g_ui_ammo_type
+    local pos_str = cannon_positions_reverse[g_ui_ammo_position]:lower()
+    local ammo_str = ammo_types_reverse[g_ui_ammo_type]:lower()
+    print_important(ship.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
+
+    local image = "ui_icon_ammo_" .. ammo_str
+    UI.setAttribute("btn_change_ammo_" .. pos_str, "image", image)
+end
+
+function on_cancel_ammo(player, value, id)
+    UI.hide('panel_select_ammo_bg')
+    UI.setAttribute('panel_select_ammo_bg', 'active', false)
+    UI.hide('panel_select_ammo')
+    UI.setAttribute('panel_select_ammo', 'active', false)
+end
+
 function on_change_board_size(obj, color, alt_click)
     UI.show('panel_select_board_size_bg')
     UI.show('panel_select_board_size')

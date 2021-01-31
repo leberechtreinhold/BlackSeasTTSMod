@@ -50,6 +50,13 @@ cannon_positions = {
     Stern = 3
 }
 
+cannon_positions_reverse = {
+    [0] = "Bow",
+    [1] = "Port",
+    [2] = "Starboard",
+    [3] = "Stern"
+}
+
 cannon_ranges = {
     heavy = 20,
     light = 14,
@@ -155,6 +162,22 @@ crew_levels_reverse = {
     [1] = "regular",
     [2] = "veteran",
     [3] = "inexperienced"
+}
+
+ammo_types = {
+    round = 0,
+    double = 1,
+    chain = 2,
+    hot = 3,
+    grape = 4
+}
+
+ammo_types_reverse = {
+    [0] = "round",
+    [1] = "double",
+    [2] = "chain",
+    [3] = "hot",
+    [4] = "grape"
 }
 
 -- Due to a bug in TTS, we require a different asset per nation

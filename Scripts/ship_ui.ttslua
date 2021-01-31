@@ -143,6 +143,8 @@ function ShipUI:create(ship)
         UI.show('panel_ship_bg')
         UI.show('panel_ship')
 
+        UI.show('panel_guns_bg')
+        UI.show('panel_guns')
     end
 
     function _shipui:hide_ui()
@@ -155,6 +157,9 @@ function ShipUI:create(ship)
 
         UI.hide('panel_ship_bg')
         UI.hide('panel_ship')
+        
+        UI.hide('panel_guns_bg')
+        UI.hide('panel_guns')
     end
 
     function _shipui:internal_spawn_buttons(hull_obj)

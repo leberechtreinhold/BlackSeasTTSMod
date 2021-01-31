@@ -18,24 +18,6 @@
     valueType="Vector3"
     curve="Linear"
   />
-  <Animation
-    name="Custom_SlideIn_Bottomp"
-    duration="0.25"
-    attribute="RectTransform.anchoredPosition3D"
-    from="0 300 0"
-    to="0 0 0"
-    valueType="Vector3"
-    curve="Linear"
-  />
-  <Animation
-    name="Custom_SlideOut_Top"
-    duration="0.25"
-    attribute="RectTransform.anchoredPosition3D"
-    from="0 0 0"
-    to="0 300 0"
-    valueType="Vector3"
-    curve="Linear"
-  />
 </Defaults>
 
 <Panel id="panel_summary" width="200" height="400" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperLeft" raycastTarget="false" offsetXY="100 -10">
@@ -131,10 +113,10 @@
     </Panel>
 </Panel>
 
-<Panel id="panel_guns_bg" width="300" height="360" color="#ffffff" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Bottom" hideAnimation="Custom_SlideOut_Top" active="true">
-    <!-- <Image image="ship_card_bg"></Image> -->
+<Panel id="panel_guns_bg" width="300" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
+    <Image image="ship_creation"></Image>
 </Panel>
-<Panel id="panel_guns" width="300" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Bottom" hideAnimation="Custom_SlideOut_Top" active="true">
+<Panel id="panel_guns" width="300" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
     <Text id="text_guns_title" ignoreLayout="true" fontSize="30" position="0 150" >Guns</Text>
     <Panel width="100" height="130" ignoreLayout="true" position="-100 -20" >
         <TableLayout>
@@ -170,21 +152,21 @@
     </Panel>
     <Panel width="180" height="60" ignoreLayout="true" position="0 100" >
         <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="false" childAlignment = "MiddleCenter">
-            <Button id="btn_change_ammo_bow" image="ui_icon_ammo_round" width="50" height="50" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_bow" preferredHeight="60" preferredWidth="60"></Button>
             <VerticalLayout>
                 <Text id="text_guns_bow_title" fontSize="18" fontStyle="Italic" >Bow</Text>
                 <Text id="text_guns_bow" fontSize="14">1H 1L 1C</Text>
             </VerticalLayout>
+            <Button id="btn_change_ammo_bow" image="ui_icon_ammo_round" width="50" height="50" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_bow" preferredHeight="60" preferredWidth="60"></Button>
             <Button id="button_guns_bow_fire" width="60" height="30" preferredHeight="30" preferredWidth="60">Fire</Button>
         </HorizontalLayout>
     </Panel>
     <Panel width="180" height="60" ignoreLayout="true" position="0 -140" >
         <HorizontalLayout childForceExpandWidth="false" childForceExpandHeight="false" childAlignment = "MiddleCenter">
-            <Button id="btn_change_ammo_stern" image="ui_icon_ammo_round" width="50" height="50" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_stern" preferredHeight="60" preferredWidth="60"></Button>
             <VerticalLayout>
                 <Text id="text_guns_stern_title" fontSize="18" fontStyle="Italic" >Stern</Text>
                 <Text id="text_guns_stern" fontSize="14">1H 1L 1C</Text>
             </VerticalLayout>
+            <Button id="btn_change_ammo_stern" image="ui_icon_ammo_round" width="50" height="50" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_stern" preferredHeight="60" preferredWidth="60"></Button>
             <Button id="button_guns_stern_fire" width="60" height="30" preferredHeight="30" preferredWidth="60">Fire</Button>
         </HorizontalLayout>
     </Panel>
@@ -357,6 +339,91 @@
             </Cell>
             <Cell columnSpan="2" dontUseTableCellBackground="true">
                 <Button fontSize="20" onClick="on_accept_board_change">Load</Button>
+            </Cell>
+        </Row>
+    </TableLayout>
+</Panel>
+
+
+<Panel id="panel_select_ammo_bg" width="400" height="500" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <Image image="ship_creation"></Image>
+</Panel>
+
+<Panel id="panel_select_ammo" width="400" height="500" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <TableLayout padding="30 30 30 30 " cellSpacing="20">
+        <Row preferredHeight="36">
+            <Text fontSize="32">Ammo Type</Text>
+        </Row>
+        <Row>
+            <ToggleGroup id="toggle_group_ammo_type" onValueChanged="on_toggle_ammo_type" >
+                <TableLayout childForceExpandHeight="false" cellSpacing="10">
+                    <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                            <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_round"></Image>
+                        </Cell>
+                        <Cell>
+                            <Toggle id="toggle_group_ammo_type_0" fontSize="16" isOn="true">Round</Toggle>
+                        </Cell>
+                        <Cell columnSpan="2">
+                            <Text fontSize="10" alignment="MiddleLeft">No special effect</Text>
+                        </Cell>
+                    </Row>
+                    <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                            <Image preferredHeight="60" preferredWidth="60"  image="ui_icon_ammo_double"></Image>
+                        </Cell>
+                        <Cell>
+                            <Toggle id="toggle_group_ammo_type_1" fontSize="16" >Double</Toggle>
+                        </Cell>
+                        <Cell columnSpan="2">
+                            <Text fontSize="10" alignment="MiddleLeft" >Range reduced to 8", -1 to hit. Double damage, triple if point blank, quadruple if point blank stern.</Text>
+                        </Cell>
+                    </Row>
+                    <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                            <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_chain"></Image>
+                        </Cell>
+                        <Cell>
+                            <Toggle id="toggle_group_ammo_type_2" fontSize="16">Chain</Toggle>
+                        </Cell>
+                        <Cell columnSpan="2">
+                            <Text fontSize="10" alignment="MiddleLeft">-1 to hit Sails, -2 hull. Roll twice of critical high and select. Range halved.</Text>
+                        </Cell>
+                    </Row>
+                    <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                            <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_hot"></Image>
+                        </Cell>
+                        <Cell>
+                            <Toggle id="toggle_group_ammo_type_3" fontSize="16">Red Hot</Toggle>
+                        </Cell>
+                        <Cell columnSpan="2">
+                            <Text fontSize="10" alignment="MiddleLeft">No carronades. If critical, add Fire. If rolled 10, set yourself on fire.</Text>
+                        </Cell>
+                    </Row>
+                    <Row childForceExpandWidth="false" preferredHeight="60" childAlignment="MiddleCenter">
+                        <Cell childForceExpandWidth="false" childAlignment="MiddleRight">
+                            <Image preferredHeight="60" preferredWidth="60" image="ui_icon_ammo_grape"></Image>
+                        </Cell>
+                        <Cell>
+                            <Toggle id="toggle_group_ammo_type_4" fontSize="16">Grape</Toggle>
+                        </Cell>
+                        <Cell columnSpan="2">
+                            <Text fontSize="10" alignment="MiddleLeft" >Range is point blank. No point blank modifier. Each hit does 4 damage, no critical. +2 to first boarding.</Text>
+                        </Cell>
+                    </Row>
+                </TableLayout>
+            </ToggleGroup>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <Button columnSpan="2" fontSize="20" onClick="on_cancel_ammo">Cancel</Button>
+            </Cell>
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <!-- Filler -->
+            </Cell>
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <Button fontSize="20" onClick="on_change_ammo">Change Ammo</Button>
             </Cell>
         </Row>
     </TableLayout>

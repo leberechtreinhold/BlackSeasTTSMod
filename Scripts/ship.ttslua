@@ -31,6 +31,12 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.gizmo = Gizmo:create(_ship)
     _ship.ui = ShipUI:create(_ship)
 
+    _ship.current_ammo = {}
+    _ship.current_ammo[cannon_positions.Bow] = ammo_types.round
+    _ship.current_ammo[cannon_positions.Stern] = ammo_types.round
+    _ship.current_ammo[cannon_positions.Port] = ammo_types.round
+    _ship.current_ammo[cannon_positions.Starboard] = ammo_types.round
+
     _ship.current_knots = data_ships[ship_type].knots
     _ship.current_turn = 0
     _ship.current_ship_points = data_ships[ship_type].ship_points
