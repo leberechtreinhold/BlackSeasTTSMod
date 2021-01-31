@@ -75,12 +75,11 @@
         <VerticalLayout>
             <Text id="text_knots" alignment="MiddleLeft" fontSize="18">Knots: 5</Text>
             <Text id="text_crew" alignment="MiddleLeft" fontSize="18">Crew: Regular</Text>
-            <Text id="text_bow_weapons" alignment="MiddleLeft" fontSize="18">Bow: 2H</Text>
-            <Text id="text_broadsides_weapons" alignment="MiddleLeft" fontSize="18">Broadsides: 2H, 1L, 1C</Text>
-            <Text id="text_stern_weapons" alignment="MiddleLeft" fontSize="18">Stern: None</Text>
             <Text id="text_break_value" alignment="MiddleLeft" fontSize="18">Break Value: 7</Text>
             <Text id="text_size" alignment="MiddleLeft" fontSize="18">Size: XL</Text>
             <Text id="text_faction" alignment="MiddleLeft" fontSize="18">Faction: Denmark</Text>
+            <Text id="text_upgrades" alignment="MiddleLeft" fontSize="18">Upgrades:
+None</Text>
         </VerticalLayout>
     </Panel>
     <Panel id="panel_ship_status" width="150" height="250" color="#00000000"  outline="#00000000" ignoreLayout="true" position="-400 -70">

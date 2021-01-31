@@ -8,11 +8,6 @@ function ShipUI:create(ship)
     function _shipui:get_str_cannons(position)
         local data = self.ship.current_cannons[position]
         local str = ""
-        if position == 'Port' or position == 'Starboard' then
-            str = "Broadsides: "
-        else
-            str = position .. ": "
-        end
         local previous = false
         if data.heavy > 0 then
             str = str .. "H " .. data.heavy
@@ -37,6 +32,9 @@ function ShipUI:create(ship)
                 str = str .. ","
             end
             str = str .. "C " .. data.carronade
+        end
+        if str == "" then
+            str = "None"
         end
         return str
     end
@@ -98,9 +96,10 @@ function ShipUI:create(ship)
     end
     
     function _shipui:show_ui_cannons()
-        UI.setAttribute("text_bow_weapons", "text", self:get_str_cannons('Bow'))
-        UI.setAttribute("text_broadsides_weapons", "text", self:get_str_cannons('Port'))
-        UI.setAttribute("text_stern_weapons", "text", self:get_str_cannons('Stern'))
+        UI.setAttribute("text_guns_bow", "text", self:get_str_cannons('Bow'))
+        UI.setAttribute("text_guns_port", "text", self:get_str_cannons('Port'))
+        UI.setAttribute("text_guns_starboard", "text", self:get_str_cannons('Starboard'))
+        UI.setAttribute("text_guns_stern", "text", self:get_str_cannons('Stern'))
     end
 
     function _shipui:show_ui()
@@ -140,7 +139,7 @@ function ShipUI:create(ship)
                     "isOn", false)
             end
         end
-        
+
         self:update_ammo()
         UI.show('panel_ship_bg')
         UI.show('panel_ship')
