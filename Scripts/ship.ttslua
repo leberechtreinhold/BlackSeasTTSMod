@@ -32,10 +32,10 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.ui = ShipUI:create(_ship)
 
     _ship.current_ammo = {}
-    _ship.current_ammo[cannon_positions.Bow] = ammo_types.round
-    _ship.current_ammo[cannon_positions.Stern] = ammo_types.round
-    _ship.current_ammo[cannon_positions.Port] = ammo_types.round
-    _ship.current_ammo[cannon_positions.Starboard] = ammo_types.round
+    _ship.current_ammo[cannon_positions.Bow] = ammo_types.Round
+    _ship.current_ammo[cannon_positions.Stern] = ammo_types.Round
+    _ship.current_ammo[cannon_positions.Port] = ammo_types.Round
+    _ship.current_ammo[cannon_positions.Starboard] = ammo_types.Round
 
     _ship.current_knots = data_ships[ship_type].knots
     _ship.current_turn = 0
@@ -569,6 +569,15 @@ function Ship:create(ship_type, faction, crew_level)
                 print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
             end
         end
+    end
+
+    function _ship:change_ammo(pos, ammo)
+        self.current_ammo[pos] = ammo
+        local pos_str = cannon_positions_reverse[pos]:lower()
+        local ammo_str = ammo_types_reverse[ammo]:lower()
+        print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)    
+
+        self.ui:update_ammo()
     end
 
     function _ship:surrender()

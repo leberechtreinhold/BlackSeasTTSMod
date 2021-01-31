@@ -113,12 +113,12 @@
     </Panel>
 </Panel>
 
-<Panel id="panel_guns_bg" width="300" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
-    <Image image="ship_creation"></Image>
+<Panel id="panel_guns_bg" width="300" height="360" color="#00000000" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
+    <Image image="ship_guns_bg"></Image>
 </Panel>
-<Panel id="panel_guns" width="300" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
+<Panel id="panel_guns" width="290" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
     <Text id="text_guns_title" ignoreLayout="true" fontSize="30" position="0 150" >Guns</Text>
-    <Panel width="100" height="130" ignoreLayout="true" position="-100 -20" >
+    <Panel width="100" height="140" ignoreLayout="true" position="-80 -30" >
         <TableLayout>
             <Row>
                 <Button id="btn_change_ammo_port" image="ui_icon_ammo_round" width="60" height="60" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_port" ></Button>
@@ -134,7 +134,7 @@
             </Row>
         </TableLayout>
     </Panel>
-    <Panel width="100" height="130" ignoreLayout="true" position="100 -20" >
+    <Panel width="100" height="140" ignoreLayout="true" position="80 -30" >
         <TableLayout>
             <Row>
                 <Button id="btn_change_ammo_starboard" image="ui_icon_ammo_round" width="60" height="60" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_starboard" ></Button>
@@ -345,11 +345,11 @@
 </Panel>
 
 
-<Panel id="panel_select_ammo_bg" width="400" height="500" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+<Panel id="panel_select_ammo_bg" width="450" height="550" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
     <Image image="ship_creation"></Image>
 </Panel>
 
-<Panel id="panel_select_ammo" width="400" height="500" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+<Panel id="panel_select_ammo" width="450" height="550" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
     <TableLayout padding="30 30 30 30 " cellSpacing="20">
         <Row preferredHeight="36">
             <Text fontSize="32">Ammo Type</Text>

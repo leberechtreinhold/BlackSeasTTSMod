@@ -140,6 +140,8 @@ function ShipUI:create(ship)
                     "isOn", false)
             end
         end
+        
+        self:update_ammo()
         UI.show('panel_ship_bg')
         UI.show('panel_ship')
 
@@ -157,7 +159,7 @@ function ShipUI:create(ship)
 
         UI.hide('panel_ship_bg')
         UI.hide('panel_ship')
-        
+
         UI.hide('panel_guns_bg')
         UI.hide('panel_guns')
     end
@@ -217,6 +219,17 @@ function ShipUI:create(ship)
         UI.setAttribute("text_ship_points", "text", "Ship points: " 
             .. self.ship.current_ship_points .. "/" 
             ..  data_ships[self.ship.type].ship_points)
+    end
+
+    function _shipui:update_ammo()
+        local ammo_per_position = self.ship.current_ammo
+        for pos, ammo in pairs(ammo_per_position) do
+            local pos_str = cannon_positions_reverse[pos]:lower()
+            local ammo_str = ammo_types_reverse[ammo]:lower()
+            
+            local image = "ui_icon_ammo_" .. ammo_str
+            UI.setAttribute("btn_change_ammo_" .. pos_str, "image", image)
+        end
     end
 
     return _shipui

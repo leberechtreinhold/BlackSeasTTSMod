@@ -141,13 +141,7 @@ function on_change_ammo(player, value, id)
         return
     end
 
-    ship.current_ammo[g_ui_ammo_position] = g_ui_ammo_type
-    local pos_str = cannon_positions_reverse[g_ui_ammo_position]:lower()
-    local ammo_str = ammo_types_reverse[g_ui_ammo_type]:lower()
-    print_important(ship.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
-
-    local image = "ui_icon_ammo_" .. ammo_str
-    UI.setAttribute("btn_change_ammo_" .. pos_str, "image", image)
+    ship:change_ammo(g_ui_ammo_position, g_ui_ammo_type)
 end
 
 function on_cancel_ammo(player, value, id)

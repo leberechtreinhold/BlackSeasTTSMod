@@ -165,19 +165,19 @@ crew_levels_reverse = {
 }
 
 ammo_types = {
-    round = 0,
-    double = 1,
-    chain = 2,
-    hot = 3,
-    grape = 4
+    Round = 0,
+    Double = 1,
+    Chain = 2,
+    Hot = 3,
+    Grape = 4
 }
 
 ammo_types_reverse = {
-    [0] = "round",
-    [1] = "double",
-    [2] = "chain",
-    [3] = "hot",
-    [4] = "grape"
+    [0] = "Round",
+    [1] = "Double",
+    [2] = "Chain",
+    [3] = "Hot",
+    [4] = "Grape"
 }
 
 -- Due to a bug in TTS, we require a different asset per nation
