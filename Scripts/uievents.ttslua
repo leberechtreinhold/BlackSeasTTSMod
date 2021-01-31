@@ -66,27 +66,33 @@ end
 function on_change_board_size(obj, color, alt_click)
     UI.show('panel_select_board_size_bg')
     UI.show('panel_select_board_size')
+
+    UI.setAttribute('togglegroup_table_size_' .. g_ui_table_size_in_use, 'isOn', true)
 end
 
 function on_cancel_board_change(obj, color, alt_click)
     UI.hide('panel_select_board_size_bg')
     UI.setAttribute('panel_select_board_size_bg', 'active', false)
-    UI.hide('panel_select_board_size') 
+    UI.hide('panel_select_board_size')
     UI.setAttribute('panel_select_board_size', 'active', false)
+    g_ui_table_size_selected = g_ui_table_size_in_use
 end
 
 function on_accept_board_change(obj, color, alt_click)
     UI.hide('panel_select_board_size_bg')
     UI.setAttribute('panel_select_board_size_bg', 'active', false)
-    UI.hide('panel_select_board_size') 
+    UI.hide('panel_select_board_size')
     UI.setAttribute('panel_select_board_size', 'active', false)
 
+    g_ui_table_size_in_use = g_ui_table_size_selected
     spawn_board_start(g_boards[board_sizes_reverse[g_ui_table_size_selected]])
 end
 
-g_ui_table_size_selected = board_sizes.regular
+g_ui_table_size_in_use = board_sizes.medium
+g_ui_table_size_selected = board_sizes.medium
 function on_toggle_table_size(player, value, id)
     g_ui_table_size_selected = tonumber(value)
+    UI.setAttribute('togglegroup_table_size_' .. value, 'isOn', true)
 end
 
 function on_toggle_sail_setup(player, value, id)
