@@ -58,7 +58,6 @@ function spawn_board_start(board_size)
             if not board_size then
                 board_size = g_boards.medium
             end
-            log(board_size)
             spawn_board(board_size)
             spawn_rulers(board_size)
             spawn_qrf(board_size)

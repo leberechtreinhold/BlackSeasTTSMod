@@ -136,8 +136,11 @@ function Ship:create(ship_type, faction, crew_level)
         end
         Wait.frames(function()
             self:set_turn(0)
-            self:update_flags_with_wind()
         end, 1)
+        -- Since we use setposition smooth we must wait until updating
+        Wait.frames(function()
+            self:update_flags_with_wind()
+        end, 120)
     end
 
     function _ship:fire(player, position)
@@ -210,7 +213,6 @@ function Ship:create(ship_type, faction, crew_level)
         sail_data.tex = sail_tex
         queue[sail_name] = nil
         print_debug('Creating ' .. sail_tts_name)
-        log(sail_data)
         local obj = spawn_model(
             sail_data, sail_tts_name, self.position, 0, minimal_collider,
             function(obj)
