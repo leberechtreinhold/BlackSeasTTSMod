@@ -89,5 +89,10 @@ board_8x6 = {
     tex_normal = "http://cloud-3.steamusercontent.com/ugc/1669112763167976319/A787FC94AD8911681C3F4F623E2BC002B36F18DA/"
 }
 
+water_splash = {
+    rotation = 0,
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858472728438/7DAD5583271330950F78B191FAD0EB5939210482/"
+}
+
 minimal_collider = 'http://cloud-3.steamusercontent.com/ugc/1022823184773057328/6E2E42ECBBD40D7501018921FC5898568FF9D748/'
 

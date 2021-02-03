@@ -13,7 +13,8 @@
         "getAllObjects",
         "getObjectFromGUID",
         "log",
-        "Color"
+        "Color",
+        "destroyObject"
     ],
     "Lua.diagnostics.disable": [
         "lowercase-global",

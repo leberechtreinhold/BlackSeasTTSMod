@@ -346,5 +346,23 @@ function Gizmo:create(ship)
         }
     end
 
+    function _gizmo:set_mortar(destination_local)
+        local strokes = {}
+
+        local stroke_points = {}
+        local origin = {x=0,y=g_gizmo_raise,z=0}
+        destination_local.y =  destination_local.y + g_gizmo_raise
+
+        table.insert(stroke_points, origin)
+        table.insert(stroke_points, destination_local)
+        table.insert(strokes, {
+            points    = stroke_points,
+            color     = { 0.9, 0.1, 0.1 },
+            thickness = g_line_thickness,
+            rotation  = {0,0,0}
+        })
+        self.ship.hull_obj.setVectorLines(strokes)
+    end
+
     return _gizmo
 end

@@ -108,15 +108,46 @@ function Ship:create(ship_type, faction, crew_level)
 
         self.hull_obj.removeFromPlayerSelection(player.color)
         Wait.frames(function()
-            if position == "Starboard" then
-                self.hull_obj.AssetBundle.playTriggerEffect(0)
-            elseif position == "Port" then
-                self.hull_obj.AssetBundle.playTriggerEffect(1)
-            end
+            self.hull_obj.AssetBundle.playTriggerEffect(data_ships[self.type].firing_effects[position])
         end, 1)
         return text
     end
 
+    function _ship:receive_mortar_fire()
+        local dice_roll = math.random(1,10)
+        local angle = math.random()*2*math.pi
+
+        local angle_deg = positive_angle_deg(math.deg(angle) + (360 - self.hull_obj.getRotation().y))
+        local angle_direction = 'East'
+        if angle_deg > (45-45/2) and angle_deg <= (45+45/2) then
+            angle_direction = 'Northeast'
+        elseif angle_deg > (90-45/2) and angle_deg <= (90+45/2) then
+            angle_direction = 'North'
+        elseif angle_deg > (90+45/2) and angle_deg <= (180-45/2) then
+            angle_direction = 'Northwest'
+        elseif angle_deg > (180-45/2) and angle_deg <= (180+45/2) then
+            angle_direction = 'West'
+        elseif angle_deg > (180+45/2) and angle_deg <= (270-45/2) then
+            angle_direction = 'Southwest'
+        elseif angle_deg > (270-45/2) and angle_deg <= (270+45/2) then
+            angle_direction = 'South'
+        elseif angle_deg > (270+45/2) and angle_deg <= (360-45/2) then
+            angle_direction = 'Southeast'
+        end
+        print_important(self.display_name .. ' has received mortar fire, dispersed ' .. dice_roll .. ' to ' .. angle_direction)
+        local displacement_vector = rad_to_vector_xz(angle)
+        local destination_local = vec_mul_escalar(displacement_vector, dice_roll)
+        local destination = vec_add(self.hull_obj.getPosition(), destination_local)
+
+        print_info('Mortar shot (angle:' .. string.format('%.1f',angle_deg) .. ') on: ' .. vec_to_str(destination))
+        spawn_asset('water_splash', 'Water Splash', destination, 0, function (obj)
+            Wait.time(function ()
+                destroyObject(obj)
+            end, 3)
+        end)
+        self.gizmo:set_mortar(destination_local)
+    end
+    
     -- Advances the ship the number of knots currently assigned
     function _ship:move()
         Transform:from_ship(self):advance(self.current_knots):apply_obj(self.hull_obj)
@@ -293,6 +324,12 @@ function Ship:create(ship_type, faction, crew_level)
         self.ui:show_ui_status()
     end
 
+    function _ship:add_context_menu()
+        self.hull_obj.addContextMenuItem("Fire Mortar here", function ()
+            self:receive_mortar_fire()
+        end)
+    end
+
     -- Despite being a fucking callback on the API for the end
     -- of the spawning object, the object is now fully spawned until
     -- several frames later, at least 60! Sometimes more
@@ -311,6 +348,7 @@ function Ship:create(ship_type, faction, crew_level)
             self.size = size
             self.hull_obj.setLock(true)
             self.hull_obj.interactable = false
+            self:add_context_menu()
             self:internal_spawn_flags()
             self.ui:internal_spawn_buttons(self.hull_obj)
             g_state:register_ship(self)

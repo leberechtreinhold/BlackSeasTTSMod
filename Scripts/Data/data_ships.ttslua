@@ -39,6 +39,12 @@ data_ships.shiptype_brig = {
             carronade = 0
         }
     },
+    firing_effects = {
+        Starboard = 0,
+        Port = 1,
+        Bow = 0,
+        Stern = 0
+    },
     hull = {
         customasset = "http://cloud-3.steamusercontent.com/ugc/1776075290156934315/4E4C0771788E84C2DF6F22DA1AA4C41DCEC5A302/"
     },
