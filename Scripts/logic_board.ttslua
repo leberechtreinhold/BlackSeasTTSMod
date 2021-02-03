@@ -48,6 +48,9 @@ function delete_all_boards_and_water()
         if str_starts_with(name, 'Dice') then
             obj.destroy()
         end
+        if str_starts_with(name, 'Terrain') then
+            obj.destroy()
+        end
     end
 end
 
@@ -61,6 +64,7 @@ function spawn_board_start(board_size)
             spawn_board(board_size)
             spawn_rulers(board_size)
             spawn_qrf(board_size)
+            spawn_terrain(board_size)
         end)
     end, 1)
 end
@@ -201,6 +205,25 @@ function spawn_qrf(board_size)
         spawn_dice('Die_10', Color.Grey, {x = w + 11, y = 1.5, z = -4})
         spawn_dice('Die_10', Color.Grey, {x = w + 9, y = 1.5, z = -4})
     end, 1)
+end
+
+function spawn_terrain_on_bag(bag_obj)
+end
+
+function spawn_terrain(board_size)
+    local index = 0
+    local distance = board_size.width / tlen(terrain_data)
+    for terrain_name, terrain_asset in pairs(terrain_data) do
+        local obj = spawn_asset_by_data(terrain_asset, terrain_name,
+        {
+            x = distance * index - (board_size.width/2) + distance/2,
+            y = 0.5,
+            z = board_size.height/2 + 14
+        },
+        0, nil)
+        obj.setName('Terrain ' .. terrain_name)
+        index = index + 1
+    end
 end
 
 function spawn_board(board_data)
@@ -379,6 +402,26 @@ function spawn_board(board_data)
         tooltip        = "Click to create a ship on the table",
     }
     board_limit.createButton(params)
+
+    
+    local top_right_corner_relative = {
+        x = 5,
+        y = 1,
+        z = 3}
+    local params = {
+        click_function = "on_fix_terrain",
+        function_owner = self,
+        label          = "Fix terrain",
+        position       = top_right_corner_relative,
+        rotation       = {0, 180, 0},
+        width          = 5000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Click to make sure all terrain is locked",
+    }
+    board_limit.createButton(params)
 end
 
 function get_windrose()
@@ -422,4 +465,15 @@ end
 
 function on_sea_calm(obj, color, alt_click)
     g_state:set_water_to_state(sea_weathers.calm)
+end
+
+function on_fix_terrain()
+    local all_objs = getAllObjects()
+    for _,obj in ipairs(all_objs) do
+        if str_starts_with(obj.getName(), 'Terrain') then
+            obj.setLock(true)
+            obj.interactable = false
+        end
+    end
+    print_important("Terrain fixed!")
 end

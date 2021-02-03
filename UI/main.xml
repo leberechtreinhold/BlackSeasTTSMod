@@ -62,7 +62,7 @@
 
     </Panel>
 
-    <Panel id="panel_actions" width="140" height="110" position="-575 -135" color="cccccc">
+    <Panel id="panel_actions" width="140" height="110" position="-575 -135" color="#00000000">
             <VerticalLayout spacing="3">
                 <Button onClick="on_skill_test">Skill Test</Button>
                 <Button onClick="on_critical_roll_hull">Roll Critical (Hull)</Button>
@@ -210,7 +210,7 @@ None</Text>
                 <Text fontSize="24" alignment="MiddleLeft">Type:</Text>
             </Cell>
             <Cell columnSpan="10" dontUseTableCellBackground="true">
-                <Dropdown id="dropdown_nation" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
+                <Dropdown id="dropdown_ships" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
                     <Option selected="true">Brig</Option>
                     <Option>Bomb Ketch</Option>
                 </Dropdown>
@@ -221,7 +221,7 @@ None</Text>
                 <Text fontSize="24" alignment="MiddleLeft">Crew:</Text>
             </Cell>
             <Cell columnSpan="10" dontUseTableCellBackground="true">
-                <Dropdown id="dropdown_nation" onValueChanged="on_ui_crew_type_selected" fontSize="20" scrollSensitivity="20">
+                <Dropdown id="dropdown_crew" onValueChanged="on_ui_crew_type_selected" fontSize="20" scrollSensitivity="20">
                     <Option>Inexperienced</Option>
                     <Option selected="true">Regular</Option>
                     <Option>Veteran</Option>

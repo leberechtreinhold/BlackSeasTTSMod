@@ -89,6 +89,33 @@ board_8x6 = {
     tex_normal = "http://cloud-3.steamusercontent.com/ugc/1669112763167976319/A787FC94AD8911681C3F4F623E2BC002B36F18DA/"
 }
 
+terrain_data = {
+    beach = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1771572741906980731/410194E059547B38B9DB218530F70D75CE220610/"
+    },
+    cliff = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1771572741906980020/FBBFD963440897F82DFD4123846D3537D9A7F05C/"
+    },
+    rock = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1771572741906978425/16C8CF0310552E96F2E0F96924F8C48A12B9282B/"
+    },    
+    tall_rock = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1771572741906976603/36FD69AC4D341C5994B8EDB595147939C302F428/"
+    },
+    fog_small = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858474331076/F61DB8155A9F53B4AE89CD6FFF758F1B9EA9E0E5/"
+    },
+    fog_large = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858474330231/CAF2EC96213CD02F5DB2D85B24A74BBB80DA5341/"
+    }
+}
+
 water_splash = {
     rotation = 0,
     customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858472728438/7DAD5583271330950F78B191FAD0EB5939210482/"
