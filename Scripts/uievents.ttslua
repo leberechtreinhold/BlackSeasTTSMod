@@ -10,13 +10,22 @@ function on_ui_cancel_deploy_fleet(player, value, id)
     UI.setAttribute('panel_fleet_selection', 'active', false)
 end
 
+g_ui_current_ship_type = 'shiptype_brig'
+function on_ui_ship_type_selected(player, value, id)
+    if value == 'Brig' then
+        g_ui_current_ship_type = 'shiptype_brig'
+    elseif value == 'Bomb Ketch' then
+        g_ui_current_ship_type = 'shiptype_bomb_ketch'
+    end
+end
+
 function on_ui_deploy_fleet(player, value, id)
     UI.hide('panel_fleet_selection_bg')
     UI.setAttribute('panel_fleet_selection_bg', 'active', false)
     UI.hide('panel_fleet_selection')
     UI.setAttribute('panel_fleet_selection', 'active', false)
 
-    local myship = Ship:create('shiptype_brig', g_ui_nation_selected, g_ui_crew_selected)
+    local myship = Ship:create(g_ui_current_ship_type, g_ui_nation_selected, g_ui_crew_selected)
     myship:spawn({x=0, y=0, z=0})
 end
 
@@ -323,4 +332,36 @@ function on_surrender(player, value, id)
         return
     end
     ship:surrender()
+end
+
+function on_fire_stern(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:fire(player, 'Stern')
+end
+
+function on_fire_bow(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:fire(player, 'Bow')
+end
+
+function on_fire_starboard(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:fire(player, 'Starboard')
+end
+
+function on_fire_port(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:fire(player, 'Port')
 end

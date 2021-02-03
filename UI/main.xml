@@ -129,7 +129,7 @@ None</Text>
                 </VerticalLayout>
             </Row>
             <Row>
-                <Button id="button_guns_port_fire" width="60" height="30">Fire</Button>
+                <Button id="button_guns_port_fire" width="60" height="30" onClick="on_fire_port">Fire</Button>
             </Row>
         </TableLayout>
     </Panel>
@@ -145,7 +145,7 @@ None</Text>
                 </VerticalLayout>
             </Row>
             <Row>
-                <Button id="button_guns_starboard_fire" width="60" height="30">Fire</Button>
+                <Button id="button_guns_starboard_fire" width="60" height="30" onClick="on_fire_starboard">Fire</Button>
             </Row>
         </TableLayout>
     </Panel>
@@ -156,7 +156,7 @@ None</Text>
                 <Text id="text_guns_bow" fontSize="14">1H 1L 1C</Text>
             </VerticalLayout>
             <Button id="btn_change_ammo_bow" image="ui_icon_ammo_round" width="50" height="50" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_bow" preferredHeight="60" preferredWidth="60"></Button>
-            <Button id="button_guns_bow_fire" width="60" height="30" preferredHeight="30" preferredWidth="60">Fire</Button>
+            <Button id="button_guns_bow_fire" width="60" height="30" preferredHeight="30" preferredWidth="60" onClick="on_fire_bow">Fire</Button>
         </HorizontalLayout>
     </Panel>
     <Panel width="180" height="60" ignoreLayout="true" position="0 -140" >
@@ -166,7 +166,7 @@ None</Text>
                 <Text id="text_guns_stern" fontSize="14">1H 1L 1C</Text>
             </VerticalLayout>
             <Button id="btn_change_ammo_stern" image="ui_icon_ammo_round" width="50" height="50" tooltip="&lt;size=24&gt;Change Round Ammo&lt;/size&gt;" tooltipPosition="Above" onClick="on_change_ammo_stern" preferredHeight="60" preferredWidth="60"></Button>
-            <Button id="button_guns_stern_fire" width="60" height="30" preferredHeight="30" preferredWidth="60">Fire</Button>
+            <Button id="button_guns_stern_fire" width="60" height="30" preferredHeight="30" preferredWidth="60" onClick="on_fire_stern">Fire</Button>
         </HorizontalLayout>
     </Panel>
 </Panel>
@@ -210,8 +210,9 @@ None</Text>
                 <Text fontSize="24" alignment="MiddleLeft">Type:</Text>
             </Cell>
             <Cell columnSpan="10" dontUseTableCellBackground="true">
-                <Dropdown id="dropdown_nation" interactable="false" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
+                <Dropdown id="dropdown_nation" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
                     <Option selected="true">Brig</Option>
+                    <Option>Bomb Ketch</Option>
                 </Dropdown>
             </Cell>
         </Row>
