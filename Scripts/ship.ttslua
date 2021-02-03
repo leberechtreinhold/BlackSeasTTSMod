@@ -135,9 +135,8 @@ function Ship:create(ship_type, faction, crew_level)
             angle_direction = 'Southeast'
         end
         print_important(self.display_name .. ' has received mortar fire, dispersed ' .. dice_roll .. ' to ' .. angle_direction)
-        local displacement_vector = rad_to_vector_xz(angle)
-        local destination_local = vec_mul_escalar(displacement_vector, dice_roll)
-        local destination = vec_add(self.hull_obj.getPosition(), destination_local)
+        local destination_local = vec_mul_escalar(rad_to_vector_xz(angle), dice_roll)
+        local destination = vec_add(self.hull_obj.getPosition(), vec_mul_escalar(rad_to_vector_xz(math.rad(angle_deg)), dice_roll))
 
         print_info('Mortar shot (angle:' .. string.format('%.1f',angle_deg) .. ') on: ' .. vec_to_str(destination))
         spawn_asset('water_splash', 'Water Splash', destination, 0, function (obj)
