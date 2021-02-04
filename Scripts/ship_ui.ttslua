@@ -226,7 +226,10 @@ function ShipUI:create(ship)
             local pos_str = cannon_positions_reverse[pos]:lower()
             local ammo_str = ammo_types_reverse[ammo]:lower()
             
-            local image = "ui_icon_ammo_" .. ammo_str
+            local image = 'ui_icon_ammo_' .. ammo_str
+            if self.ship.current_turn_positions_shot[pos] then
+                image = image .. '_hover'
+            end
             UI.setAttribute("btn_change_ammo_" .. pos_str, "image", image)
         end
     end

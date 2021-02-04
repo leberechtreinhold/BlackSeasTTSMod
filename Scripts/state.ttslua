@@ -155,7 +155,7 @@ function State:create()
         end
         self:list_ship_order(self.current_wind)
         self:do_to_ships(function(ship)
-            ship:update_flags_with_wind()
+            ship:on_new_turn()
         end)
         return self.current_wind
     end

@@ -2,9 +2,6 @@ Ship = {}
 
 g_ship_index = 1
 
--- Example
--- local myship = Ship:create('shiptype_brig', 'Spain')
--- myship:spawn({x=0, y=0, z=0})
 function Ship:create(ship_type, faction, crew_level)
     if not ship_type or not ship_types[ship_type] then
         print_error('Incorrect ship type given, cannot spawn ship')
@@ -31,11 +28,12 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.gizmo = Gizmo:create(_ship)
     _ship.ui = ShipUI:create(_ship)
 
-    _ship.current_ammo = {}
-    _ship.current_ammo[cannon_positions.Bow] = ammo_types.Round
-    _ship.current_ammo[cannon_positions.Stern] = ammo_types.Round
-    _ship.current_ammo[cannon_positions.Port] = ammo_types.Round
-    _ship.current_ammo[cannon_positions.Starboard] = ammo_types.Round
+    _ship.current_ammo = {
+        [cannon_positions.Bow] = ammo_types.Round,
+        [cannon_positions.Stern] = ammo_types.Round,
+        [cannon_positions.Port] = ammo_types.Round,
+        [cannon_positions.Starboard] = ammo_types.Round
+    }
 
     _ship.current_knots = data_ships[ship_type].knots
     _ship.current_turn = 0
@@ -43,6 +41,13 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.current_sail_setup = sails_setups.Full_Sails
     _ship.current_cannons = deep_copy(data_ships[ship_type].cannons)
     _ship.current_statuses = {}
+
+    _ship.current_turn_positions_shot = {
+        [cannon_positions.Bow] = false,
+        [cannon_positions.Stern] = false,
+        [cannon_positions.Port] = false,
+        [cannon_positions.Starboard] = false,
+    }
 
     g_ship_index = g_ship_index + 1
 
@@ -175,6 +180,9 @@ function Ship:create(ship_type, faction, crew_level)
 
     function _ship:fire(player, position)
         print_important(self:calculate_fire(player, position))
+        
+        self.current_turn_positions_shot[cannon_positions[position]] = true
+        self.ui:update_ammo()
     end
 
     function _ship:update_flag_with_wind(flag_name, new_wind_direction)
@@ -671,6 +679,16 @@ function Ship:create(ship_type, faction, crew_level)
     function _ship:on_drop()
         self:display_wind_attitude()
         self:update_flags_with_wind()
+    end
+
+    function _ship:on_new_turn()
+        self:update_flags_with_wind()
+        self.current_turn_positions_shot = {
+            [cannon_positions.Bow] = false,
+            [cannon_positions.Stern] = false,
+            [cannon_positions.Port] = false,
+            [cannon_positions.Starboard] = false,
+        }
     end
 
     return _ship
