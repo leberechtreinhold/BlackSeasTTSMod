@@ -1,5 +1,20 @@
-g_current_version = "0.1.0"
+g_current_version = "0.2.0"
 
 g_release_notes = {
-    ["0.1.0"] = "Initial Release. Limited to brig."
+    ["0.1.0"] = "Initial Release. Limited to brig.",
+    ["0.2.0"] = [[
+- New ship added: The Bomb Ketch. While the two most famous ships of this class were not known for their martial prowess but for the ill-fated polar exploration  of HMS Eberus and HMS Terror, they have an important presence in the Age of Sail era. With the main armament being a mortar on the bow, they can deliver significant, but not accurate, damage to the enemies from afar. 
+
+- Mortar shot: To accomodate the newcomer, I have implemented a new mortar shot feature. Rightclick the ship you want to fire upon, and select "Mortar fire". The game will roll a dice and more importante, determine the direction of the dispersion and show a line where the shot will land. Much more precise and comfortable than even in the physical game!
+
+- Changing ammo/gun panel: The big feature of the release. When you select a ship, you have now a list of weapons on each position on the top right of the screen. You can fire from there if you feel clicking from the ship is too finicky, but you can also click on the ammunition icon and change to whatever ammo you prefer, with the corresponding custom icons. Furthermore, if you fire on a position, the icon will be greyed out until you roll for wind and the start of the next turn.
+
+- Terrain: While most battles happen at rather open sea, it's not that uncommon, especially for the smaller ships, to fight near coasts, island or tricky terrain. The terrain uses a custom triplanar shader, which means that you can put two elements together and the texture will be continuous. For the moment, there's a cliff, a beach (that can be submerged to make smaller islands or sandbanks) and several rocks that with some placement skills can be made to create many types of rocky features. Additionally, there's two fog/squall pieces for those ambushes at sea. Finally, since it can be very tedious to lock everything manually, I have created a fix terrain button that it does exactly that.
+
+- Changing board size: You can now click on the bottom left to select if you want a 6x4' standard game, 3x4' small one or 8x6 for the biggest battles.
+
+- Select crew experience level: Fairly straightforward, when you select the ship to create, you can choose if you want to be Veterans, Regular or Inexperienced.
+
+- Fixed a bug where the bow sail of the Brig was not getting furled on Battle Sails.
+    ]]
 }
