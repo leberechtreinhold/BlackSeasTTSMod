@@ -27,7 +27,7 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.size = nil
     _ship.gizmo = Gizmo:create(_ship)
     _ship.ui = ShipUI:create(_ship)
-
+    
     _ship.current_ammo = {
         [cannon_positions.Bow] = ammo_types.Round,
         [cannon_positions.Stern] = ammo_types.Round,
@@ -41,7 +41,7 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.current_sail_setup = sails_setups.Full_Sails
     _ship.current_cannons = deep_copy(data_ships[ship_type].cannons)
     _ship.current_statuses = {}
-
+    _ship.surrendered = false
     _ship.current_turn_positions_shot = {
         [cannon_positions.Bow] = false,
         [cannon_positions.Stern] = false,
@@ -629,6 +629,7 @@ function Ship:create(ship_type, faction, crew_level)
 
     function _ship:surrender()
         print_important(self.display_name .. ' has surrendered!')
+        self.surrendered = true
         local attachs = self.hull_obj.getAttachments()
         local base_rotation = self.hull_obj.getRotation()
         local base_position = self.hull_obj.getPosition()
@@ -657,6 +658,8 @@ function Ship:create(ship_type, faction, crew_level)
                     end)
             end
         end
+        
+        ui_update_summary()
     end
 
     -- This is called when ONLY this ship is selected

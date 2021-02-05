@@ -255,11 +255,17 @@ function ui_update_summary()
         if not summary_per_faction[ship.faction] then
             summary_per_faction[ship.faction] = ''
         end
-        summary_per_faction[ship.faction] = summary_per_faction[ship.faction]
-            .. ship.display_name .. ' - '
+        local ship_summary = ship.display_name .. ' - '
             .. ship.current_ship_points .. "/"
             .. data_ships[ship.type].ship_points
             .. '\n'
+        if ship.surrendered or ship.current_ship_points <= 0 then
+            ship_summary = '<color=red>' .. ship_summary .. '</color>'
+        elseif ship.current_ship_points < data_ships[ship.type].break_value then
+            ship_summary = '<color=yellow>' .. ship_summary .. '</color>'
+        end
+        summary_per_faction[ship.faction] = summary_per_faction[ship.faction]
+            .. ship_summary
     end
     local summary = "<b>"
     for faction_name, summary_individual in pairs(summary_per_faction) do
