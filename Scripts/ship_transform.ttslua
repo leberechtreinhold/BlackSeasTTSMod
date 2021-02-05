@@ -50,7 +50,6 @@ function Transform:from_coords(_rotation, _position, _size, _optional_corners)
         }
     end
 
-    
     function _transform:get_strokes(y_axis_correction)
         local stroke_points = {}
         if not self.corners then
@@ -144,6 +143,21 @@ function Transform:from_coords(_rotation, _position, _size, _optional_corners)
             .. " Rotation: " .. string.format('%.2f', self.rotation)
             .. " Size: " .. vec_to_str(self.size)
     end
+
+    function _transform:equals(t, account_for_size)
+        -- Most of the time Im going to check with previous transforms of the
+        -- ship, where the size will be always the same, so I can avoid the
+        -- check every time
+        if account_for_size and (not vec_equals_float(self.size, t.size)) then
+            return false
+        end
+        log(self)
+        log(t)
+        return vec_equals_float(self.position, t.position)
+            and equals_float(self.rotation, t.rotation)
+
+    end
+    
     return _transform
 end
 

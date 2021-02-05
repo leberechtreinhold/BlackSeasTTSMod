@@ -10,6 +10,7 @@
 #include scripts/events
 #include scripts/state
 #include scripts/ship
+#include scripts/ship_history_stack
 #include scripts/ship_transform
 #include scripts/ship_gizmo
 #include scripts/ship_ui

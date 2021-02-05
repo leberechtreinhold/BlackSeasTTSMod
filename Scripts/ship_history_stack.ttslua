@@ -1,0 +1,36 @@
+HistoryStack = {}
+
+function HistoryStack:create(ship)
+    _stack = {}
+    _stack.ship = ship
+    _stack.entries = {}
+
+    function _stack:push()
+
+        local new = Transform:from_ship(self.ship)
+        local n = self:size()
+        if n > 0 and new:equals(self.entries[n]) then
+            return
+        end
+        table.insert(self.entries, new)
+    end
+    
+    function _stack:pop()
+        local n = self:size()
+        if n > 0 then 
+            return table.remove(self.entries) 
+        end
+    end
+
+    function _stack:peek()
+        if n > 0 then 
+            return self.entries[n]
+        end
+    end
+
+    function _stack:size() 
+        return #self.entries 
+    end
+
+    return _stack
+end

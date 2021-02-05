@@ -48,8 +48,12 @@
         </ToggleGroup>
     </Panel>
 
-    <Panel id="panel_move" position="160 120" width="200" height="50">
-        <HorizontalLayout spacing="20">
+    <Panel id="panel_undo" position="260 120" width="50" height="30">
+    <Button id="btn_undo" onClick="on_undo_move">Undo</Button>
+    </Panel>
+
+    <Panel id="panel_move" position="120 120" width="200" height="50">
+        <HorizontalLayout spacing="10">
             <VerticalLayout>
                 <Slider id="slider_knots" minValue="0" maxValue="10" wholeNumbers="true" value="3" onValueChanged="on_slider_knots_changed"></Slider>
                 <Button id="button_move" onClick="on_move">Move 3 knots</Button>

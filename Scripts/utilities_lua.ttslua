@@ -157,6 +157,12 @@ function equals_float(f1, f2, epsilon)
     return math.abs(f1 - f2) < epsilon
 end
 
+function vec_equals_float(v1, v2)
+    return equals_float(v1.x, v2.x)
+        and equals_float(v1.y, v2.y)
+        and equals_float(v1.z, v2.z)
+end
+
 -- Given an id corresponding to an existing <Dropdown> element on the current
 -- XML UI, edits the options to those given.
 -- The list of options should be a plain array of strings

@@ -35,6 +35,7 @@ function Ship:create(ship_type, faction, crew_level)
         [cannon_positions.Starboard] = ammo_types.Round
     }
 
+    _ship.history = HistoryStack:create(_ship)
     _ship.current_knots = data_ships[ship_type].knots
     _ship.current_turn = 0
     _ship.current_ship_points = data_ships[ship_type].ship_points
@@ -157,6 +158,9 @@ function Ship:create(ship_type, faction, crew_level)
         Transform:from_ship(self):advance(self.current_knots):apply_obj(self.hull_obj)
         print_info(self.display_name .. ' is moving forward ' .. self.current_knots .. ' yards')
         Wait.frames(function()
+            self.history:push()
+        end, 1)
+        Wait.time(function()
             self.gizmo:update_gizmo()
         end, 1)
     end
@@ -170,12 +174,25 @@ function Ship:create(ship_type, faction, crew_level)
             print_info(self.display_name .. ' has turned ' .. math.abs(self.current_turn) .. 'º to starboard')
         end
         Wait.frames(function()
+            self.history:push()
             self:set_turn(0)
         end, 1)
         -- Since we use setposition smooth we must wait until updating
-        Wait.frames(function()
+        Wait.time(function()
+            self.gizmo:update_gizmo()
             self:update_flags_with_wind()
-        end, 120)
+        end, 1)
+    end
+
+    function _ship:undo_move()
+        local t = self.history:pop()
+        if t then
+            UI.setAttribute('btn_undo', 'interactable', false)
+            t:apply_obj(self.hull_obj)
+            Wait.time(function()
+                UI.setAttribute('btn_undo', 'interactable', true)
+            end,1)
+        end
     end
 
     function _ship:fire(player, position)
@@ -366,6 +383,7 @@ function Ship:create(ship_type, faction, crew_level)
     function _ship:on_end_spawning()
         self.hull_obj.interactable = true
         self.hull_obj.setLock(false)
+        self.history:push()
         print_important(self.display_name .. ' ready!')
     end
 
@@ -670,6 +688,7 @@ function Ship:create(ship_type, faction, crew_level)
         self:set_turn()
         self.gizmo:update_gizmo()
         self.ui:show_ui()
+        self.history:push()
     end
 
     -- This is called when ONLY this ship is deselected
@@ -682,6 +701,9 @@ function Ship:create(ship_type, faction, crew_level)
     function _ship:on_drop()
         self:display_wind_attitude()
         self:update_flags_with_wind()
+        Wait.frames(function()
+            self.history:push()
+        end, 30)
     end
 
     function _ship:on_new_turn()

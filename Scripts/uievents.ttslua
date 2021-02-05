@@ -371,3 +371,11 @@ function on_fire_port(player, value, id)
     end
     ship:fire(player, 'Port')
 end
+
+function on_undo_move(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:undo_move()
+end
