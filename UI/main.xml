@@ -44,6 +44,10 @@
                 <Toggle id="togglegroup_sail_setup_1" fontSize="18">Battle Sails</Toggle>
                 <Toggle id="togglegroup_sail_setup_2" fontSize="18">Light Sails</Toggle>
                 <Toggle id="togglegroup_sail_setup_3" fontSize="18">Anchor</Toggle>
+                <Toggle id="togglegroup_sail_setup_0" fontSize="18" selected="true" verticalOverflow="overflow">Full Sails</Toggle>
+                <Toggle id="togglegroup_sail_setup_1" fontSize="18" verticalOverflow="overflow">Battle Sails</Toggle>
+                <Toggle id="togglegroup_sail_setup_2" fontSize="18" verticalOverflow="overflow">Light Sails</Toggle>
+                <Toggle id="togglegroup_sail_setup_3" fontSize="18" verticalOverflow="overflow">Anchor</Toggle>
             </VerticalLayout>
         </ToggleGroup>
     </Panel>
