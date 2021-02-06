@@ -1,4 +1,4 @@
-g_current_version = "0.2.0"
+g_current_version = "0.2.1"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -16,5 +16,12 @@ g_release_notes = {
 - Select crew experience level: Fairly straightforward, when you select the ship to create, you can choose if you want to be Veterans, Regular or Inexperienced.
 
 - Fixed a bug where the bow sail of the Brig was not getting furled on Battle Sails.
+    ]],
+    ["0.2.1"] = [[
+- Undo feature: Each ship stores it's position after moving and turning, and with a button next to the Move/Turn you can Undo to move it back.
+
+- Better summary: On the top left all ships are listed. But now if you have a ship below break value, they will be on yellow. And if they surrender or capsize, they will be red.
+
+- Fixed an error where the sails were not visible in certain resolutions.
     ]]
 }
