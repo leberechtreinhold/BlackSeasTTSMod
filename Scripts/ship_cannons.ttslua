@@ -13,6 +13,20 @@ function Cannons:create(ship)
         return self.ship.current_cannons[position]
     end
 
+    function _cannons:get_range(position, cannon_type)
+        local ammo = self.ship.current_ammo[cannon_positions[position]]
+        if ammo == ammo_types.Grape then
+            return 3
+        elseif ammo == ammo_types.Double then
+            return 8
+        elseif ammo == ammo_types.Chain then
+            return cannon_ranges[cannon_type] / 2
+        -- elseif ammo == ammo_types.Hot or ammo == ammo_types.Round then
+        else
+            return cannon_ranges[cannon_type]
+        end
+    end
+
     function _cannons:has_cannons(position)
         local cannons = self:get_cannons(position)
         if cannons then

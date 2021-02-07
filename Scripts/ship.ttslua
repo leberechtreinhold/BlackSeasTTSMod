@@ -545,6 +545,7 @@ function Ship:create(ship_type, faction, crew_level)
         print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
 
         self.ui:update_ammo()
+        self.gizmo:update_gizmo()
     end
 
     function _ship:surrender()
