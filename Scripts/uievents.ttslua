@@ -379,3 +379,18 @@ function on_undo_move(player, value, id)
     end
     ship:undo_move()
 end
+
+g_ui_upgrades_selected = {}
+function on_toggle_upgrade(player, value, id)
+    local enabled = value == 'True'
+    local upgrade = id:gsub('toggle_', '')
+    if not ship_upgrades[upgrade] then
+        print_error('Bug in upgrade ' .. id .. '. Notify to the mod creator.')
+    end
+    if enabled then
+        g_ui_upgrades_selected[upgrade] = true
+    else 
+        g_ui_upgrades_selected[upgrade] = nil
+    end
+    log(g_ui_upgrades_selected)
+end

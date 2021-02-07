@@ -237,62 +237,62 @@ None</Text>
         </Row>
         <Row preferredHeight="36">
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Boarding Nets</Toggle>
+                <Toggle id="toggle_boarding_nets" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft" >Boarding Nets</Toggle>
             </Cell>
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Grappling Hooks</Toggle>
+                <Toggle id="toggle_grappling_hooks" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Grappling Hooks</Toggle>
             </Cell>
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Grenades</Toggle>
-            </Cell>
-        </Row>
-        <Row preferredHeight="36">
-            <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Lucky</Toggle>
-            </Cell>
-            <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Master Carpenter</Toggle>
-            </Cell>
-            <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Master Caulker</Toggle>
+                <Toggle id="toggle_grenades" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Grenades</Toggle>
             </Cell>
         </Row>
         <Row preferredHeight="36">
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Master Gunner</Toggle>
+                <Toggle id="toggle_lucky" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Lucky</Toggle>
             </Cell>
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Over Gunned</Toggle>
+                <Toggle id="toggle_master_carpenter" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Master Carpenter</Toggle>
             </Cell>
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Carronades</Toggle>
-            </Cell>
-        </Row>
-        <Row preferredHeight="36">
-            <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Privateer</Toggle>
-            </Cell>
-            <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Sharpshooters</Toggle>
-            </Cell>
-            <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Surgeon</Toggle>
+                <Toggle id="toggle_master_caulker" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Master Caulker</Toggle>
             </Cell>
         </Row>
         <Row preferredHeight="36">
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Streamlined Hull</Toggle>
+                <Toggle id="toggle_master_gunner" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Master Gunner</Toggle>
             </Cell>
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Sturdy</Toggle>
+                <Toggle id="toggle_overgunned" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Over Gunned</Toggle>
             </Cell>
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Swivel Guns</Toggle>
+                <Toggle id="toggle_more_carronades" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Carronades</Toggle>
             </Cell>
         </Row>
         <Row preferredHeight="36">
             <Cell columnSpan="5" dontUseTableCellBackground="true">
-                <Toggle interactable="false" fontSize="14" alignment="MiddleLeft">Trained Marines </Toggle>
+                <Toggle id="toggle_privateer" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Privateer</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle id="toggle_sharpshooters" onValueChanged="on_toggle_upgrade"  fontSize="14" alignment="MiddleLeft">Sharpshooters</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle id="toggle_surgeon" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Surgeon</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle id="toggle_streamlined_hull" onValueChanged="on_toggle_upgrade"  fontSize="14" alignment="MiddleLeft">Streamlined Hull</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle id="toggle_sturdy" onValueChanged="on_toggle_upgrade"  fontSize="14" alignment="MiddleLeft">Sturdy</Toggle>
+            </Cell>
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle id="toggle_swivel_guns" onValueChanged="on_toggle_upgrade" fontSize="14" alignment="MiddleLeft">Swivel Guns</Toggle>
+            </Cell>
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="5" dontUseTableCellBackground="true">
+                <Toggle id="toggle_trained_marines" onValueChanged="on_toggle_upgrade"  fontSize="14" alignment="MiddleLeft">Trained Marines </Toggle>
             </Cell>
         </Row>
         <Row preferredHeight="5">

@@ -207,6 +207,25 @@ ammo_types_reverse = {
     [4] = "Grape"
 }
 
+ship_upgrades = {
+    boarding_nets = 0,
+    grappling_hooks = 1,
+    grenades = 2,
+    lucky = 3,
+    master_carpenter = 4,
+    master_caulker = 5,
+    master_gunner = 6,
+    overgunned = 7,
+    more_carronades = 8,
+    privateer = 9,
+    sharpshooters = 10,
+    surgeon = 11,
+    streamlined_hull = 12,
+    sturdy = 13,
+    swivel_guns = 14,
+    trained_marines = 15
+}
+
 -- Due to a bug in TTS, we require a different asset per nation
 -- https://forums.tabletopsimulator.com/showthread.php?9307-obj-addAttachment(child)-resets-the-child-material-if-they-are-an-assetbundle
 flag_ensign = {
