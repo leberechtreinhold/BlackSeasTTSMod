@@ -160,6 +160,15 @@ function State:create()
         return self.current_wind
     end
 
+    function _state:set_wind_to(new_wind)
+        self.current_wind = new_wind
+        self:list_ship_order(self.current_wind)
+        self:do_to_ships(function(ship)
+            ship:on_new_turn()
+        end)
+        return self.current_wind
+    end
+
     function _state:list_ship_order(new_wind_direction)
         local oder_fn = nil
 

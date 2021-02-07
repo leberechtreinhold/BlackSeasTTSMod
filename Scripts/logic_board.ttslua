@@ -261,6 +261,158 @@ function spawn_board(board_data)
     }
     board_limit.createButton(params)
 
+    local params = {
+        click_function = "on_set_wind_south",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 2
+        },
+        rotation       = {0, 270, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to South",
+    }
+    board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_set_wind_southeast",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 5,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 2
+        },
+        rotation       = {0, 225, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to SouthEast",
+    }
+    board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_set_wind_east",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 5,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 3
+        },
+        rotation       = {0, 180, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to East",
+    }
+    board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_set_wind_northeast",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 5,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 4
+        },
+        rotation       = {0, 135, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to NorthEast",
+    }
+    board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_set_wind_north",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 4
+        },
+        rotation       = {0, 90, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to North",
+    }
+    board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_set_wind_northwest",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 7,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 4
+        },
+        rotation       = {0, 45, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to NorthWest",
+    }
+    board_limit.createButton(params)
+
+    local params = {
+        click_function = "on_set_wind_west",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 7,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 3
+        },
+        rotation       = {0, 0, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to West",
+    }
+    board_limit.createButton(params)
+
+
+    local params = {
+        click_function = "on_set_wind_southwest",
+        function_owner = self,
+        label          = ">",
+        position       = {
+            x = bottom_left_corner_relative.x - board_data.width / 2 + 7,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z + 2
+        },
+        rotation       = {0, 315, 0},
+        width          = 500,
+        height         = 500,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Set wind to SouthWest",
+    }
+    board_limit.createButton(params)
 
     local params = {
         click_function = "on_random_wind",
@@ -464,6 +616,38 @@ end
 
 function on_random_wind(obj, color, alt_click)
     update_windrose(g_state:random_wind())
+end
+
+function on_set_wind_north(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('North'))
+end
+
+function on_set_wind_northwest(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('Northwest'))
+end
+
+function on_set_wind_west(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('West'))
+end
+
+function on_set_wind_southwest(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('Southwest'))
+end
+
+function on_set_wind_south(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('South'))
+end
+
+function on_set_wind_southeast(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('Southeast'))
+end
+
+function on_set_wind_east(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('East'))
+end
+
+function on_set_wind_northeast(obj, color, alt_click)
+    update_windrose(g_state:set_wind_to('Northeast'))
 end
 
 function on_sea_rough(obj, color, alt_click)
