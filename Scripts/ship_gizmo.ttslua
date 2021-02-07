@@ -14,38 +14,53 @@ function Gizmo:create(ship)
     function _gizmo:update_gizmo()
         local strokes = {}
 
-        -- print('Current: ' .. Transform:from_ship(self.ship):to_str())
-        -- print('Turn: ' .. Transform:from_ship(self.ship):turn('stern', self.ship.current_turn):to_str())
-        -- print('Move: ' .. Transform:from_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots):to_str())
         local transform = Transform:from_relative_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots)
         table.insert(strokes, transform:get_strokes())
 
+        local has_mortar = false
         local cannons = self.ship.cannons:get_cannons('Bow')
         for cannon_type, number in pairs(cannons) do
-            if number > 0 then
+            if cannon_type ~= 'mortar' and number > 0  then
                 table.insert(strokes, self:get_strokes_cannon_bow(cannon_ranges[cannon_type]))
+            elseif cannon_type == 'mortar' and number > 0  then
+                print('mortar ' .. cannon_type .. number)
+                has_mortar = true
             end
         end
         local cannons = self.ship.cannons:get_cannons('Stern')
         for cannon_type, number in pairs(cannons) do
-            if number > 0 then
+            if cannon_type ~= 'mortar' and number > 0  then
                 table.insert(strokes, self:get_strokes_cannon_stern(cannon_ranges[cannon_type]))
+            elseif cannon_type == 'mortar' and number > 0 then
+                print('mortar ' .. cannon_type .. number)
+                has_mortar = true
             end
         end
 
         -- Assume Port and Starboard symmetry
         local cannons = self.ship.cannons:get_cannons('Port')
         for cannon_type, number in pairs(cannons) do
-            if number > 0 then
+            if cannon_type ~= 'mortar' and number > 0 then
                 table.insert(strokes, self:get_strokes_cannon_port(cannon_ranges[cannon_type]))
                 table.insert(strokes, self:get_strokes_cannon_starboard(cannon_ranges[cannon_type]))
+            elseif cannon_type == 'mortar' and number > 0 then
+                print('mortar ' .. cannon_type .. number)
+                has_mortar = true
             end
+        end
+        
+        if has_mortar then
+            table.insert(strokes, 
+                self:get_strokes_around(cannon_ranges.mortar, g_color_weapons))
         end
 
         -- Close ranges
-        table.insert(strokes, self:get_strokes_around(shooting_ranges.entanglement))
-        table.insert(strokes, self:get_strokes_around(shooting_ranges.short))
-        table.insert(strokes, self:get_strokes_around(shooting_ranges.long))
+        table.insert(strokes, 
+            self:get_strokes_around(shooting_ranges.entanglement, g_color_ranges))
+        table.insert(strokes, 
+            self:get_strokes_around(shooting_ranges.short, g_color_ranges))
+        table.insert(strokes, 
+            self:get_strokes_around(shooting_ranges.long, g_color_ranges))
         self.ship.hull_obj.setVectorLines(strokes)
     end
 
@@ -102,7 +117,7 @@ function Gizmo:create(ship)
         return
         {
             points    = stroke_points,
-            color     = { 0.9, 0.1, 0.1 },
+            color     = g_color_weapons,
             thickness = g_line_thickness,
             rotation  = {0,0,0}
         }
@@ -161,7 +176,7 @@ function Gizmo:create(ship)
         return
         {
             points    = stroke_points,
-            color     = { 0.9, 0.1, 0.1 },
+            color     = g_color_weapons,
             thickness = g_line_thickness,
             rotation  = {0,0,0}
         }
@@ -196,7 +211,7 @@ function Gizmo:create(ship)
         return
         {
             points    = stroke_points,
-            color     = { 0.9, 0.1, 0.1 },
+            color     = g_color_weapons,
             thickness = g_line_thickness,
             rotation  = {0,0,0}
         }
@@ -231,13 +246,13 @@ function Gizmo:create(ship)
         return
         {
             points    = stroke_points,
-            color     = { 0.9, 0.1, 0.1 },
+            color     = g_color_weapons,
             thickness = g_line_thickness,
             rotation  = {0,0,0}
         }
     end
 
-    function _gizmo:get_strokes_around(range)
+    function _gizmo:get_strokes_around(range, color)
         local stroke_points = {}
         local p = { x =  self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
         local depth = self.ship.size.x
@@ -340,7 +355,7 @@ function Gizmo:create(ship)
         return
         {
             points    = stroke_points,
-            color     = { 0.5, 0.5, 0.5 },
+            color     = color,
             thickness = g_line_thickness,
             rotation  = {0,0,0}
         }

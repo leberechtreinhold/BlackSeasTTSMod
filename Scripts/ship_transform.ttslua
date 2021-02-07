@@ -86,12 +86,10 @@ function Transform:from_coords(_rotation, _position, _size, _optional_corners)
             z = self.corners.topright.z,
         })
 
-        local color = { 0.9, 0.1, 0.1 }
-
         return
         {
             points    = stroke_points,
-            color     = color,
+            color     = g_color_move,
             thickness = g_line_thickness,
             rotation  = {0,0,0}
         }
