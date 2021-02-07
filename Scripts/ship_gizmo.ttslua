@@ -20,13 +20,13 @@ function Gizmo:create(ship)
         local transform = Transform:from_relative_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots)
         table.insert(strokes, transform:get_strokes())
 
-        local cannons = self.ship:get_cannons('Bow')
+        local cannons = self.ship.cannons:get_cannons('Bow')
         for cannon_type, number in pairs(cannons) do
             if number > 0 then
                 table.insert(strokes, self:get_strokes_cannon_bow(cannon_ranges[cannon_type]))
             end
         end
-        local cannons = self.ship:get_cannons('Stern')
+        local cannons = self.ship.cannons:get_cannons('Stern')
         for cannon_type, number in pairs(cannons) do
             if number > 0 then
                 table.insert(strokes, self:get_strokes_cannon_stern(cannon_ranges[cannon_type]))
@@ -34,7 +34,7 @@ function Gizmo:create(ship)
         end
 
         -- Assume Port and Starboard symmetry
-        local cannons = self.ship:get_cannons('Port')
+        local cannons = self.ship.cannons:get_cannons('Port')
         for cannon_type, number in pairs(cannons) do
             if number > 0 then
                 table.insert(strokes, self:get_strokes_cannon_port(cannon_ranges[cannon_type]))

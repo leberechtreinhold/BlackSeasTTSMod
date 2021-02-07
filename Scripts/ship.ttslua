@@ -27,7 +27,8 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.size = nil
     _ship.gizmo = Gizmo:create(_ship)
     _ship.ui = ShipUI:create(_ship)
-    
+    _ship.cannons = Cannons:create(_ship)
+
     _ship.current_ammo = {
         [cannon_positions.Bow] = ammo_types.Round,
         [cannon_positions.Stern] = ammo_types.Round,
@@ -40,7 +41,7 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.current_turn = 0
     _ship.current_ship_points = data_ships[ship_type].ship_points
     _ship.current_sail_setup = sails_setups.Full_Sails
-    _ship.current_cannons = deep_copy(data_ships[ship_type].cannons)
+    _ship.current_cannons = nil -- They are calculated later using a function of this obj
     _ship.current_statuses = {}
     _ship.surrendered = false
     _ship.current_turn_positions_shot = {
@@ -49,75 +50,16 @@ function Ship:create(ship_type, faction, crew_level)
         [cannon_positions.Port] = false,
         [cannon_positions.Starboard] = false,
     }
+    _ship.initial_broadside = true
 
     g_ship_index = g_ship_index + 1
 
     -- Functions
 
-    function _ship:get_cannons(position)
-        if not position or not cannon_positions[position] then
-            print_error('The position for the cannons does not exist')
-            log(position)
-            return
-        end
-        return _ship.current_cannons[position]
-    end
-
-    function _ship:has_cannons(position)
-        local cannons = self:get_cannons(position)
-        if cannons then
-            if cannons.heavy == 0
-                and cannons.light == 0
-                and cannons.mortar == 0
-                and cannons.carronade == 0 then
-                return false
-            else
-                return true
-            end
-        else
-            return false
-        end
-    end
-
     function _ship:get_max_turn()
         return data_ships[self.type].turn_angle
     end
 
-    -- Given a position of fire, returns a text saying the result of rolling
-    -- those dice
-    function _ship:calculate_fire(player, position)
-        if not self:has_cannons(position) then
-            return self.display_name .. ' is shooting from the '
-                .. position .. ',' .. ' but it has no weapons there.'
-        end
-
-        local cannons = self:get_cannons(position)
-        if not cannons then
-            return 'Error while calculating the fire'
-        end
-
-        local text = self.display_name .. ' is shooting from the ' .. position .. ','
-
-        for cannon_type, cannon_number in pairs(cannons) do
-            if cannon_number > 0 then
-                text = text .. ' ' .. cannon_type .. ': '
-                for i = 1, cannon_number, 1 do
-                    text = text .. math.random(1,10)
-                    if i < cannon_number then
-                        text = text .. ', '
-                    else
-                        text = text .. ';'
-                    end
-                end
-            end
-        end
-
-        self.hull_obj.removeFromPlayerSelection(player.color)
-        Wait.frames(function()
-            self.hull_obj.AssetBundle.playTriggerEffect(data_ships[self.type].firing_effects[position])
-        end, 1)
-        return text
-    end
 
     function _ship:receive_mortar_fire()
         local dice_roll = math.random(1,10)
@@ -152,7 +94,7 @@ function Ship:create(ship_type, faction, crew_level)
         end)
         self.gizmo:set_mortar(destination_local)
     end
-    
+
     -- Advances the ship the number of knots currently assigned
     function _ship:move()
         Transform:from_ship(self):advance(self.current_knots):apply_obj(self.hull_obj)
@@ -196,9 +138,9 @@ function Ship:create(ship_type, faction, crew_level)
     end
 
     function _ship:fire(player, position)
-        print_important(self:calculate_fire(player, position))
-        
-        self.current_turn_positions_shot[cannon_positions[position]] = true
+        print_important(self.cannons:calculate_fire(player, position))
+
+        self.hull_obj.removeFromPlayerSelection(player.color)
         self.ui:update_ammo()
     end
 
@@ -439,7 +381,7 @@ function Ship:create(ship_type, faction, crew_level)
             if str_starts_with(value.name, "sail") then
                 local name = value.name
                 local sail_id = name:gsub("sail ", "")
-                local sail_data = deep_copy(data_ships[ship_type].sails[sail_id])
+                local sail_data = deep_copy(data_ships[self.type].sails[sail_id])
                 local is_furled = find_in_array(sail_data.furled_on, self.current_sail_setup, eq)
                 local should_be_furled = find_in_array(sail_data.furled_on, new_sail_setup, eq)
 
@@ -500,22 +442,8 @@ function Ship:create(ship_type, faction, crew_level)
         end, 2)
     end
 
-    function _ship:reduce_cannons_to_half()
-        for position_name, position_data in pairs(self.current_cannons) do
-            for cannon_name, number in pairs(position_data) do
-                self.current_cannons[position_name][cannon_name] = math.ceil(number/2)
-            end
-        end
-        self.ui:show_ui_cannons()
-    end
-
-    function _ship:restore_cannons()
-        self.current_cannons = deep_copy(data_ships[ship_type].cannons)
-        self.ui:show_ui_cannons()
-    end
-
     function _ship:is_damaged()
-        return self.current_ship_points < (data_ships[ship_type].ship_points / 2)
+        return self.current_ship_points < (data_ships[self.type].ship_points / 2)
     end
 
     function _ship:change_ship_points(how_many)
@@ -525,8 +453,8 @@ function Ship:create(ship_type, faction, crew_level)
         local had_more_than_half = not self:is_damaged()
 
         self.current_ship_points = self.current_ship_points + how_many
-        if self.current_ship_points > data_ships[ship_type].ship_points then
-            self.current_ship_points = data_ships[ship_type].ship_points
+        if self.current_ship_points > data_ships[self.type].ship_points then
+            self.current_ship_points = data_ships[self.type].ship_points
         end
         if self.current_ship_points <= 0 then
             self:capsize()
@@ -536,9 +464,9 @@ function Ship:create(ship_type, faction, crew_level)
         local has_more_than_half = not self:is_damaged()
 
         if had_more_than_half and not has_more_than_half then
-            self:reduce_cannons_to_half()
+            self.cannons:reduce_cannons_to_half()
         elseif not had_more_than_half and has_more_than_half then
-            self:restore_cannons()
+            self.cannons:restore_cannons()
         end
 
         self.ui:update_ship_points()
@@ -580,37 +508,11 @@ function Ship:create(ship_type, faction, crew_level)
     end
 
     function _ship:critical_roll_hull()
-        local roll = math.random(1,6)
-        if roll == 1 then
-            print_important(self.display_name .. ' has caused Quarter Deck Hit!')
-        elseif roll == 2 then
-            print_important(self.display_name .. ' has caused Gun Deck Hit!')
-        elseif roll == 3 then
-            print_important(self.display_name .. ' has caused Rudder Hit!')
-        elseif roll == 4 then
-            print_important(self.display_name .. ' has caused Crew Hit!')
-        elseif roll == 5 then
-            print_important(self.display_name .. ' has caused Extra Damage!')
-        elseif roll == 6 then
-            print_important(self.display_name .. ' has caused Fire!')
-        end
+        return self.cannons:critical_roll_hull()
     end
 
     function _ship:critical_roll_high()
-        local roll = math.random(1,6)
-        if roll == 1 then
-            print_important(self.display_name .. ' has caused Quarter Deck Hit!')
-        elseif roll == 2 then
-            print_important(self.display_name .. ' has caused Sails Hit!')
-        elseif roll == 3 then
-            print_important(self.display_name .. ' has caused Crew Hit!')
-        elseif roll == 4 then
-            print_important(self.display_name .. ' has caused Upper Deck Damage!')
-        elseif roll == 5 then
-            print_important(self.display_name .. ' has caused Fire!')
-        elseif roll == 6 then
-            print_important(self.display_name .. ' has caused Mast Hit!')
-        end
+        return self.cannons:critical_roll_high()
     end
 
     function _ship:skill_test()
@@ -640,7 +542,7 @@ function Ship:create(ship_type, faction, crew_level)
         self.current_ammo[pos] = ammo
         local pos_str = cannon_positions_reverse[pos]:lower()
         local ammo_str = ammo_types_reverse[ammo]:lower()
-        print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)    
+        print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
 
         self.ui:update_ammo()
     end
@@ -676,7 +578,7 @@ function Ship:create(ship_type, faction, crew_level)
                     end)
             end
         end
-        
+
         ui_update_summary()
     end
 
@@ -716,6 +618,7 @@ function Ship:create(ship_type, faction, crew_level)
         }
     end
 
+    _ship.cannons:restore_cannons()
     return _ship
 end
 

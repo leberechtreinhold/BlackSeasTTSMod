@@ -43,6 +43,33 @@ turn_angles = {
     Red = 45
 }
 
+initial_broadside = {
+    S = {
+        heavy = 0,
+        light = 1,
+        mortar = 0,
+        carronade = 0
+    },
+    M = {
+        heavy = 1,
+        light = 1,
+        mortar = 0,
+        carronade = 0
+    },
+    L = {
+        heavy = 1,
+        light = 1,
+        mortar = 0,
+        carronade = 1
+    },
+    XL = {
+        heavy = 2,
+        light = 1,
+        mortar = 0,
+        carronade = 1
+    }
+}
+
 cannon_positions = {
     Bow = 0,
     Port = 1,

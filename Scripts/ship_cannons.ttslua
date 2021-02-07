@@ -1,0 +1,172 @@
+Cannons = {}
+
+function Cannons:create(ship)
+    _cannons = {}
+    _cannons.ship = ship
+
+    function _cannons:get_cannons(position)
+        if not position or not cannon_positions[position] then
+            print_error('The position for the cannons does not exist')
+            log(position)
+            return
+        end
+        return self.ship.current_cannons[position]
+    end
+
+    function _cannons:has_cannons(position)
+        local cannons = self:get_cannons(position)
+        if cannons then
+            if cannons.heavy == 0
+                and cannons.light == 0
+                and cannons.mortar == 0
+                and cannons.carronade == 0 then
+                return false
+            else
+                return true
+            end
+        else
+            return false
+        end
+    end
+
+    -- Given a position of fire, returns a text saying the result of rolling
+    -- those dice
+    function _cannons:calculate_fire(player, position)
+        if not self:has_cannons(position) then
+            return self.ship.display_name .. ' is shooting from the '
+                .. position .. ',' .. ' but it has no weapons there.'
+        end
+
+        local cannons = self:get_cannons(position)
+        if not cannons then
+            return 'Error while calculating the fire'
+        end
+
+        local text = self.ship.display_name .. ' is shooting from the ' .. position .. ','
+
+        for cannon_type, cannon_number in pairs(cannons) do
+            if cannon_number > 0 then
+                text = text .. ' ' .. cannon_type .. ': '
+                for i = 1, cannon_number, 1 do
+                    text = text .. math.random(1,10)
+                    if i < cannon_number then
+                        text = text .. ', '
+                    else
+                        text = text .. ';'
+                    end
+                end
+            end
+        end
+
+        local pos = cannon_positions[position]
+        self.ship.current_turn_positions_shot[pos] = true
+        if self.ship.initial_broadside and 
+            (pos == cannon_positions.Starboard 
+             or pos == cannon_positions.Port) then
+            
+            self.ship.initial_broadside = false
+            self:recalculate_cannons()
+        end
+
+        Wait.frames(function()
+            local effect = data_ships[self.ship.type].firing_effects[position]
+            self.ship.hull_obj.AssetBundle.playTriggerEffect(effect)
+        end, 1)
+        return text
+    end
+
+    function _cannons:add_initial_broadside()
+        local added = initial_broadside[data_ships[self.ship.type].size]
+        if not added then
+            return
+        end
+        -- First check if theres weapons at all that can fire there
+        local starboard = self.ship.current_cannons.Starboard
+        local starboard_n = 0
+        for _, cannon_n in pairs(starboard) do
+            starboard_n = starboard_n + cannon_n
+        end
+        if starboard_n > 0 then
+            for cannon_type, cannon_n in pairs(starboard) do
+                starboard[cannon_type] = cannon_n + added[cannon_type]
+            end
+        end
+        local port = self.ship.current_cannons.Port
+        local port_n = 0
+        for _, cannon_n in pairs(port) do
+            port_n = port_n + cannon_n
+        end
+        if port_n > 0 then
+            for cannon_type, cannon_n in pairs(port) do
+                port[cannon_type] = cannon_n + added[cannon_type]
+            end
+        end
+    end
+
+    function _cannons:reduce_cannons_to_half()
+        -- Current cannons may have the initial broadside accounted for, which
+        -- should not be part of the half number, so we reset them
+        self.ship.current_cannons = deep_copy(data_ships[self.ship.type].cannons)
+        for position_name, position_data in pairs(self.ship.current_cannons) do
+            for cannon_name, number in pairs(position_data) do
+                self.ship.current_cannons[position_name][cannon_name] = math.ceil(number/2)
+            end
+        end
+        if self.ship.initial_broadside then
+            self:add_initial_broadside()
+        end
+        self.ship.ui:show_ui_cannons()
+    end
+
+    function _cannons:restore_cannons()
+        self.ship.current_cannons = deep_copy(data_ships[self.ship.type].cannons)
+        if self.ship.initial_broadside then
+            self:add_initial_broadside()
+        end
+        self.ship.ui:show_ui_cannons()
+    end
+
+    function _cannons:recalculate_cannons()
+        if self.ship:is_damaged() then
+            self:reduce_cannons_to_half()
+        else
+            self:restore_cannons()
+        end
+    end
+
+    function _cannons:critical_roll_hull()
+        local roll = math.random(1,6)
+        if roll == 1 then
+            print_important(self.ship.display_name .. ' has caused Quarter Deck Hit!')
+        elseif roll == 2 then
+            print_important(self.ship.display_name .. ' has caused Gun Deck Hit!')
+        elseif roll == 3 then
+            print_important(self.ship.display_name .. ' has caused Rudder Hit!')
+        elseif roll == 4 then
+            print_important(self.ship.display_name .. ' has caused Crew Hit!')
+        elseif roll == 5 then
+            print_important(self.ship.display_name .. ' has caused Extra Damage!')
+        elseif roll == 6 then
+            print_important(self.ship.display_name .. ' has caused Fire!')
+        end
+    end
+
+    function _cannons:critical_roll_high()
+        local roll = math.random(1,6)
+        if roll == 1 then
+            print_important(self.ship.display_name .. ' has caused Quarter Deck Hit!')
+        elseif roll == 2 then
+            print_important(self.ship.display_name .. ' has caused Sails Hit!')
+        elseif roll == 3 then
+            print_important(self.ship.display_name .. ' has caused Crew Hit!')
+        elseif roll == 4 then
+            print_important(self.ship.display_name .. ' has caused Upper Deck Damage!')
+        elseif roll == 5 then
+            print_important(self.ship.display_name .. ' has caused Fire!')
+        elseif roll == 6 then
+            print_important(self.ship.display_name .. ' has caused Mast Hit!')
+        end
+    end
+
+    return _cannons
+end
