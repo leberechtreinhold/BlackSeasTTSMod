@@ -419,14 +419,14 @@ function spawn_board(board_data)
         function_owner = self,
         label          = "Random Wind",
         position       = {
-            x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
+            x = bottom_left_corner_relative.x - board_data.width / 2 - 1,
             y = bottom_left_corner_relative.y,
-            z = bottom_left_corner_relative.z
+            z = bottom_left_corner_relative.z + 3
         },
         rotation       = {0, 180, 0},
-        width          = 7000,
-        height         = 1000,
-        font_size      = 700,
+        width          = 4000,
+        height         = 800,
+        font_size      = 600,
         color          = {0.5, 0.5, 0.5},
         font_color     = {1, 1, 1},
         tooltip        = "Click to randomly select a wind direction",
@@ -447,7 +447,7 @@ function spawn_board(board_data)
         position       = {
             x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
             y = bottom_left_corner_relative.y,
-            z = bottom_left_corner_relative.z - 3
+            z = bottom_left_corner_relative.z 
         },
         rotation       = {0, 180, 0},
         width          = 7000,
