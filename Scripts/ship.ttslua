@@ -51,6 +51,7 @@ function Ship:create(ship_type, faction, crew_level)
         [cannon_positions.Starboard] = false,
     }
     _ship.initial_broadside = true
+    _ship.masts_broken = 0
 
     g_ship_index = g_ship_index + 1
 
@@ -349,11 +350,11 @@ function Ship:create(ship_type, faction, crew_level)
     -- Destroying attachments and adding them while looping them makes
     -- all sort of problems because TTS uses an Index internally, which
     -- is modified constantly. Therefore, we destroy them all on the frame
-    function _ship:destroy_attach(sail_attachment_name)
+    function _ship:destroy_attach(attachment_name)
         Wait.frames(function()
             local attachs = self.hull_obj.getAttachments()
             for _,value in pairs(attachs) do
-                if value.name == sail_attachment_name then
+                if value.name == attachment_name then
                     self.hull_obj.destroyAttachment(value.index)
                 end
             end
@@ -418,6 +419,38 @@ function Ship:create(ship_type, faction, crew_level)
         end
 
         self.current_sail_setup = new_sail_setup
+    end
+
+    function _ship:break_masts()
+        print_info(self.display_name .. ' has a broken mast!')
+        self.masts_broken = self.masts_broken + 1
+        local broken_mast_data = data_ships[self.type].broken_masts['mast' .. self.masts_broken]
+        if not broken_mast_data then
+            return
+        end
+        local attachs = self.hull_obj.getAttachments()
+        for _,value in pairs(attachs) do
+            print_debug(value.name)
+            if str_starts_with(value.name, "sail") then
+                local sail_id = value.name:gsub("sail ", "")
+                if broken_mast_data.sails[sail_id] then
+                    print_debug('BREAKING ' .. value.name)
+                    self:destroy_attach(value.name)
+                end
+            elseif str_starts_with(value.name, "mast") then
+                local mast_id = value.name:gsub("mast ", "")
+                if broken_mast_data.masts[mast_id] then
+                    print_debug('BREAKING ' ..  value.name)
+                    self:destroy_attach(value.name)
+                end
+            elseif str_starts_with(value.name, "flag") then
+                local flag_id = value.name:gsub("flag ", "")
+                if broken_mast_data.flags[flag_id] then
+                    print_debug('BREAKING ' ..  value.name)
+                    self:destroy_attach(value.name)
+                end
+            end
+        end
     end
 
     function _ship:capsize()

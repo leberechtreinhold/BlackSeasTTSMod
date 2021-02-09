@@ -86,7 +86,7 @@
 None</Text>
         </VerticalLayout>
     </Panel>
-    <Panel id="panel_ship_status" width="150" height="250" color="#00000000"  outline="#00000000" ignoreLayout="true" position="-400 -70">
+    <Panel id="panel_ship_status" width="150" height="250" color="#00000000"  outline="#00000000" ignoreLayout="true" position="-400 -50">
         <VerticalLayout>
             <HorizontalLayout>
                 <Panel>
@@ -113,6 +113,9 @@ None</Text>
                 </Panel>
             </HorizontalLayout>
         </VerticalLayout>
+    </Panel>
+    <Panel width="100" height="30" color="#00000000"  outline="#00000000" ignoreLayout="true" position="-400 -180">
+        <Button onClick="on_click_masthit">Mast hit</Button>
     </Panel>
 </Panel>
 

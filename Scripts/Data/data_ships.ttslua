@@ -49,6 +49,45 @@ data_ships.shiptype_brig = {
     hull = {
         customasset = "http://cloud-3.steamusercontent.com/ugc/1776075290156934315/4E4C0771788E84C2DF6F22DA1AA4C41DCEC5A302/"
     },
+    broken_masts = {
+        mast1 = {
+            masts = {
+                foremast = true,
+                yard4 = true,
+                yard5 = true,
+                yard6 = true
+            },
+            sails = {
+                mainfore = true,
+                gallantfore = true,
+                topfore = true,
+                jib1 = true,
+                jib2 = true
+            },
+            flags = {
+                
+            }
+        },
+        mast2 = {
+            masts = {
+                mainmast = true,
+                yard1 = true,
+                yard2 = true,
+                yard3 = true,
+                gaff = true
+            },
+            sails = {
+                mainmain = true,
+                gallantmain = true,
+                topmain = true,
+                bow = true,
+                cat = true
+            },
+            flags = {
+                pendon = true
+            }
+        }
+    },
     masts = {
         bow = {
             pos_offset = {x=1.1153, y=0.325, z=0},
@@ -270,6 +309,46 @@ data_ships.shiptype_bomb_ketch = {
     hull = {
         customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858473874252/FD1BBAC1325D6EAC7990736EDD9274BC29BEDC36/"
         -- customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858473458975/47041A386FD1190589B541DA87F737FD66B0B5A9/"
+    },
+    broken_masts = {
+        mast1 = {
+            masts = {
+                foremast = true,
+                yard_fore_4 = true,
+                yard_fore_5 = true,
+                yard_fore_6 = true,
+                gaff = true
+            },
+            sails = {
+                mainfore = true,
+                gallantfore = true,
+                topfore = true,
+                cat = true
+            },
+            flags = {
+                
+            }
+        },
+        mast2 = {
+            masts = {
+                mainmast = true,
+                yard_main_1 = true,
+                yard_main_2 = true,
+                yard_main_3 = true,
+                gaff = true
+            },
+            sails = {
+                mainmain = true,
+                gallantmain = true,
+                topmain = true,
+                bow = true,
+                jib1 = true,
+                jib2 = true
+            },
+            flags = {
+                pendon = true
+            }
+        }
     },
     masts = {
         bow = {

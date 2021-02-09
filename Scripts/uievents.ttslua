@@ -392,5 +392,12 @@ function on_toggle_upgrade(player, value, id)
     else 
         g_ui_upgrades_selected[upgrade] = nil
     end
-    log(g_ui_upgrades_selected)
+end
+
+function on_click_masthit(player, value, id)
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:break_masts()
 end
