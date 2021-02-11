@@ -220,6 +220,7 @@ None</Text>
                 <Dropdown id="dropdown_ships" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
                     <Option selected="true">Brig</Option>
                     <Option>Bomb Ketch</Option>
+                    <Option>Frigate (5th)</Option>
                 </Dropdown>
             </Cell>
         </Row>
