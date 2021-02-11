@@ -226,6 +226,33 @@ ship_upgrades = {
     trained_marines = 15
 }
 
+base_cannons = {
+    Bow = {
+        heavy = 0,
+        light = 0,
+        mortar = 0,
+        carronade = 0
+    },
+    Port = {
+        heavy = 0,
+        light = 0,
+        mortar = 0,
+        carronade = 0
+    },
+    Starboard = {
+        heavy = 0,
+        light = 0,
+        mortar = 0,
+        carronade = 0
+    },
+    Stern = {
+        heavy = 0,
+        light = 0,
+        mortar = 0,
+        carronade = 0
+    }
+}
+
 -- Due to a bug in TTS, we require a different asset per nation
 -- https://forums.tabletopsimulator.com/showthread.php?9307-obj-addAttachment(child)-resets-the-child-material-if-they-are-an-assetbundle
 flag_ensign = {

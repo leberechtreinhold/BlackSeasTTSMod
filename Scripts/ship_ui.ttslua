@@ -113,7 +113,7 @@ function ShipUI:create(ship)
         UI.setAttribute("text_ship_name", "text", self.ship.display_name)
         UI.setAttribute("text_ship_points", "text", "Ship points: " 
             .. self.ship.current_ship_points .. "/" 
-            ..  data_ships[self.ship.type].ship_points)
+            ..  self.ship.max_ship_points)
 
         if data_ships[self.ship.type].turn_angle == turn_angles.Red then
             UI.setAttribute("text_turn", "text", "Turn: Red")
@@ -128,6 +128,21 @@ function ShipUI:create(ship)
         UI.setAttribute("text_break_value", "text", "Break Value: " .. data_ships[self.ship.type].break_value)
         UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)        
         UI.setAttribute("text_faction", "text", "Faction: " .. self.ship.faction)
+
+        local upgrade_text = "Upgrades:\n"
+        if tlen(self.ship.upgrades) == 0 then
+            upgrade_text = upgrade_text .. "None"
+        else
+            upgrade_text = upgrade_text .. "<size=14>"
+            for upg,val in pairs(self.ship.upgrades) do
+                if val then
+                    upgrade_text = upgrade_text .. upg:gsub("_", " "):gsub("^%l", string.upper) .. "\n"
+                end
+            end
+            upgrade_text = upgrade_text:sub(1, -2)
+            upgrade_text = upgrade_text .. "</size>"
+        end
+        UI.setAttribute("text_upgrades", "text", upgrade_text)
         self:show_ui_status()
 
         for _, sail_id in pairs(sails_setups) do
@@ -217,7 +232,7 @@ function ShipUI:create(ship)
     function _shipui:update_ship_points()
         UI.setAttribute("text_ship_points", "text", "Ship points: " 
             .. self.ship.current_ship_points .. "/" 
-            ..  data_ships[self.ship.type].ship_points)
+            ..  self.ship.max_ship_points)
     end
 
     function _shipui:update_ammo()

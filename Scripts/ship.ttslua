@@ -2,7 +2,7 @@ Ship = {}
 
 g_ship_index = 1
 
-function Ship:create(ship_type, faction, crew_level)
+function Ship:create(ship_type, faction, crew_level, upgrades)
     if not ship_type or not ship_types[ship_type] then
         print_error('Incorrect ship type given, cannot spawn ship')
         return
@@ -28,6 +28,8 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.gizmo = Gizmo:create(_ship)
     _ship.ui = ShipUI:create(_ship)
     _ship.cannons = Cannons:create(_ship)
+    _ship.upgrades = deep_copy(upgrades)
+    _ship.added_cannons = nil
 
     _ship.current_ammo = {
         [cannon_positions.Bow] = ammo_types.Round,
@@ -39,7 +41,8 @@ function Ship:create(ship_type, faction, crew_level)
     _ship.history = HistoryStack:create(_ship)
     _ship.current_knots = data_ships[ship_type].knots
     _ship.current_turn = 0
-    _ship.current_ship_points = data_ships[ship_type].ship_points
+    _ship.max_ship_points = data_ships[ship_type].ship_points
+    _ship.current_ship_points = 0
     _ship.current_sail_setup = sails_setups.Full_Sails
     _ship.current_cannons = nil -- They are calculated later using a function of this obj
     _ship.current_statuses = {}
@@ -476,7 +479,7 @@ function Ship:create(ship_type, faction, crew_level)
     end
 
     function _ship:is_damaged()
-        return self.current_ship_points < (data_ships[self.type].ship_points / 2)
+        return self.current_ship_points < (self.max_ship_points / 2)
     end
 
     function _ship:change_ship_points(how_many)
@@ -486,8 +489,8 @@ function Ship:create(ship_type, faction, crew_level)
         local had_more_than_half = not self:is_damaged()
 
         self.current_ship_points = self.current_ship_points + how_many
-        if self.current_ship_points > data_ships[self.type].ship_points then
-            self.current_ship_points = data_ships[self.type].ship_points
+        if self.current_ship_points > self.max_ship_points then
+            self.current_ship_points = self.max_ship_points
         end
         if self.current_ship_points <= 0 then
             self:capsize()
@@ -652,7 +655,36 @@ function Ship:create(ship_type, faction, crew_level)
         }
     end
 
+    function _ship:apply_upgrades()
+        local shipsize = data_ships[ship_type].size
+        for upg,val in pairs(self.upgrades) do
+            if val then
+                if upg == "overgunned" then
+                    if not self.added_cannons then
+                        self.added_cannons = deep_copy(base_cannons)
+                    end
+                    self.added_cannons.Port.heavy = self.added_cannons.Port.heavy + 1
+                    self.added_cannons.Port.light = self.added_cannons.Port.light + 1
+                    self.added_cannons.Starboard.heavy = self.added_cannons.Starboard.heavy + 1
+                    self.added_cannons.Starboard.light = self.added_cannons.Starboard.light + 1
+                end
+                if upg == "more_carronades" then
+                    if not self.added_cannons then
+                        self.added_cannons = deep_copy(base_cannons)
+                    end
+                    self.added_cannons.Port.carronade = self.added_cannons.Port.carronade + 1
+                    self.added_cannons.Starboard.carronade = self.added_cannons.Starboard.carronade + 1
+                end
+                if upg == "sturdy" then
+                    self.max_ship_points = self.max_ship_points + 20
+                end
+            end
+        end
+    end
+
+    _ship:apply_upgrades()
     _ship.cannons:restore_cannons()
+    _ship.current_ship_points = _ship.max_ship_points
     return _ship
 end
 
