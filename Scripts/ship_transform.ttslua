@@ -149,8 +149,6 @@ function Transform:from_coords(_rotation, _position, _size, _optional_corners)
         if account_for_size and (not vec_equals_float(self.size, t.size)) then
             return false
         end
-        log(self)
-        log(t)
         return vec_equals_float(self.position, t.position)
             and equals_float(self.rotation, t.rotation)
 
