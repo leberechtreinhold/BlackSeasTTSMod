@@ -106,6 +106,10 @@ terrain_data = {
         rotation = 0,
         customasset = "http://cloud-3.steamusercontent.com/ugc/1771572741906976603/36FD69AC4D341C5994B8EDB595147939C302F428/"
     },
+    dock = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951381937428407/203C6A9596132C8615766E06124C3502F545DC48/"
+    },
     fog_small = {
         rotation = 0,
         customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858474331076/F61DB8155A9F53B4AE89CD6FFF758F1B9EA9E0E5/"
