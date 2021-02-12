@@ -484,7 +484,7 @@ function spawn_model(model_data_or_name, tts_name, pos, added_y_axis_rotation, c
     return obj
 end
 
-function spawn_text(text, tts_name, pos, left_align)
+function spawn_text(text, tts_name, pos, left_align_optional, font_size_optional)
     local params = {
         type = '3DText',
         position = pos,
@@ -492,10 +492,10 @@ function spawn_text(text, tts_name, pos, left_align)
     }
     local obj = spawnObject(params)
     obj.setValue(text)
-    obj.TextTool.setFontSize(180)
+    obj.TextTool.setFontSize(font_size_optional or 180)
 
     obj.setName(tts_name)
-    if left_align then
+    if left_align_optional then
         local bounds = obj.getBounds()
         obj.setPosition({x=pos.x + bounds.size.x / 2, y=pos.y, z=pos.z})
     end

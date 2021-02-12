@@ -17,6 +17,7 @@ function State:create()
 
     _state.current_wind = 'North'
     _state.board_size = 'medium'
+    _state.wind_order_obj = nil
 
     math.randomseed(os.time())
 
@@ -207,9 +208,20 @@ function State:create()
         end
 
         local msg = 'The new ship order is: '
+        local txt = 'Ship order:\n'
+        local i = 1
         for _, el in sorted_array(self.ships, order_fn) do
             msg = msg .. el.display_name .. ", "
+            txt = txt .. i .. ': ' .. el.display_name .. '\n'
+            i = i + 1
         end
+
+        if self.wind_order_obj then
+            self.wind_order_obj.destroy()
+        end
+        local height = g_boards[self.board_size].height
+        local pos = {x = 0, y = 1, z = -height / 2 - 8 }
+        self.wind_order_obj = spawn_text(txt, 'WindOrder', pos, false, 80)
         print_important(msg)
     end
 
