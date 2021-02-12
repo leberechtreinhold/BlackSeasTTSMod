@@ -221,6 +221,7 @@ None</Text>
                     <Option selected="true">Brig</Option>
                     <Option>Bomb Ketch</Option>
                     <Option>Frigate (5th)</Option>
+                    <Option>Line (3rd)</Option>
                 </Dropdown>
             </Cell>
         </Row>
