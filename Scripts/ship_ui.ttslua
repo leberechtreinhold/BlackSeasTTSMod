@@ -179,20 +179,25 @@ function ShipUI:create(ship)
     end
 
     function _shipui:internal_spawn_buttons(hull_obj)
-        hull_obj.UI.setXml([[
-            <Panel id="panel_starboard_fire" position="0 -70 -40" width="100" height="50" rotation="0 0 180" active="false">
-                <Button onClick="fire_starboard">Fire!</Button>"
-            </Panel>
-            <Panel id="panel_port_fire" position="0 70 -40" width="100" height="50" active="false">
-                <Button onClick="fire_port">Fire!</Button>"
-            </Panel>
-            <Panel id="panel_stern_fire" position="-170 0 -40" width="100" height="50" rotation="0 0 90" active="false">
-                <Button onClick="fire_stern">Fire!</Button>"
-            </Panel>
-            <Panel id="panel_bow_fire" position="160 0 -40" width="100" height="50" rotation="0 0 270" active="false">
-                <Button onClick="fire_bow">Fire!</Button>"
-            </Panel>
-            ]])
+        local length = 125 * (self.ship.size.x / 2)
+        local wide = 182 * (self.ship.size.z / 2)
+
+        local xml = [[
+<Panel id="panel_starboard_fire" position="0 -{wide} -40" width="100" height="50" rotation="0 0 180" active="false">
+    <Button onClick="fire_starboard">Fire!</Button>"
+</Panel>
+<Panel id="panel_port_fire" position="0 {wide} -40" width="100" height="50" active="false">
+    <Button onClick="fire_port">Fire!</Button>"
+</Panel>
+<Panel id="panel_stern_fire" position="-{length} 0 -40" width="100" height="50" rotation="0 0 90" active="false">
+    <Button onClick="fire_stern">Fire!</Button>"
+</Panel>
+<Panel id="panel_bow_fire" position="{length} 0 -40" width="100" height="50" rotation="0 0 270" active="false">
+    <Button onClick="fire_bow">Fire!</Button>"
+</Panel>
+]]
+        xml = xml:gsub("{wide}", wide):gsub("{length}", length)
+        hull_obj.UI.setXml(xml)
 
         hull_obj.setLuaScript([[
             function fire_port(player, value, id)
