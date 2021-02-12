@@ -1,4 +1,4 @@
-g_current_version = "0.2.1"
+g_current_version = "0.3.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -23,5 +23,24 @@ g_release_notes = {
 - Better summary: On the top left all ships are listed. But now if you have a ship below break value, they will be on yellow. And if they surrender or capsize, they will be red.
 
 - Fixed an error where the sails were not visible in certain resolutions.
+    ]],
+    ["0.3.0"] = [[
+- New ship added: The frigate. The common frigate, a 5th rate usually equipped with 32 guns. They are fast, well equipped for most situations like piracy, and they don't have as much problems with shallower coasts like the USA.
+
+- New ship added: The third rate. The 74-cannon beast is essentially the workhorse of naval battles in this period, with a good capability for manouvres while still having impressive firepower.
+
+- Initial broadsides: The first time a ship shoots its broadsides, it has additional cannons depending on size. This is now automated, and the mod takes into account ranges.
+
+- Ship upgrades: You can now add upgrades for the ships! This gives a lot of options for customization.
+
+- Added a mast hit button for that critical result. When clicked, it will remvoe one of the masts of the ship, visually representing the hit.
+
+- More terrain: A dock has been added.
+
+- Better wind: When you click on the wind on each turn, in addition to the chat log, the order of the ships is also shown on a list below the button, which is useful in bigger battles. Additionally, there are now buttons to set the wind to specific directions.
+
+- Ammo: Changing ammo also is reflected on the range indicators depending on which type.
+
+- Fix: The mortar shoots 360º now, which was incorrectly only shooting in the position mounted.
     ]]
 }
