@@ -405,3 +405,45 @@ function on_click_masthit(player, value, id)
     end
     ship:break_masts()
 end
+
+function on_change_name()
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    
+    UI.show('panel_rename_bg')
+    UI.show('panel_rename')
+
+    UI.setValue('text_current_name', ship.display_name)
+    UI.setAttribute('input_new_name', 'text', '')
+end
+
+function on_new_name_change_inputfield(player, value, id)
+    UI.setAttribute('input_new_name', 'text', value)
+end
+
+function on_cancel_name_change(player, value, id)
+    UI.hide('panel_rename_bg')
+    UI.setAttribute('panel_rename_bg', 'active', false)
+    UI.hide('panel_rename')
+    UI.setAttribute('panel_rename', 'active', false)
+
+    UI.setValue('input_new_name', '')
+end
+
+function on_accept_name_change(player, value, id)
+    UI.hide('panel_rename_bg')
+    UI.setAttribute('panel_rename_bg', 'active', false)
+    UI.hide('panel_rename')
+    UI.setAttribute('panel_rename', 'active', false)
+
+    new_value = UI.getAttribute('input_new_name', 'text')
+    if new_value ~= '' then
+        local ship = g_state:return_single_ship_selected()
+        if not ship then
+            return
+        end
+        ship:set_display_name(new_value)
+    end
+end

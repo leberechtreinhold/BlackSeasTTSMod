@@ -437,3 +437,49 @@ None</Text>
         </Row>
     </TableLayout>
 </Panel>
+
+
+
+<Panel id="panel_rename_bg" width="400" height="250" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <Image image="ship_creation"></Image>
+</Panel>
+
+<Panel id="panel_rename" width="400" height="200" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <TableLayout padding="30 30 10 30 " cellSpacing="5">
+        <Row preferredHeight="28">
+            <Text fontSize="24">Name Change</Text>
+        </Row>
+        <Row preferredHeight="20">
+        </Row>
+        <Row preferredHeight="28">
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Text fontSize="16" alignment="MiddleRight">Current name:</Text>
+            </Cell>
+            <Cell columnSpan="20" dontUseTableCellBackground="true">
+                <Text id="text_current_name" fontSize="16" alignment="MiddleLeft">Santísima Trinidad</Text>
+            </Cell>
+        </Row>
+        <Row preferredHeight="32">
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Text fontSize="16" alignment="MiddleRight" >New name:</Text>
+            </Cell>
+            <Cell columnSpan="20" dontUseTableCellBackground="true">
+                <InputField id="input_new_name" alignment="MiddleLeft" onValueChanged="on_new_name_change_inputfield"></InputField>
+            </Cell>
+        </Row>
+        <Row preferredHeight="20">
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Button columnSpan="2" fontSize="20" onClick="on_cancel_name_change">Cancel</Button>
+            </Cell>
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <!-- Filler -->
+            </Cell>
+            <Cell columnSpan="10" dontUseTableCellBackground="true">
+                <Button fontSize="20" onClick="on_accept_name_change">Change</Button>
+            </Cell>
+        </Row>
+    </TableLayout>
+</Panel>
+

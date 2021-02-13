@@ -298,6 +298,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         self.hull_obj.addContextMenuItem("Fire Mortar here", function ()
             self:receive_mortar_fire()
         end)
+        self.hull_obj.addContextMenuItem("Change Name", function ()
+            on_change_name()
+        end)
     end
 
     -- Despite being a fucking callback on the API for the end
@@ -617,6 +620,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         end
 
         ui_update_summary()
+    end
+
+    function _ship:set_display_name(new_name)
+        self.display_name = new_name
+        self.ui:show_ui()
     end
 
     -- This is called when ONLY this ship is selected
