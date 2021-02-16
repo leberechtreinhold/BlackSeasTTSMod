@@ -106,9 +106,26 @@ terrain_data = {
         rotation = 0,
         customasset = "http://cloud-3.steamusercontent.com/ugc/1771572741906976603/36FD69AC4D341C5994B8EDB595147939C302F428/"
     },
+    hill = {
+        rotation = 0,
+        pos_offset = {x=0,y=2,z=0},
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767612732/057552D48E4E3BA0E55B9195C3746DC411A629A7/"
+    },
+    beach2 = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767612417/29A64FB5F82F628A9FD45EE8B512C706A8BE5078/"
+    },
+    hillrock = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767613054/14D49586F24C146693989D65D88D6F7A39C8005F/"
+    },
     dock = {
         rotation = 0,
         customasset = "http://cloud-3.steamusercontent.com/ugc/1774951381937428407/203C6A9596132C8615766E06124C3502F545DC48/"
+    },
+    wall = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767613373/2E74533FBD97EDE341C06D3C2435694F12339178/"
     },
     fog_small = {
         rotation = 0,
