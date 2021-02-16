@@ -3,7 +3,9 @@ ship_types = {
     shiptype_brig = 0,
     shiptype_bomb_ketch = 1,
     shiptype_frigate = 2,
-    shiptype_3rd = 3
+    shiptype_3rd = 3,
+
+    fortification_gun_emplacement = 10
 }
 
 data_ships = {}
@@ -1206,6 +1208,61 @@ data_ships.shiptype_3rd = {
             scale = {x=1.3, y=1.3, z=1.3},
             pos_offset = {x=-0.089,y=3.826,z=0},
             references_nation = "flag_pendon"
+        }
+    }
+}
+
+
+data_ships.fortification_gun_emplacement = {
+    is_fortification = true,
+    ship_points = 10,
+    break_value = 4,
+    points = 40,
+    turn_angle = turn_angles.Red,
+    forced_name = "Shore Gun Emplacement",
+    size = "M",
+    knots = 0,
+    cannons = {
+        Bow = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 1,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Starboard = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Stern = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 0,
+        Port = 0,
+        Bow = 0,
+        Stern = 0
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767609606/65F8979AD5C62CDBF4BFA301FDDCBF2314C250DB/"
+    },
+    flags = {
+        ensign = {
+            rotation_vector = {x=0, y=0, z=0},
+            pos_offset = {x=-0.049,y=1.12,z=0.227},
+            scale = {x=0.7, y=0.7, z=0.7},
+            references_nation = "flag_ensign"
         }
     }
 }

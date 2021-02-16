@@ -222,6 +222,7 @@ None</Text>
                     <Option>Bomb Ketch</Option>
                     <Option>Frigate (5th)</Option>
                     <Option>Line (3rd)</Option>
+                    <Option>Gun Emplacement</Option>
                 </Dropdown>
             </Cell>
         </Row>

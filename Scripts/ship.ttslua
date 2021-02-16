@@ -19,8 +19,16 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     _ship.id = g_ship_index
     _ship.type = ship_type
     _ship.faction = faction
-    _ship.display_name = random_element(faction_shipnames[faction])
-        .. " (" .. ship_type:gsub("shiptype_", "") .. ")" .. " #" .. g_ship_index
+    _ship.display_name = nil
+    if data_ships[ship_type].forced_name then
+        _ship.display_name = data_ships[ship_type].forced_name
+    else
+        _ship.display_name = random_element(faction_shipnames[faction])
+                            .. " (" .. 
+                            ship_type:gsub("shiptype_", ""):gsub("_", " "):gsub("^%l", string.upper)
+                            .. ")" 
+    end
+    _ship.display_name = _ship.display_name.. " #" .. g_ship_index
     _ship.name = 'Ship ' .. ship_type .. '#' .. g_ship_index
     _ship.crew_level = crew_level
     _ship.hull_obj = nil
@@ -30,6 +38,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     _ship.cannons = Cannons:create(_ship)
     _ship.upgrades = deep_copy(upgrades)
     _ship.added_cannons = nil
+    _ship.is_fortification = data_ships[ship_type].is_fortification
 
     _ship.current_ammo = {
         [cannon_positions.Bow] = ammo_types.Round,
@@ -368,6 +377,10 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     end
 
     function _ship:set_sail_setup(new_sail_setup)
+        if self.is_fortification then
+            return
+        end
+
         if not new_sail_setup or not sails_setups_reverse[new_sail_setup] then
             print_error("Trying to set a sail setup which doesn\'t exist")
             log(new_sail_setup)
@@ -428,6 +441,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     end
 
     function _ship:break_masts()
+        if self.is_fortification then
+            return
+        end
         print_info(self.display_name .. ' has a broken mast!')
         self.masts_broken = self.masts_broken + 1
         local broken_mast_data = data_ships[self.type].broken_masts['mast' .. self.masts_broken]
