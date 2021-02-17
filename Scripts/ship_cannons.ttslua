@@ -123,7 +123,11 @@ function Cannons:create(ship)
         self.ship.current_cannons = deep_copy(data_ships[self.ship.type].cannons)
         for position_name, position_data in pairs(self.ship.current_cannons) do
             for cannon_name, number in pairs(position_data) do
-                self.ship.current_cannons[position_name][cannon_name] = math.ceil((number+self.ship.added_cannons[position_name][cannon_name])/2)
+                if self.ship.added_cannons then
+                    self.ship.current_cannons[position_name][cannon_name] = math.ceil((number+self.ship.added_cannons[position_name][cannon_name])/2)
+                else
+                    self.ship.current_cannons[position_name][cannon_name] = math.ceil(number / 2)
+                end
             end
         end
         if self.ship.initial_broadside then
