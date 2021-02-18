@@ -103,23 +103,8 @@ function ShipUI:create(ship)
     end
 
     function _shipui:show_ui()
-        self.ship.hull_obj.UI.show("panel_starboard_fire")
-        self.ship.hull_obj.UI.show("panel_port_fire")
-        self.ship.hull_obj.UI.show("panel_bow_fire")
-        self.ship.hull_obj.UI.show("panel_stern_fire")
-        self.ship.hull_obj.UI.show("panel_move")
-        self.ship.hull_obj.UI.show("panel_turn")
-
         UI.setAttribute("text_ship_name", "text", self.ship.display_name)
-        UI.setAttribute("text_ship_points", "text", "Ship points: " 
-            .. self.ship.current_ship_points .. "/" 
-            ..  self.ship.max_ship_points)
-
-        if data_ships[self.ship.type].turn_angle == turn_angles.Red then
-            UI.setAttribute("text_turn", "text", "Turn: Red")
-        else
-            UI.setAttribute("text_turn", "text", "Turn: Yellow")
-        end
+        self:update_ship_points()
 
         self:show_ui_cannons()
         
@@ -128,6 +113,42 @@ function ShipUI:create(ship)
         UI.setAttribute("text_break_value", "text", "Break Value: " .. data_ships[self.ship.type].break_value)
         UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)        
         UI.setAttribute("text_faction", "text", "Faction: " .. self.ship.faction)
+
+        if self.ship.is_fortification then
+            UI.setAttribute("image_card", "image", "ship_fortification_card")
+            UI.setAttribute("image_guns", "image", "ship_guns_fort_bg")
+            UI.setAttribute("panel_guns_stern", "active", false)
+            UI.setAttribute("panel_guns_bow", "active", false)
+            UI.setAttribute("panel_guns_starboard", "active", false)
+            UI.setValue("text_guns_port_title", "")
+            
+            UI.setAttribute("button_move", "interactable", false)
+            UI.setAttribute("button_turn", "interactable", false)
+            UI.setAttribute("text_turn", "text", "")
+        else
+            self.ship.hull_obj.UI.show("panel_starboard_fire")
+            self.ship.hull_obj.UI.show("panel_port_fire")
+            self.ship.hull_obj.UI.show("panel_bow_fire")
+            self.ship.hull_obj.UI.show("panel_stern_fire")
+            self.ship.hull_obj.UI.show("panel_move")
+            self.ship.hull_obj.UI.show("panel_turn")
+            
+            UI.setAttribute("image_card", "image", "ship_frigate_card")
+            UI.setAttribute("image_guns", "image", "ship_guns_bg")
+            UI.setAttribute("panel_guns_stern", "active", true)
+            UI.setAttribute("panel_guns_bow", "active", true)
+            UI.setAttribute("panel_guns_starboard", "active", true)
+            UI.setValue("text_guns_port_title", "Port")
+
+            UI.setAttribute("button_move", "interactable", true)
+            UI.setAttribute("button_turn", "interactable", true)
+            
+            if data_ships[self.ship.type].turn_angle == turn_angles.Red then
+                UI.setAttribute("text_turn", "text", "Turn: Red")
+            else
+                UI.setAttribute("text_turn", "text", "Turn: Yellow")
+            end
+        end
 
         local upgrade_text = "Upgrades:\n"
         if tlen(self.ship.upgrades) == 0 then
@@ -153,6 +174,14 @@ function ShipUI:create(ship)
                 UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
                     "isOn", false)
             end
+            if self.ship.is_fortification then
+                UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
+                    "interactable", false)
+            else
+                UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
+                    "interactable", true)
+            end
+
         end
 
         self:update_ammo()
@@ -164,12 +193,14 @@ function ShipUI:create(ship)
     end
 
     function _shipui:hide_ui()
-        self.ship.hull_obj.UI.hide("panel_starboard_fire")
-        self.ship.hull_obj.UI.hide("panel_port_fire")
-        self.ship.hull_obj.UI.hide("panel_bow_fire")
-        self.ship.hull_obj.UI.hide("panel_stern_fire")
-        self.ship.hull_obj.UI.hide("panel_move")
-        self.ship.hull_obj.UI.hide("panel_turn")
+        if not self.ship.is_fortification then
+            self.ship.hull_obj.UI.hide("panel_starboard_fire")
+            self.ship.hull_obj.UI.hide("panel_port_fire")
+            self.ship.hull_obj.UI.hide("panel_bow_fire")
+            self.ship.hull_obj.UI.hide("panel_stern_fire")
+            self.ship.hull_obj.UI.hide("panel_move")
+            self.ship.hull_obj.UI.hide("panel_turn")
+        end
 
         UI.hide('panel_ship_bg')
         UI.hide('panel_ship')
@@ -235,9 +266,15 @@ function ShipUI:create(ship)
     end
 
     function _shipui:update_ship_points()
-        UI.setAttribute("text_ship_points", "text", "Ship points: " 
-            .. self.ship.current_ship_points .. "/" 
-            ..  self.ship.max_ship_points)
+        if self.ship.is_fortification then
+            UI.setAttribute("text_ship_points", "text", "Structure points: " 
+                .. self.ship.current_ship_points .. "/" 
+                ..  self.ship.max_ship_points)
+        else        
+            UI.setAttribute("text_ship_points", "text", "Ship points: " 
+                .. self.ship.current_ship_points .. "/" 
+                ..  self.ship.max_ship_points)
+        end
     end
 
     function _shipui:update_ammo()

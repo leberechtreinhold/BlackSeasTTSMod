@@ -9,14 +9,12 @@ function Gizmo:create(ship)
         self.ship.hull_obj.setVectorLines({})
     end
 
-    -- The ship always projects its future position depending on knots and angle,
-    -- plus the current firing arcs of the cannons
-    function _gizmo:update_gizmo()
-        local strokes = {}
-
+    function _gizmo:ship_movement(strokes)
         local transform = Transform:from_relative_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots)
         table.insert(strokes, transform:get_strokes())
+    end
 
+    function _gizmo:ship_weapons(strokes)
         local has_mortar = false
         local cannons = self.ship.cannons:get_cannons('Bow')
         for cannon_type, number in pairs(cannons) do
@@ -60,6 +58,31 @@ function Gizmo:create(ship)
         if has_mortar then
             table.insert(strokes, 
                 self:get_strokes_around(cannon_ranges.mortar, g_color_weapons))
+        end
+    end
+
+    function _gizmo:fortification_weapons(strokes)
+        local cannons = self.ship.cannons:get_cannons('Port')
+        for cannon_type, number in pairs(cannons) do
+            if number > 0 then
+                local range = self.ship.cannons:get_range('Port', cannon_type) *1.5
+                table.insert(strokes, self:get_strokes_around(range, g_color_weapons))
+            end
+        end
+
+        
+    end
+
+    -- The ship always projects its future position depending on knots and angle,
+    -- plus the current firing arcs of the cannons
+    function _gizmo:update_gizmo()
+        local strokes = {}
+
+        if self.ship.is_fortification then
+            self:fortification_weapons(strokes)
+        else
+            self:ship_movement(strokes)
+            self:ship_weapons(strokes)
         end
 
         -- Close ranges
@@ -263,6 +286,10 @@ function Gizmo:create(ship)
     function _gizmo:get_strokes_around(range, color)
         local stroke_points = {}
         local p = { x =  self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
+        if self.ship.is_fortification then
+            p = { x =  self.ship.size.x / 2, y = g_gizmo_raise - self.ship.hull_obj.getPosition().y, z = -self.ship.size.z / 2 }
+        end
+
         local depth = self.ship.size.x
         local width = self.ship.size.z
 

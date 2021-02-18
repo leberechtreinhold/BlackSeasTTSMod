@@ -62,7 +62,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         [cannon_positions.Port] = false,
         [cannon_positions.Starboard] = false,
     }
-    _ship.initial_broadside = true
+    if _ship.is_fortification then
+        _ship.initial_broadside = false
+    else
+        _ship.initial_broadside = true
+    end
     _ship.masts_broken = 0
 
     g_ship_index = g_ship_index + 1
@@ -332,7 +336,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
             self.hull_obj.interactable = false
             self:add_context_menu()
             self:internal_spawn_flags()
-            self.ui:internal_spawn_buttons(self.hull_obj)
+            if not self.is_fortification then
+                self.ui:internal_spawn_buttons(self.hull_obj)
+            end
             g_state:register_ship(self)
             ui_update_summary()
         end
@@ -340,9 +346,13 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
 
     function _ship:on_end_spawning()
         self.hull_obj.interactable = true
-        self.hull_obj.setLock(false)
         self.history:push()
-        print_important(self.display_name .. ' ready!')
+        if not self.is_fortification then
+            self.hull_obj.setLock(false)
+            print_important(self.display_name .. ' ready!')
+        else
+            print_important(self.display_name .. ' created, set as locked.')
+        end
     end
 
     function _ship:spawn(pos)
@@ -476,6 +486,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     end
 
     function _ship:capsize()
+        if self.is_fortification then
+            print_important("The ship " .. self.display_name .. " has capsized")
+            return
+        end
+
         print_important("The ship " .. self.display_name .. " has capsized")
         self.hull_obj.setLock(true)
         self.hull_obj.interactable = false
@@ -597,8 +612,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         self.current_ammo[pos] = ammo
         local pos_str = cannon_positions_reverse[pos]:lower()
         local ammo_str = ammo_types_reverse[ammo]:lower()
-        print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
-
+        if self.is_fortification then
+            print_important(self.display_name .. ' has loaded ' .. ammo_str)
+        else
+            print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
+        end
         self.ui:update_ammo()
         self.gizmo:update_gizmo()
     end
