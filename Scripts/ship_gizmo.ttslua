@@ -287,7 +287,11 @@ function Gizmo:create(ship)
         local stroke_points = {}
         local p = { x =  self.ship.size.x / 2, y = g_gizmo_raise, z = -self.ship.size.z / 2 }
         if self.ship.is_fortification then
-            p = { x =  self.ship.size.x / 2, y = g_gizmo_raise - self.ship.hull_obj.getPosition().y, z = -self.ship.size.z / 2 }
+            p = { 
+                x =  self.ship.size.x / 2, 
+                y = g_gizmo_raise - self.ship.hull_obj.getPosition().y, 
+                z = -self.ship.size.z / 2 
+            }
         end
 
         local depth = self.ship.size.x
