@@ -18,10 +18,20 @@ function on_ui_ship_type_selected(player, value, id)
         g_ui_current_ship_type = 'shiptype_bomb_ketch'
     elseif value == 'Frigate (5th)' then
         g_ui_current_ship_type = 'shiptype_frigate'
+    elseif value == 'Frigate (6th)*' then
+        g_ui_current_ship_type = 'shiptype_frigate_6th'
     elseif value == 'Line (3rd)' then
         g_ui_current_ship_type = 'shiptype_3rd'
+    elseif value == 'Line (Small 3rd)*' then
+        g_ui_current_ship_type = 'shiptype_small_3rd'
     elseif value == 'Gun Emplacement' then
         g_ui_current_ship_type = 'fortification_gun_emplacement'
+    elseif value == 'Mortar Emplacement' then
+        g_ui_current_ship_type = 'fortification_mortar_emplacement'
+    elseif value == 'Mortar Emplacement' then
+        g_ui_current_ship_type = 'fortification_mortar_emplacement'
+    elseif value == 'Martello Tower' then
+        g_ui_current_ship_type = 'fortification_martello'
     end
 end
 

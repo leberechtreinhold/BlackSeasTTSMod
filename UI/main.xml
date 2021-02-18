@@ -178,11 +178,11 @@ None</Text>
     </Panel>
 </Panel>
 
-<Panel id="panel_fleet_selection_bg" width="550" height="700" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+<Panel id="panel_fleet_selection_bg" width="550" height="750" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
     <Image image="ship_creation"></Image>
 </Panel>
 
-<Panel id="panel_fleet_selection" width="550" height="700" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+<Panel id="panel_fleet_selection" width="550" height="750" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
     <TableLayout padding="30 30 30 30 " cellSpacing="20">
         <Row preferredHeight="36">
             <Text fontSize="32">Ship Creation</Text>
@@ -220,11 +220,22 @@ None</Text>
                 <Dropdown id="dropdown_ships" onValueChanged="on_ui_ship_type_selected" fontSize="20" scrollSensitivity="20">
                     <Option selected="true">Brig</Option>
                     <Option>Bomb Ketch</Option>
+                    <Option>Frigate (6th)*</Option>
                     <Option>Frigate (5th)</Option>
+                    <Option>Line (Small 3rd)*</Option>
                     <Option>Line (3rd)</Option>
                     <Option>Gun Emplacement</Option>
+                    <Option>Mortar Emplacement</Option>
+                    <Option>Martello Tower</Option>
+                    <Option>Bucentaure*</Option>
+                    <Option>HMS Bellerophon*</Option>
+                    <Option>La Princesa*</Option>
+                    <Option>USS Essex*</Option>
                 </Dropdown>
             </Cell>
+        </Row>
+        <Row preferredHeight="18">
+            <Text alignment="MiddleLeft" fontStyle="Italic">Ships with * are temporary and don't have custom models</Text>
         </Row>
         <Row preferredHeight="36">
             <Cell columnSpan="6" dontUseTableCellBackground="true">
