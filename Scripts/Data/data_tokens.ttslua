@@ -119,13 +119,41 @@ terrain_data = {
         rotation = 0,
         customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767613054/14D49586F24C146693989D65D88D6F7A39C8005F/"
     },
+    cliff_alt = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007523538/E3304C376EE4C18377D2D98996FEECF2BD01D159/"
+    },
+    soft_hill = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007524683/E94938B881FD7FE041EFE394CCAFD4CA0687FD08/"
+    },
     dock = {
         rotation = 0,
         customasset = "http://cloud-3.steamusercontent.com/ugc/1774951381937428407/203C6A9596132C8615766E06124C3502F545DC48/"
     },
     wall = {
         rotation = 90,
-        customasset = "http://cloud-3.steamusercontent.com/ugc/1774951893767613373/2E74533FBD97EDE341C06D3C2435694F12339178/"
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007522812/1A78E72F065D439FB542DAEE5026734AA61B8F29/"
+    },
+    seawall = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007523895/8598C706C5A0C244515E610EF0BCF48F3AD37A52/"
+    },
+    tower = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007525055/D7BB15293BDF1FC1609A4869A52C8DBFBAB4710D/"
+    },
+    wall2 = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007523175/92D8EB627B9DD64A90787B23C2510BB049DB416E/"
+    },
+    seawall2 = {
+        rotation = 90,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007524296/8C97E0FF4787A57F6B751A3F6BD73AD227A1EF06/"
+    },
+    tower2 = {
+        rotation = 0,
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1774952098007526740/0FF1680880347FA64DCC965C62B0B1B2F4B18331/"
     },
     fog_small = {
         rotation = 0,
