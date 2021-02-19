@@ -461,3 +461,41 @@ function on_accept_name_change(player, value, id)
         ship:set_display_name(new_value)
     end
 end
+
+function on_change_faction()
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    
+    UI.show('panel_change_faction_bg')
+    UI.show('panel_change_faction')
+
+    UI.setValue('text_current_faction', ship.faction)
+    UI.setAttribute('input_new_name', 'text', '')
+end
+
+g_ui_nation_selected_change = "Spain"
+function on_ui_nation_selected_change(player, value, id)
+    g_ui_nation_selected_change = value
+end
+
+function on_cancel_faction_change(player, value, id)
+    UI.hide('panel_change_faction_bg')
+    UI.setAttribute('panel_change_faction_bg', 'active', false)
+    UI.hide('panel_change_faction')
+    UI.setAttribute('panel_change_faction', 'active', false)
+end
+
+function on_accept_faction_change(player, value, id)
+    UI.hide('panel_change_faction_bg')
+    UI.setAttribute('panel_change_faction_bg', 'active', false)
+    UI.hide('panel_change_faction')
+    UI.setAttribute('panel_change_faction', 'active', false)
+
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship:set_faction(g_ui_nation_selected_change)
+end

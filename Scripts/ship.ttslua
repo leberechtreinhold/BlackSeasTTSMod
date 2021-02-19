@@ -314,6 +314,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         self.hull_obj.addContextMenuItem("Change Name", function ()
             on_change_name()
         end)
+        self.hull_obj.addContextMenuItem("Change Faction", function ()
+            on_change_faction()
+        end)
     end
 
     -- Despite being a fucking callback on the API for the end
@@ -652,13 +655,55 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                     end)
             end
         end
-
-        ui_update_summary()
+        Wait.time(function()
+            self:update_flags_with_wind()
+            ui_update_summary()
+        end, 1)
     end
 
     function _ship:set_display_name(new_name)
         self.display_name = new_name
         self.ui:show_ui()
+    end
+
+    function _ship:set_faction(new_faction)
+        self.faction = new_faction
+        self.surrendered = false
+        
+        local attachs = self.hull_obj.getAttachments()
+        local base_rotation = self.hull_obj.getRotation()
+        local base_position = self.hull_obj.getPosition()
+        for _,value in pairs(attachs) do
+            if str_starts_with(value.name, "flag") then
+                local name = value.name
+                local flag_id = name:gsub("flag ", "")
+                local flag_data = deep_copy(data_ships[self.type].flags[flag_id])
+                flag_data.customasset = _G[flag_data.references_nation][new_faction]
+
+                print_debug("Found " .. name .. "(" .. value.index .. ") which has to change")
+                self:destroy_attach(name)
+
+                if flag_data.rotation_vector then
+                    flag_data.rotation_vector = vec_add(base_rotation, flag_data.rotation_vector)
+                else
+                    flag_data.rotation_vector = base_rotation
+                end
+                flag_data.pos_offset = rotate_point_relative(flag_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
+
+                spawn_asset_by_data(
+                    flag_data, name, base_position, 0,
+                    function(obj)
+                        obj.setLock(true)
+                        self.hull_obj.addAttachment(obj)
+                    end)
+            end
+        end
+
+        self.ui:show_ui()
+        Wait.time(function()
+            self:update_flags_with_wind()
+            ui_update_summary()
+        end, 1)
     end
 
     -- This is called when ONLY this ship is selected
