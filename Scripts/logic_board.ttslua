@@ -1,6 +1,7 @@
 g_boards = {
     small = {
         asset = "board_4x3",
+        ref = "small",
         width = 48,
         height = 36,
         size_feet = "4x3ft",
@@ -8,6 +9,7 @@ g_boards = {
     },
     medium = {
         asset = "board_6x4",
+        ref = "medium",
         width = 72,
         height = 48,
         size_feet = "6x4ft",
@@ -16,6 +18,7 @@ g_boards = {
     },
     large = {
         asset = "board_8x6",
+        ref = "large",
         width = 96,
         height = 72,
         size_feet = "8x6ft",
@@ -61,6 +64,7 @@ function spawn_board_start(board_size)
             if not board_size then
                 board_size = g_boards.medium
             end
+            g_state.board_size = board_size.ref
             spawn_board(board_size)
             spawn_rulers(board_size)
             spawn_qrf(board_size)
