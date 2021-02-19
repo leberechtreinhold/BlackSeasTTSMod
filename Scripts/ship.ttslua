@@ -350,11 +350,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     function _ship:on_end_spawning()
         self.hull_obj.interactable = true
         self.history:push()
+        self.hull_obj.setLock(false)
         if not self.is_fortification then
-            self.hull_obj.setLock(false)
             print_important(self.display_name .. ' ready!')
         else
-            print_important(self.display_name .. ' created, set as locked.')
+            print_important(self.display_name .. ' created.')
         end
     end
 
@@ -669,7 +669,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     function _ship:set_faction(new_faction)
         self.faction = new_faction
         self.surrendered = false
-        
+
         local attachs = self.hull_obj.getAttachments()
         local base_rotation = self.hull_obj.getRotation()
         local base_position = self.hull_obj.getPosition()
@@ -709,9 +709,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     -- This is called when ONLY this ship is selected
     function _ship:on_select()
         print_debug('Selected ' .. self.name)
-        self:display_wind_attitude()
-        self:set_knots()
-        self:set_turn()
+        if not self.is_fortification then
+            self:display_wind_attitude()
+            self:set_knots()
+            self:set_turn()
+        end
         self.gizmo:update_gizmo()
         self.ui:show_ui()
         self.history:push()
@@ -725,7 +727,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     end
 
     function _ship:on_drop()
-        self:display_wind_attitude()
+        if not self.is_fortification then
+            self:display_wind_attitude()
+        end
         self:update_flags_with_wind()
         Wait.frames(function()
             self.history:push()

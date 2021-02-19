@@ -673,7 +673,12 @@ function on_fix_terrain()
             obj.interactable = false
         end
     end
-    print_important("Terrain fixed!")
+    g_state:do_to_ships(function(ship)
+        if ship.is_fortification then
+            ship.hull_obj.setLock(true)
+        end
+    end)
+    print_important("Terrain fixed, fortifications locked!")
 end
 
 function on_unfix_terrain()
