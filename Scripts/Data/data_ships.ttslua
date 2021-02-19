@@ -14,6 +14,7 @@ ship_types = {
     shiptype_bucentaure = 200,
     shiptype_bellerophon = 201,
     shiptype_la_princesa = 202,
+    shiptype_essex = 202,
 }
 
 data_ships = {}
@@ -3093,7 +3094,7 @@ data_ships.shiptype_la_princesa = {
     }
 }
 
-data_ships.shiptype_frigate = {
+data_ships.shiptype_essex = {
     ship_points = 36,
     break_value = 12,
     points = 150,
