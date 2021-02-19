@@ -1,4 +1,4 @@
-g_current_version = "0.3.0"
+g_current_version = "1.0.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -42,5 +42,22 @@ g_release_notes = {
 - Ammo: Changing ammo also is reflected on the range indicators depending on which type.
 
 - Fix: The mortar shoots 360º now, which was incorrectly only shooting in the position mounted.
+    ]],
+    ["0.3.1"] = [[
+- Fixed a bug where dropping the ship points to half (Damaged) provoked an error on some circunstances.
+
+- Added more terrain.
+
+- Added a feature to rename ships.
+    ]],
+    ["0.3.2"] = [[
+- Removed the Gun Emplacement option which is not ready yet
+    ]],
+    ["1.0.0"] = [[
+- Added fortifications: They are created the same way as ships. You should move them with the gizmo, and when doing Fix terrain, they will locked (and thus, selectable by Ctrl-Click). Currently there are Gun Emplacements, Mortar Emplacements and Martello Towers, with their own effects. They all have a big flag to be easily identifiable.
+
+- Added more ships reusing hulls. This is temporary and I will try to remodel some of them so there are at least some differences between them, but for now, this allows you to use their profile. The ships added are the 6th rate frigate, 64-cannon 3rd rate, Bucentaure, HMS Bellerophon, La Princesa and USS Essex.
+
+- Added a lot of terrain! Walls, towers, breakwaters, new island/hills/cliffs. Also, it doesn't get removed when reloading, instead, its contained in 3 bags in the table.
     ]]
 }
