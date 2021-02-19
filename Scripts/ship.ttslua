@@ -663,6 +663,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
 
     function _ship:set_display_name(new_name)
         self.display_name = new_name
+        self.hull_obj.setName(new_name)
         self.ui:show_ui()
     end
 
