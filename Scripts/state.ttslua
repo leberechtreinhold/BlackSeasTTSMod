@@ -211,7 +211,8 @@ function State:create()
         local txt = 'Ship order:\n'
         local i = 1
         for _, el in sorted_array(self.ships, order_fn) do
-            if not el.is_fortification then
+            if not el.is_fortification and 
+                not (el.surrendered or el.current_ship_points <= 0) then
                 msg = msg .. el.display_name .. ", "
                 txt = txt .. i .. ': ' .. el.display_name .. '\n'
                 i = i + 1
