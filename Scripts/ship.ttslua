@@ -24,9 +24,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         _ship.display_name = data_ships[ship_type].forced_name
     else
         _ship.display_name = random_element(faction_shipnames[faction])
-                            .. " (" .. 
+                            .. " (" ..
                             ship_type:gsub("shiptype_", ""):gsub("_", " "):gsub("^%l", string.upper)
-                            .. ")" 
+                            .. ")"
     end
     _ship.display_name = _ship.display_name.. " #" .. g_ship_index
     _ship.name = 'Ship ' .. ship_type .. '#' .. g_ship_index
@@ -159,6 +159,39 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
 
         self.hull_obj.removeFromPlayerSelection(player.color)
         self.ui:update_ammo()
+
+        local pos = self.hull_obj.getPosition()
+        local smoke_pos = {x=pos.x+3, y=pos.y, z=pos.z}
+        Wait.time(function()
+            self:spawn_smoke(position)
+        end, 1)
+    end
+
+    function _ship:spawn_smoke(position)
+        local pos = nil
+        local rot = 0
+        if position == 'Bow' or self.is_fortication then
+            rot = 90
+            pos = {x=self.size.x / 2 + 0.5, y = 0, z = 0}
+        elseif position == 'Stern' then
+            rot = 90
+            pos = {x=-self.size.x / 2 - 0.5, y = 0, z = 0}
+        elseif position == 'Starboard' then
+            rot = 0
+            pos = {x=0, y = 0, z = -self.size.z / 2 - 0.5}
+        elseif position == 'Port' then
+            rot = 0
+            pos = {x=0, y = 0, z = self.size.z / 2 + 0.5}
+        end
+        local final_rot = positive_angle_deg(rot + self.hull_obj.getRotation().y)
+        local final_pos = self.hull_obj.positionToWorld(pos)
+        spawn_asset('smoke_effect', 'Smoke', final_pos, final_rot, function (obj)
+            self.hull_obj.addAttachment(obj)
+        end)
+    end
+
+    function _ship:remove_smoke()
+        self:destroy_all_attach('Smoke')
     end
 
     function _ship:update_flag_with_wind(flag_name, new_wind_direction)
@@ -375,18 +408,33 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         end
     end
 
+    function _ship:destroy_attach_now(attachment_name)
+        local destroyed = false
+        local attachs = self.hull_obj.getAttachments()
+        for _,value in pairs(attachs) do
+            if value.name == attachment_name then
+                self.hull_obj.destroyAttachment(value.index)
+                destroyed = true
+            end
+        end
+        return destroyed
+    end
+
     -- Destroying attachments and adding them while looping them makes
     -- all sort of problems because TTS uses an Index internally, which
     -- is modified constantly. Therefore, we destroy them all on the frame
     function _ship:destroy_attach(attachment_name)
         Wait.frames(function()
-            local attachs = self.hull_obj.getAttachments()
-            for _,value in pairs(attachs) do
-                if value.name == attachment_name then
-                    self.hull_obj.destroyAttachment(value.index)
-                end
-            end
+            self:destroy_attach_now(attachment_name)
         end, 1)
+    end
+
+    function _ship:destroy_all_attach(attachment_name)
+        if self:destroy_attach_now(attachment_name) then
+            Wait.frames(function()
+                self:destroy_all_attach(attachment_name)
+            end, 1)
+        end
     end
 
     function _ship:set_sail_setup(new_sail_setup)
@@ -745,6 +793,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
             [cannon_positions.Port] = false,
             [cannon_positions.Starboard] = false,
         }
+        self:remove_smoke()
     end
 
     function _ship:apply_upgrades()

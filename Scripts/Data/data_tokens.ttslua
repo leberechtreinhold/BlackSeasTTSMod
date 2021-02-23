@@ -170,5 +170,10 @@ water_splash = {
     customasset = "http://cloud-3.steamusercontent.com/ugc/1772698858472728438/7DAD5583271330950F78B191FAD0EB5939210482/"
 }
 
+smoke_effect = {
+    rotation = 0,
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1774951292184170895/93F03D6A5820BC9FF1A2F738C2630F5625FBA2CB/"
+}
+
 minimal_collider = 'http://cloud-3.steamusercontent.com/ugc/1022823184773057328/6E2E42ECBBD40D7501018921FC5898568FF9D748/'
 
