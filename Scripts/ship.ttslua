@@ -160,8 +160,6 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         self.hull_obj.removeFromPlayerSelection(player.color)
         self.ui:update_ammo()
 
-        local pos = self.hull_obj.getPosition()
-        local smoke_pos = {x=pos.x+3, y=pos.y, z=pos.z}
         Wait.time(function()
             self:spawn_smoke(position)
         end, 1)
