@@ -505,3 +505,14 @@ function on_accept_faction_change(player, value, id)
     end
     ship:set_faction(g_ui_nation_selected_change)
 end
+
+g_ui_show_firing_gizmo = true
+function on_toggle_gizmo(player, value, id)
+    g_ui_show_firing_gizmo = value == 'True'
+
+    local ship = g_state:return_single_ship_selected()
+    if not ship then
+        return
+    end
+    ship.gizmo:update_gizmo()    
+end

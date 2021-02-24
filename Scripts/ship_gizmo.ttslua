@@ -78,20 +78,27 @@ function Gizmo:create(ship)
     function _gizmo:update_gizmo()
         local strokes = {}
 
-        if self.ship.is_fortification then
-            self:fortification_weapons(strokes)
+        if g_ui_show_firing_gizmo then
+            if self.ship.is_fortification then
+                self:fortification_weapons(strokes)
+            else
+                self:ship_movement(strokes)
+                self:ship_weapons(strokes)
+            end
+
+            -- Close ranges
+            table.insert(strokes, 
+                self:get_strokes_around(shooting_ranges.entanglement, g_color_ranges))
+            table.insert(strokes, 
+                self:get_strokes_around(shooting_ranges.short, g_color_ranges))
+            table.insert(strokes, 
+                self:get_strokes_around(shooting_ranges.long, g_color_ranges))
         else
-            self:ship_movement(strokes)
-            self:ship_weapons(strokes)
+            if not self.ship.is_fortification then
+                self:ship_movement(strokes)
+            end
         end
 
-        -- Close ranges
-        table.insert(strokes, 
-            self:get_strokes_around(shooting_ranges.entanglement, g_color_ranges))
-        table.insert(strokes, 
-            self:get_strokes_around(shooting_ranges.short, g_color_ranges))
-        table.insert(strokes, 
-            self:get_strokes_around(shooting_ranges.long, g_color_ranges))
         self.ship.hull_obj.setVectorLines(strokes)
     end
 

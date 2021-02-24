@@ -124,6 +124,7 @@ None</Text>
 </Panel>
 <Panel id="panel_guns" width="290" height="360" color="#00000000" outline="#00000000" outlineSize="2" rectAlignment="UpperRight" raycastTarget="true" showAnimation="Custom_SlideIn_Top" hideAnimation="Custom_SlideOut_Bottom" active="false">
     <Text id="text_guns_title" ignoreLayout="true" fontSize="30" position="0 150" >Guns</Text>
+    <Toggle id="toggle_gizmo" onValueChanged="on_toggle_gizmo" fontSize="10" ignoreLayout="true" position="150 150" isOn="true">Gizmo</Toggle>
     <Panel id="panel_guns_port" width="100" height="140" ignoreLayout="true" position="-80 -30" >
         <TableLayout>
             <Row>
