@@ -102,7 +102,9 @@ function Cannons:create(ship)
         end
         if starboard_n > 0 then
             for cannon_type, cannon_n in pairs(starboard) do
-                starboard[cannon_type] = cannon_n + added[cannon_type]
+                if cannon_n > 0 then
+                    starboard[cannon_type] = cannon_n + added[cannon_type]
+                end
             end
         end
         local port = self.ship.current_cannons.Port
@@ -112,7 +114,9 @@ function Cannons:create(ship)
         end
         if port_n > 0 then
             for cannon_type, cannon_n in pairs(port) do
-                port[cannon_type] = cannon_n + added[cannon_type]
+                if cannon_n > 0 then
+                    port[cannon_type] = cannon_n + added[cannon_type]
+                end
             end
         end
     end
