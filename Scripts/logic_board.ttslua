@@ -183,6 +183,7 @@ function spawn_qrf(board_size)
         "qrf_critical",
         'Tray',
         {x=w + 9,y=0.5,z=0}, 0, _G["qrf_critical"].mesh)
+    spawn_asset('ship_flowchart', 'QRF Ship Flowchart', {x=w + 29,y=0.5,z=0}, 180)
     Wait.frames(function()
         tray.flip()
         tray.setLock(true)

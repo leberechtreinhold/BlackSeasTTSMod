@@ -89,6 +89,11 @@ board_8x6 = {
     tex_normal = "http://cloud-3.steamusercontent.com/ugc/1669112763167976319/A787FC94AD8911681C3F4F623E2BC002B36F18DA/"
 }
 
+ship_flowchart = {
+    rotation = 0,
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1773826716842532597/D14ADE2BF5E7F96F3C95E25AC1CF2205F659876D/"
+}
+
 terrain_data = {
     beach = {
         rotation = 90,
