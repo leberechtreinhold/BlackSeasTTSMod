@@ -93,6 +93,7 @@ function ShipUI:create(ship)
         else
             UI.setAttribute("btn_status_sailhit", "image", "ui_sailhit_disabled")
         end
+        self:show_ui_cannons()
     end
     
     function _shipui:show_ui_cannons()

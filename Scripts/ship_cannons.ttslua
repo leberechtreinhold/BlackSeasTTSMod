@@ -74,10 +74,10 @@ function Cannons:create(ship)
 
         local pos = cannon_positions[position]
         self.ship.current_turn_positions_shot[pos] = true
-        if self.ship.initial_broadside and 
-            (pos == cannon_positions.Starboard 
+        if self.ship.initial_broadside and
+            (pos == cannon_positions.Starboard
              or pos == cannon_positions.Port) then
-            
+
             self.ship.initial_broadside = false
             self:recalculate_cannons()
         end
@@ -125,12 +125,22 @@ function Cannons:create(ship)
         -- Current cannons may have the initial broadside accounted for, which
         -- should not be part of the half number, so we reset them
         self.ship.current_cannons = deep_copy(data_ships[self.ship.type].cannons)
+        local has_gundeckhit = self.ship.current_statuses[ship_statuses.GunDeckHit]
+        local modifier = 0
+        if has_gundeckhit then
+            modifier = -2
+        end
+
         for position_name, position_data in pairs(self.ship.current_cannons) do
             for cannon_name, number in pairs(position_data) do
                 if self.ship.added_cannons then
-                    self.ship.current_cannons[position_name][cannon_name] = math.ceil((number+self.ship.added_cannons[position_name][cannon_name])/2)
+                    self.ship.current_cannons[position_name][cannon_name] = math.ceil((number+self.ship.added_cannons[position_name][cannon_name])/2) + modifier
                 else
-                    self.ship.current_cannons[position_name][cannon_name] = math.ceil(number / 2)
+                    self.ship.current_cannons[position_name][cannon_name] = math.ceil(number / 2) + modifier
+                end
+
+                if self.ship.current_cannons[position_name][cannon_name] < 0 then
+                    self.ship.current_cannons[position_name][cannon_name] = 0
                 end
             end
         end
@@ -142,10 +152,20 @@ function Cannons:create(ship)
 
     function _cannons:restore_cannons()
         self.ship.current_cannons = deep_copy(data_ships[self.ship.type].cannons)
-        if self.ship.added_cannons then
-            for position_name, position_data in pairs(self.ship.current_cannons) do
-                for cannon_name, number in pairs(position_data) do
-                    self.ship.current_cannons[position_name][cannon_name] = number + self.ship.added_cannons[position_name][cannon_name]
+        local has_gundeckhit = self.ship.current_statuses[ship_statuses.GunDeckHit]
+        local modifier = 0
+        if has_gundeckhit then
+            modifier = -2
+        end
+        for position_name, position_data in pairs(self.ship.current_cannons) do
+            for cannon_name, number in pairs(position_data) do
+                local pos_modifier = 0
+                if self.ship.added_cannons then
+                    pos_modifier = self.ship.added_cannons[position_name][cannon_name]
+                end
+                self.ship.current_cannons[position_name][cannon_name] = number + pos_modifier + modifier
+                if self.ship.current_cannons[position_name][cannon_name] < 0 then
+                    self.ship.current_cannons[position_name][cannon_name] = 0
                 end
             end
         end

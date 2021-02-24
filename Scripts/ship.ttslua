@@ -335,6 +335,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         else
             self.current_statuses[status] = true
         end
+        if status == ship_statuses.GunDeckHit then
+            self.cannons:recalculate_cannons()
+        end
         self.ui:show_ui_status()
     end
 
