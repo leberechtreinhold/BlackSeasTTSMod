@@ -17,7 +17,8 @@ ship_types = {
     shiptype_bellerophon = 201,
     shiptype_la_princesa = 202,
     shiptype_essex = 202,
-    shiptype_indefatigable = 203
+    shiptype_indefatigable = 203,
+    shiptype_constitution = 204
 }
 
 data_ships = {}
