@@ -224,6 +224,7 @@ None</Text>
                     <Option>Small Merchant</Option>
                     <Option>Frigate (6th)*</Option>
                     <Option>Frigate (5th)</Option>
+                    <Option>Frigate (4th)*</Option>
                     <Option>Line (Small 3rd)*</Option>
                     <Option>Line (3rd)</Option>
                     <Option>Gun Emplacement</Option>
@@ -231,8 +232,10 @@ None</Text>
                     <Option>Martello Tower</Option>
                     <Option>Bucentaure*</Option>
                     <Option>HMS Bellerophon*</Option>
+                    <Option>HMS Indefatigable*</Option>
                     <Option>La Princesa*</Option>
                     <Option>USS Essex*</Option>
+                    <Option>USS Constitution*</Option>
                 </Dropdown>
             </Cell>
         </Row>
