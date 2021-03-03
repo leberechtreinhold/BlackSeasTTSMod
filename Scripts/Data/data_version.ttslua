@@ -1,4 +1,4 @@
-g_current_version = "1.0.1"
+g_current_version = "1.1.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -66,5 +66,24 @@ g_release_notes = {
 - Fixed a bug where changing the name of a shipd didn't change the name of the object/tooltip.
 
 - The wind turn order now takes into account the board size and skips the fortifications, which come after ships anyway.
+    ]],
+    ["1.1.0"] = [[
+- Small Merchant: Using a model representing the HMS Bounty, now you can represent a typical frigate-sized merchant. A good objective for your games!!!
+
+- Using the frigate model, added the 4th Rate, USS Consitution and HMS Indefatigable.
+
+- Added smoke to represent which positions of a ship have fired. The smoke remains until you press Wind turn roll to begin a new turn.
+
+- If you prefer to estimate your firing arcs when moving, you can now do so, with a check on the guns panel where you can enable or disable the firing indicator.
+
+- Changed the initial broadside with the change from the FAQ, now only if a ship has the cannons on the initial broadside it benefits from them. So for example, a brig doesn't have any benefit on the initial broadside because it has no light cannon.
+
+- The gundeck critical effect now shows visually and effects the firing rolls.
+
+- Added a new reference sheet with a flowchart of a ship's turn.
+
+- Improved the wind turn order, which now ignores fortifications and dead ships, like the summary.
+
+- Added more Ship names.
     ]]
 }
