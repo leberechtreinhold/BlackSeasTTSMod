@@ -1,4 +1,4 @@
-g_current_version = "1.1.0"
+g_current_version = "1.2.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -85,5 +85,12 @@ g_release_notes = {
 - Improved the wind turn order, which now ignores fortifications and dead ships, like the summary.
 
 - Added more Ship names.
+    ]],
+    ["1.2.0"] = [[
+- Small Galley: Using a model representing a royal swedish schooner, now you can use this type of ships, commonly used in the finnish achipielago!
+
+- Cutter: This small and agile ship was used in all navies in the world, plus many contrabandists. The model is based on the Snap Opp, a swedish cutter.
+
+- Masts hit is now improved, and reduces the ship points by a quarter of the maximum.
     ]]
 }
