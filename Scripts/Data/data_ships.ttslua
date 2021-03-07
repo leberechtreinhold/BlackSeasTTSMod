@@ -935,7 +935,7 @@ data_ships.shiptype_small_galley = {
         Stern = 1
     },
     hull = {
-        customasset = "http://cloud-3.steamusercontent.com/ugc/1770449642899942750/763257CEF15CB5DC6E63EC50FFF3777C6B48A012/"
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1770449977192800450/6648EE60260C9B5A0D58115C7A4F8CF7BEF3FFD9/"
     },
     broken_masts = {
         mast1 = {
