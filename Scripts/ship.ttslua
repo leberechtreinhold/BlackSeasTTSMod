@@ -506,7 +506,10 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         if self.is_fortification then
             return
         end
-        print_info(self.display_name .. ' has a broken mast!')
+        local original_ship_points = data_ships[self.type].ship_points
+        local damage = math.ceil(data_ships[self.type].ship_points / 4)
+        self:change_ship_points(-damage)
+        print_info(self.display_name .. ' has a broken mast! Suffered ' .. damage .. ' damage')
         self.masts_broken = self.masts_broken + 1
         local broken_mast_data = data_ships[self.type].broken_masts['mast' .. self.masts_broken]
         if not broken_mast_data then
