@@ -309,7 +309,9 @@ sails_assets = {
     cat = "http://cloud-3.steamusercontent.com/ugc/1776075791925068474/4171F73053A110266F308ED7E5DBD7660382BF72/",
     cat_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992054/3ED88718F7376485BEE7213FA5778D036D7EEC2E/",
     bow = "http://cloud-3.steamusercontent.com/ugc/1776075791924991986/451A11A74D472F4F059358893783CBF29C2A5CC2/",
-    bow_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924991913/9788E5817056B61F68D585A207C39AB409DC943C/"
+    bow_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924991913/9788E5817056B61F68D585A207C39AB409DC943C/",
+    cat_cutter = "http://cloud-3.steamusercontent.com/ugc/1770449977192857904/B5828CDE17093A7F1C7C3CD3E5921534AD835B7E/",
+    cat_cutter_furled = "http://cloud-3.steamusercontent.com/ugc/1776075791924992054/3ED88718F7376485BEE7213FA5778D036D7EEC2E/"
 }
 
 sail_tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"

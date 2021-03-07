@@ -20,6 +20,8 @@ function on_ui_ship_type_selected(player, value, id)
         g_ui_current_ship_type = 'shiptype_small_merchant'
     elseif value == 'Small Galley' then
         g_ui_current_ship_type = 'shiptype_small_galley'
+    elseif value == 'Cutter' then
+        g_ui_current_ship_type = 'shiptype_cutter'
     elseif value == 'Frigate (5th)' then
         g_ui_current_ship_type = 'shiptype_frigate'
     elseif value == 'Frigate (6th)*' then
