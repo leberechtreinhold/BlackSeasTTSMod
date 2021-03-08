@@ -38,6 +38,8 @@ function on_ui_ship_type_selected(player, value, id)
         g_ui_current_ship_type = 'fortification_mortar_emplacement'
     elseif value == 'Martello Tower' then
         g_ui_current_ship_type = 'fortification_martello'
+    elseif value == 'Floating Battery' then
+        g_ui_current_ship_type = 'fortification_floating_battery'
     elseif value == 'Bucentaure*' then
         g_ui_current_ship_type = 'shiptype_bucentaure'
     elseif value == 'HMS Bellerophon*' then
