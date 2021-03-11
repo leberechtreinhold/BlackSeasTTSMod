@@ -39,6 +39,7 @@ function Transform:from_coords(_rotation, _position, _size, _optional_corners)
         local pos = self.position
 
         _transform.corners = {
+            center    = rotate_point_relative({x =     0, y = 0, z =     0}, pos, rot),
             bow       = rotate_point_relative({x = xhalf, y = 0, z =     0}, pos, rot),
             starboard = rotate_point_relative({x =     0, y = 0, z =-zhalf}, pos, rot),
             topright  = rotate_point_relative({x = xhalf, y = 0, z =-zhalf}, pos, rot),

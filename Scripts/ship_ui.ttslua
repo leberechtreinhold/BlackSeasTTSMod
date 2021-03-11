@@ -4,7 +4,7 @@ function ShipUI:create(ship)
     _shipui = {}
     _shipui.ship = ship
 
-    
+
     function _shipui:get_str_cannons(position)
         local data = self.ship.current_cannons[position]
         local str = ""
@@ -49,6 +49,9 @@ function ShipUI:create(ship)
 
     function _shipui:update_degrees_ui()
         UI.setAttribute('slider_turn', 'value', self.ship.current_turn)
+        local max_turn = data_ships[self.ship.type].turn_angle
+        UI.setAttribute('slider_turn', 'minValue', -max_turn)
+        UI.setAttribute('slider_turn', 'maxValue', max_turn)
 
         local text = 'Turn ' .. self.ship.current_turn .. 'º'
         UI.setValue('button_turn', text)
@@ -63,13 +66,13 @@ function ShipUI:create(ship)
             UI.setAttribute("btn_status_fire", "image", "ui_fire_disabled")
             self.ship.hull_obj.AssetBundle.playLoopingEffect(0)
         end
-        
+
         if self.ship:has_status(ship_statuses.CrewHit) then
             UI.setAttribute("btn_status_crewhit", "image", "ui_crewhit")
         else
             UI.setAttribute("btn_status_crewhit", "image", "ui_crewhit_disabled")
         end
-        
+
         if self.ship:has_status(ship_statuses.QuarterDeckHit) then
             UI.setAttribute("btn_status_quarterdeckhit", "image", "ui_quarterdeckhit")
         else
@@ -95,7 +98,7 @@ function ShipUI:create(ship)
         end
         self:show_ui_cannons()
     end
-    
+
     function _shipui:show_ui_cannons()
         UI.setAttribute("text_guns_bow", "text", self:get_str_cannons('Bow'))
         UI.setAttribute("text_guns_port", "text", self:get_str_cannons('Port'))
@@ -108,11 +111,11 @@ function ShipUI:create(ship)
         self:update_ship_points()
 
         self:show_ui_cannons()
-        
+
         UI.setAttribute('text_crew', 'text', "Crew: " .. crew_levels_reverse[self.ship.crew_level])
         UI.setAttribute('text_knots', 'text', "Knots: " .. data_ships[self.ship.type].knots)
         UI.setAttribute("text_break_value", "text", "Break Value: " .. data_ships[self.ship.type].break_value)
-        UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)        
+        UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)
         UI.setAttribute("text_faction", "text", "Faction: " .. self.ship.faction)
 
         if self.ship.is_fortification then
@@ -122,7 +125,7 @@ function ShipUI:create(ship)
             UI.setAttribute("panel_guns_bow", "active", false)
             UI.setAttribute("panel_guns_starboard", "active", false)
             UI.setValue("text_guns_port_title", "")
-            
+
             UI.setAttribute("button_move", "interactable", false)
             UI.setAttribute("button_turn", "interactable", false)
             UI.setAttribute("text_turn", "text", "")
@@ -133,7 +136,7 @@ function ShipUI:create(ship)
             self.ship.hull_obj.UI.show("panel_stern_fire")
             self.ship.hull_obj.UI.show("panel_move")
             self.ship.hull_obj.UI.show("panel_turn")
-            
+
             UI.setAttribute("image_card", "image", "ship_frigate_card")
             UI.setAttribute("image_guns", "image", "ship_guns_bg")
             UI.setAttribute("panel_guns_stern", "active", true)
@@ -143,7 +146,7 @@ function ShipUI:create(ship)
 
             UI.setAttribute("button_move", "interactable", true)
             UI.setAttribute("button_turn", "interactable", true)
-            
+
             if data_ships[self.ship.type].turn_angle == turn_angles.Red then
                 UI.setAttribute("text_turn", "text", "Turn: Red")
             else
@@ -175,7 +178,7 @@ function ShipUI:create(ship)
                 UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
                     "isOn", false)
             end
-            if self.ship.is_fortification then
+            if self.ship.is_fortification or data_ships[self.ship.type].is_squadron then
                 UI.setAttribute("togglegroup_sail_setup_" .. sail_id,
                     "interactable", false)
             else
@@ -268,12 +271,12 @@ function ShipUI:create(ship)
 
     function _shipui:update_ship_points()
         if self.ship.is_fortification then
-            UI.setAttribute("text_ship_points", "text", "Structure points: " 
-                .. self.ship.current_ship_points .. "/" 
+            UI.setAttribute("text_ship_points", "text", "Structure points: "
+                .. self.ship.current_ship_points .. "/"
                 ..  self.ship.max_ship_points)
-        else        
-            UI.setAttribute("text_ship_points", "text", "Ship points: " 
-                .. self.ship.current_ship_points .. "/" 
+        else
+            UI.setAttribute("text_ship_points", "text", "Ship points: "
+                .. self.ship.current_ship_points .. "/"
                 ..  self.ship.max_ship_points)
         end
     end
@@ -283,7 +286,7 @@ function ShipUI:create(ship)
         for pos, ammo in pairs(ammo_per_position) do
             local pos_str = cannon_positions_reverse[pos]:lower()
             local ammo_str = ammo_types_reverse[ammo]:lower()
-            
+
             local image = 'ui_icon_ammo_' .. ammo_str
             if self.ship.current_turn_positions_shot[pos] then
                 image = image .. '_hover'

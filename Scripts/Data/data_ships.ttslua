@@ -10,7 +10,9 @@ ship_types = {
     shiptype_frigate_4th = 7,
     shiptype_small_galley = 8,
     shiptype_cutter = 9,
-
+    shiptype_gunbrig_squadron = 10,
+    shiptype_gunboat_squadron = 11,
+    
     fortification_gun_emplacement = 100,
     fortification_mortar_emplacement = 101,
     fortification_martello = 102,
@@ -1295,6 +1297,140 @@ data_ships.shiptype_small_galley = {
         pendon = {
             rotation = 180,
             pos_offset = {x=-0.22,y=3.1,z=0},
+            references_nation = "flag_pendon"
+        }
+    }
+}
+
+data_ships.shiptype_gunbrig_squadron = {
+    is_squadron = true,
+    ship_points = 12,
+    break_value = 4,
+    points = 40,
+    turn_angle = turn_angles.Squadron,
+    size = "T",
+    knots = 4,
+    cannons = {
+        Bow = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 1
+        },
+        Starboard = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 1
+        },
+        Stern = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 2,
+        Port = 1,
+        Bow = 0,
+        Stern = 0
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1769324497988829885/03E42FF2BFF5A1345950827A02F9370D698FAFA2/"
+    },
+    broken_masts = {
+    },
+    flags = {
+        pendon1 = {
+            rotation = 180,
+            pos_offset = {x=0.0304,y=0.5554,z=-0.9471},
+            scale = {x=0.3,y=0.3,z=0.3},
+            references_nation = "flag_pendon"
+        },
+        pendon2 = {
+            rotation = 180,
+            pos_offset = {x=0.7197,y=0.5554,z=0.0005},
+            scale = {x=0.3,y=0.3,z=0.3},
+            references_nation = "flag_pendon"
+        },
+        pendon3 = {
+            rotation = 180,
+            pos_offset = {x=-0.5706,y=0.5554,z=0.7354},
+            scale = {x=0.3,y=0.3,z=0.3},
+            references_nation = "flag_pendon"
+        }
+    }
+}
+
+data_ships.shiptype_gunboat_squadron = {
+    is_squadron = true,
+    ship_points = 12,
+    break_value = 4,
+    points = 30,
+    turn_angle = turn_angles.Squadron,
+    size = "T",
+    knots = 4,
+    cannons = {
+        Bow = {
+            heavy = 0,
+            light = 1,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Starboard = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Stern = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 2,
+        Port = 1,
+        Bow = 0,
+        Stern = 0
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1769324497988829885/03E42FF2BFF5A1345950827A02F9370D698FAFA2/"
+    },
+    broken_masts = {
+    },
+    flags = {
+        pendon1 = {
+            rotation = 180,
+            pos_offset = {x=0.0304,y=0.5554,z=-0.9471},
+            scale = {x=0.3,y=0.3,z=0.3},
+            references_nation = "flag_pendon"
+        },
+        pendon2 = {
+            rotation = 180,
+            pos_offset = {x=0.7197,y=0.5554,z=0.0005},
+            scale = {x=0.3,y=0.3,z=0.3},
+            references_nation = "flag_pendon"
+        },
+        pendon3 = {
+            rotation = 180,
+            pos_offset = {x=-0.5706,y=0.5554,z=0.7354},
+            scale = {x=0.3,y=0.3,z=0.3},
             references_nation = "flag_pendon"
         }
     }

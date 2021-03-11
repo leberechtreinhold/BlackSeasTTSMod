@@ -10,7 +10,15 @@ function Gizmo:create(ship)
     end
 
     function _gizmo:ship_movement(strokes)
-        local transform = Transform:from_relative_ship(self.ship):turn('stern', self.ship.current_turn):advance(self.ship.current_knots)
+        local transform = Transform:from_relative_ship(self.ship)
+
+        if data_ships[self.ship.type].is_squadron then
+            transform = transform:turn('center', self.ship.current_turn)
+        else
+            transform = transform:turn('stern', self.ship.current_turn)
+        end
+        
+        transform = transform:advance(self.ship.current_knots)
         table.insert(strokes, transform:get_strokes())
     end
 

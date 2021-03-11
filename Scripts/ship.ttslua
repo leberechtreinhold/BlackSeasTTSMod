@@ -77,7 +77,6 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         return data_ships[self.type].turn_angle
     end
 
-
     function _ship:receive_mortar_fire()
         local dice_roll = math.random(1,10)
         local angle = math.random()*2*math.pi
@@ -126,7 +125,16 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
 
     -- Turns the ship from the stern the degrees currently assigned
     function _ship:turn()
-        Transform:from_ship(self):turn('stern', self.current_turn):apply_obj(self.hull_obj)
+        local transform = Transform:from_ship(self)
+
+        if data_ships[self.type].is_squadron then
+            transform = transform:turn('center', self.current_turn)
+        else
+            transform = transform:turn('stern', self.current_turn)
+        end
+
+        transform:apply_obj(self.hull_obj)
+
         if self.current_turn > 0 then
             print_info(self.display_name .. ' has turned ' .. self.current_turn .. 'º to port')
         else
@@ -600,6 +608,12 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     end
 
     function _ship:display_wind_attitude()
+        if data_ships[self.type].is_squadron then
+            -- Squadrons dont have a wind attitude
+            UI.setAttribute("text_max_sail", "text", '')
+            return
+        end
+
         local angle = normalize_angle(math.rad(self.hull_obj.getRotation().y))
         local wind_angle = normalize_angle(math.rad(positive_angle_deg(wind_angles[g_state.current_wind] - 180)))
         local relative_angle = math.abs(angle - wind_angle)

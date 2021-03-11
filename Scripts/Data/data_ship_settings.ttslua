@@ -40,7 +40,8 @@ faction_ids_reverse = {
 
 turn_angles = {
     Yellow = 30,
-    Red = 45
+    Red = 45,
+    Squadron = 180
 }
 
 initial_broadside = {
