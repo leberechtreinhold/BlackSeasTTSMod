@@ -706,12 +706,17 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                 print_debug("Found " .. name .. "(" .. value.index .. ") which has to change")
                 self:destroy_attach(name)
 
+                print_debug('Base rotation ' .. vec_to_str(base_rotation))
                 if flag_data.rotation_vector then
                     flag_data.rotation_vector = vec_add(base_rotation, flag_data.rotation_vector)
                 else
-                    flag_data.rotation_vector = base_rotation
+                    flag_data.rotation_vector = deep_copy(base_rotation)
                 end
+                print_debug('Final rotation ' .. vec_to_str(base_rotation))
+                print_debug('Base offset ' .. vec_to_str(flag_data.pos_offset))
+
                 flag_data.pos_offset = rotate_point_relative(flag_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
+                print_debug('Final offset ' .. vec_to_str(flag_data.pos_offset))
 
                 spawn_asset_by_data(
                     flag_data, name, base_position, 0,
@@ -753,7 +758,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                 if flag_data.rotation_vector then
                     flag_data.rotation_vector = vec_add(base_rotation, flag_data.rotation_vector)
                 else
-                    flag_data.rotation_vector = base_rotation
+                    flag_data.rotation_vector = deep_copy(base_rotation)
                 end
                 flag_data.pos_offset = rotate_point_relative(flag_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
 
