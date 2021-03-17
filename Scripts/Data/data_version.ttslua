@@ -1,4 +1,4 @@
-g_current_version = "1.2.0"
+g_current_version = "1.3.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -92,5 +92,16 @@ g_release_notes = {
 - Cutter: This small and agile ship was used in all navies in the world, plus many contrabandists. The model is based on the Snap Opp, a swedish cutter.
 
 - Masts hit is now improved, and reduces the ship points by a quarter of the maximum.
+    ]],
+    ["1.3.0"] = [[
+- Squadrons added! Small boats acting as a group. They have limited firepower, but they have a lot of manoeuvrability, and are quite hard to hit!
+
+- Floating batteries: This typical type of coastal defenses was very common in the XVIIIth and early XIXth. While there were many varieties, both in construction and size, this is a simple battery on a raft, similar to the ones used in the Siege of Copenhage (1801).
+
+- Improved the turning: Now ships with a Yellow turning can only turn up to 30º on the slider (before, you had to control the angle manually). Also, squadrons turn on the spot, using the center of the "base".
+
+- Increased the pool of Russian ship names.
+
+- Fixed a bug where sometimes the surrendering flag (or when changing factions) spawned on the wrong side of the ship.
     ]]
 }
