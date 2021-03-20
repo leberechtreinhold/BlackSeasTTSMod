@@ -24,7 +24,10 @@ ship_types = {
     shiptype_la_princesa = 202,
     shiptype_essex = 202,
     shiptype_indefatigable = 203,
-    shiptype_constitution = 204
+    shiptype_constitution = 204,
+    shiptype_victory = 205,
+    shiptype_orient = 206,
+    shiptype_trinidad = 207,
 }
 
 data_ships = {}
@@ -5778,6 +5781,1119 @@ data_ships.shiptype_constitution = {
         pendon = {
             rotation = 180,
             pos_offset = {x=-0.35,y=2.958,z=0},
+            references_nation = "flag_pendon"
+        }
+    }
+}
+
+data_ships.shiptype_victory = {
+    ship_points = 115,
+    break_value = 20,
+    points = 550,
+    turn_angle = turn_angles.Yellow,
+    size = "XL",
+    knots = 3,
+    fix_height = -0.19,
+    cannons = {
+        Bow = {
+            heavy = 2,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 4,
+            light = 4,
+            mortar = 0,
+            carronade = 3
+        },
+        Starboard = {
+            heavy = 4,
+            light = 4,
+            mortar = 0,
+            carronade = 3
+        },
+        Stern = {
+            heavy = 1,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 2,
+        Port = 1,
+        Bow = 0,
+        Stern = 3
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1760317862055485755/14B5C72B63747437D56B594BEF445BD6EDC38138/"
+    },
+    broken_masts = {
+        mast1 = {
+            masts = {
+                foremast = true,
+                yard_fore_4 = true,
+                yard_fore_5 = true,
+                yard_fore_6 = true
+            },
+            sails = {
+                mainfore = true,
+                gallantfore = true,
+                topfore = true,
+                jib1 = true,
+                jib2 = true,
+                jib3 = true
+            },
+            flags = {
+                
+            }
+        },
+        mast2 = {
+            masts = {
+                mizzenmast = true,
+                yard_mizzen_7 = true,
+                yard_mizzen_8 = true,
+                yard_mizzen_9 = true,
+                gaff = true
+            },
+            sails = {
+                mainmizzen = true,
+                gallantmizzen = true,
+                topmizzen = true,
+                cat = true
+            },
+            flags = {
+                
+            }
+        },
+        mast3 = {
+            masts = {
+                mainmast = true,
+                yard_main_1 = true,
+                yard_main_2 = true,
+                yard_main_3 = true,
+                gaff = true
+            },
+            sails = {
+                mainmain = true,
+                gallantmain = true,
+                topmain = true,
+                bow = true,
+            },
+            flags = {
+                pendon = true
+            }
+        }
+    },
+    masts = {
+        bow = {
+            pos_offset = {x=2.528, y=0.699, z=0},
+            scale = {x=1.9, y=1.9, z=1.9},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991356/F1A4BF2D97A108DDD1CD2127355F0B45E7D88EF9/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        mainmast = {
+            pos_offset = {x=-0.5039998, y=0.7629999, z=0},
+            scale = {x=1.5, y=1.5, z=1.5},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991616/C1B4CDFE33ED8B4F6B64FFCC83EE3F84F9077ECD/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        foremast = {
+            pos_offset = {x=2.049, y=0.818, z=0},
+            scale = {x=1.5, y=1.5, z=1.5},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991536/A547F4C4B0207429D699DCD5526C69BFCC261D2F/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        mizzenmast = {
+            pos_offset = {x=-1.950999, y=1.01, z=0},
+            scale = {x=1.4, y=1.4, z=1.4},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991536/A547F4C4B0207429D699DCD5526C69BFCC261D2F/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        gaff = {
+            pos_offset = {x=-2.001, y=1.015, z=0},
+            scale = {x=1.4, y=1.4, z=1.4},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991434/566A80FB0EAC2FF9B33F32CB8BF1C7F19E4B4C53/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        bow_spit_1 = {
+            pos_offset = {x=3.634, y=1.14, z=0},
+            scale = {x=1.7, y=1.7, z=1.7},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991256/2AD4641D2D0C1E54EF824C070D18141CC5C003DE/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        bow_spit_2 = {
+            pos_offset = {x=4.448, y=1.656, z=0},
+            scale = {x=1.3, y=1.3, z=1.3},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991256/2AD4641D2D0C1E54EF824C070D18141CC5C003DE/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_1 = {
+            scale = {x=1.7, y=1.7, z=1.7},
+            pos_offset = {x=-0.4299999, y=2.287, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_2 = {
+            scale = {x=1.6, y=1.5, z=1.2},
+            pos_offset = {x=-0.4679998, y=3.481, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_3 = {
+            scale = {x=1.3, y=1.2, z=1},
+            pos_offset = {x=-0.463, y=4.14, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_4 = {
+            scale = {x=1.7, y=1.5, z=1.3},
+            pos_offset = {x=2.128, y=2.092, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_5 = {
+            scale = {x=1.6, y=1.2, z=1.1},
+            pos_offset = {x=2.153, y=3.154, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_6 = {
+            scale = {x=1.4, y=1.1, z=0.8},
+            pos_offset = {x=2.171, y=3.864, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_7 = {
+            scale = {x=1.5, y=1.4, z=1.187784},
+            pos_offset = {x=-1.855, y=2.188, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_8 = {
+            scale = {x=1.4, y=1.12, z=1},
+            pos_offset = {x=-1.846, y=3.171, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_9 = {
+            scale = {x=1.2, y=0.7862, z=0.6318},
+            pos_offset = {x=-1.831, y=3.831, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        }
+    },
+    sails = {
+        jib1 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=4.331,y=1.774,z=0},
+            scale = {x=1.2, y=1.2, z=1.2},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        jib2 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=4.187,y=1.547,z=0},
+            scale = {x=2.5, y=1.5, z=1.2},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        jib3 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=3.693,y=1.444,z=-0.034},
+            scale = {x=3, y=1.2, z=1.7},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+            }
+        },
+        bow_1 = {
+            pos_offset = {x=3.634,y=1.14,z=0},
+            scale = 1.7,
+            references_sail = "bow",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        bow_2 = {
+            pos_offset = {x=4.448,y=1.656,z=0},
+            scale = 1.3,
+            references_sail = "bow",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        mainfore = {
+            pos_offset = {x=2.128,y=2.092,z=0},
+            references_sail = "main_l",
+            scale = 1.7,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantfore = {
+            pos_offset = {x=2.153,y=3.154,z=0},
+            references_sail = "gallant_l",
+            scale = 1.6,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topfore = {
+            pos_offset = {x=2.171,y=3.864,z=0},
+            references_sail = "top_s",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        mainmain = {
+            pos_offset = {x=-0.4299999,y=2.287,z=0},
+            references_sail = "main_xl",
+            scale = 1.7,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantmain = {
+            pos_offset = {x=-0.4679998,y=3.481,z=0},
+            references_sail = "gallant_xl",
+            scale = 1.6,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topmain = {
+            pos_offset = {x=-0.463,y=4.14,z=0},
+            references_sail = "top_s",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        mainmizzen = {
+            pos_offset = {x=-1.855,y=2.188,z=0},
+            references_sail = "main_l",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantmizzen = {
+            pos_offset = {x=-1.846,y=3.171,z=0},
+            references_sail = "gallant_l",
+            scale = 1.4,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topmizzen = {
+            pos_offset = {x=-1.831,y=3.831,z=0},
+            references_sail = "top_s",
+            scale = 1.4,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        cat = {
+            pos_offset = {x=-2.02,y=2.027,z=-0.007},
+            references_sail = "cat",
+            scale = 1.3,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        }
+    },
+    flags = {
+        ensign = {
+            rotation_vector = {x=0, y=200, z=15},
+            pos_offset = {x=-3.525,y=2.021,z=0.074},
+            scale = {x=1.5, y=1.5, z=1.5},
+            references_nation = "flag_ensign"
+        },
+        pendon = {
+            rotation = 180,
+            scale = {x=1.7, y=1.7, z=1.7},
+            pos_offset = {x=-0.516,y=4.272,z=0},
+            references_nation = "flag_pendon"
+        }
+    }
+}
+
+data_ships.shiptype_orient = {
+    ship_points = 120,
+    break_value = 40,
+    points = 550,
+    turn_angle = turn_angles.Yellow,
+    size = "XL",
+    knots = 3,
+    fix_height = -0.19,
+    cannons = {
+        Bow = {
+            heavy = 2,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 4,
+            light = 4,
+            mortar = 0,
+            carronade = 3
+        },
+        Starboard = {
+            heavy = 4,
+            light = 4,
+            mortar = 0,
+            carronade = 3
+        },
+        Stern = {
+            heavy = 1,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 2,
+        Port = 1,
+        Bow = 0,
+        Stern = 3
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1760317862055485755/14B5C72B63747437D56B594BEF445BD6EDC38138/"
+    },
+    broken_masts = {
+        mast1 = {
+            masts = {
+                foremast = true,
+                yard_fore_4 = true,
+                yard_fore_5 = true,
+                yard_fore_6 = true
+            },
+            sails = {
+                mainfore = true,
+                gallantfore = true,
+                topfore = true,
+                jib1 = true,
+                jib2 = true,
+                jib3 = true
+            },
+            flags = {
+                
+            }
+        },
+        mast2 = {
+            masts = {
+                mizzenmast = true,
+                yard_mizzen_7 = true,
+                yard_mizzen_8 = true,
+                yard_mizzen_9 = true,
+                gaff = true
+            },
+            sails = {
+                mainmizzen = true,
+                gallantmizzen = true,
+                topmizzen = true,
+                cat = true
+            },
+            flags = {
+                
+            }
+        },
+        mast3 = {
+            masts = {
+                mainmast = true,
+                yard_main_1 = true,
+                yard_main_2 = true,
+                yard_main_3 = true,
+                gaff = true
+            },
+            sails = {
+                mainmain = true,
+                gallantmain = true,
+                topmain = true,
+                bow = true,
+            },
+            flags = {
+                pendon = true
+            }
+        }
+    },
+    masts = {
+        bow = {
+            pos_offset = {x=2.528, y=0.699, z=0},
+            scale = {x=1.9, y=1.9, z=1.9},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991356/F1A4BF2D97A108DDD1CD2127355F0B45E7D88EF9/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        mainmast = {
+            pos_offset = {x=-0.5039998, y=0.7629999, z=0},
+            scale = {x=1.5, y=1.5, z=1.5},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991616/C1B4CDFE33ED8B4F6B64FFCC83EE3F84F9077ECD/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        foremast = {
+            pos_offset = {x=2.049, y=0.818, z=0},
+            scale = {x=1.5, y=1.5, z=1.5},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991536/A547F4C4B0207429D699DCD5526C69BFCC261D2F/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        mizzenmast = {
+            pos_offset = {x=-1.950999, y=1.01, z=0},
+            scale = {x=1.4, y=1.4, z=1.4},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991536/A547F4C4B0207429D699DCD5526C69BFCC261D2F/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        gaff = {
+            pos_offset = {x=-2.001, y=1.015, z=0},
+            scale = {x=1.4, y=1.4, z=1.4},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991434/566A80FB0EAC2FF9B33F32CB8BF1C7F19E4B4C53/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        bow_spit_1 = {
+            pos_offset = {x=3.634, y=1.14, z=0},
+            scale = {x=1.7, y=1.7, z=1.7},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991256/2AD4641D2D0C1E54EF824C070D18141CC5C003DE/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        bow_spit_2 = {
+            pos_offset = {x=4.448, y=1.656, z=0},
+            scale = {x=1.3, y=1.3, z=1.3},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991256/2AD4641D2D0C1E54EF824C070D18141CC5C003DE/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_1 = {
+            scale = {x=1.7, y=1.7, z=1.7},
+            pos_offset = {x=-0.4299999, y=2.287, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_2 = {
+            scale = {x=1.6, y=1.5, z=1.2},
+            pos_offset = {x=-0.4679998, y=3.481, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_3 = {
+            scale = {x=1.3, y=1.2, z=1},
+            pos_offset = {x=-0.463, y=4.14, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_4 = {
+            scale = {x=1.7, y=1.5, z=1.3},
+            pos_offset = {x=2.128, y=2.092, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_5 = {
+            scale = {x=1.6, y=1.2, z=1.1},
+            pos_offset = {x=2.153, y=3.154, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_6 = {
+            scale = {x=1.4, y=1.1, z=0.8},
+            pos_offset = {x=2.171, y=3.864, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_7 = {
+            scale = {x=1.5, y=1.4, z=1.187784},
+            pos_offset = {x=-1.855, y=2.188, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_8 = {
+            scale = {x=1.4, y=1.12, z=1},
+            pos_offset = {x=-1.846, y=3.171, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_9 = {
+            scale = {x=1.2, y=0.7862, z=0.6318},
+            pos_offset = {x=-1.831, y=3.831, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        }
+    },
+    sails = {
+        jib1 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=4.331,y=1.774,z=0},
+            scale = {x=1.2, y=1.2, z=1.2},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        jib2 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=4.187,y=1.547,z=0},
+            scale = {x=2.5, y=1.5, z=1.2},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        jib3 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=3.693,y=1.444,z=-0.034},
+            scale = {x=3, y=1.2, z=1.7},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+            }
+        },
+        bow_1 = {
+            pos_offset = {x=3.634,y=1.14,z=0},
+            scale = 1.7,
+            references_sail = "bow",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        bow_2 = {
+            pos_offset = {x=4.448,y=1.656,z=0},
+            scale = 1.3,
+            references_sail = "bow",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        mainfore = {
+            pos_offset = {x=2.128,y=2.092,z=0},
+            references_sail = "main_l",
+            scale = 1.7,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantfore = {
+            pos_offset = {x=2.153,y=3.154,z=0},
+            references_sail = "gallant_l",
+            scale = 1.6,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topfore = {
+            pos_offset = {x=2.171,y=3.864,z=0},
+            references_sail = "top_s",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        mainmain = {
+            pos_offset = {x=-0.4299999,y=2.287,z=0},
+            references_sail = "main_xl",
+            scale = 1.7,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantmain = {
+            pos_offset = {x=-0.4679998,y=3.481,z=0},
+            references_sail = "gallant_xl",
+            scale = 1.6,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topmain = {
+            pos_offset = {x=-0.463,y=4.14,z=0},
+            references_sail = "top_s",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        mainmizzen = {
+            pos_offset = {x=-1.855,y=2.188,z=0},
+            references_sail = "main_l",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantmizzen = {
+            pos_offset = {x=-1.846,y=3.171,z=0},
+            references_sail = "gallant_l",
+            scale = 1.4,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topmizzen = {
+            pos_offset = {x=-1.831,y=3.831,z=0},
+            references_sail = "top_s",
+            scale = 1.4,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        cat = {
+            pos_offset = {x=-2.02,y=2.027,z=-0.007},
+            references_sail = "cat",
+            scale = 1.3,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        }
+    },
+    flags = {
+        ensign = {
+            rotation_vector = {x=0, y=200, z=15},
+            pos_offset = {x=-3.525,y=2.021,z=0.074},
+            scale = {x=1.5, y=1.5, z=1.5},
+            references_nation = "flag_ensign"
+        },
+        pendon = {
+            rotation = 180,
+            scale = {x=1.7, y=1.7, z=1.7},
+            pos_offset = {x=-0.516,y=4.272,z=0},
+            references_nation = "flag_pendon"
+        }
+    }
+}
+
+data_ships.shiptype_trinidad = {
+    ship_points = 144,
+    break_value = 48,
+    points = 680,
+    turn_angle = turn_angles.Yellow,
+    size = "XL",
+    knots = 3,
+    fix_height = -0.19,
+    cannons = {
+        Bow = {
+            heavy = 2,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 5,
+            light = 5,
+            mortar = 0,
+            carronade = 4
+        },
+        Starboard = {
+            heavy = 5,
+            light = 5,
+            mortar = 0,
+            carronade = 4
+        },
+        Stern = {
+            heavy = 1,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 2,
+        Port = 1,
+        Bow = 0,
+        Stern = 3
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1760317862055485755/14B5C72B63747437D56B594BEF445BD6EDC38138/"
+    },
+    broken_masts = {
+        mast1 = {
+            masts = {
+                foremast = true,
+                yard_fore_4 = true,
+                yard_fore_5 = true,
+                yard_fore_6 = true
+            },
+            sails = {
+                mainfore = true,
+                gallantfore = true,
+                topfore = true,
+                jib1 = true,
+                jib2 = true,
+                jib3 = true
+            },
+            flags = {
+                
+            }
+        },
+        mast2 = {
+            masts = {
+                mizzenmast = true,
+                yard_mizzen_7 = true,
+                yard_mizzen_8 = true,
+                yard_mizzen_9 = true,
+                gaff = true
+            },
+            sails = {
+                mainmizzen = true,
+                gallantmizzen = true,
+                topmizzen = true,
+                cat = true
+            },
+            flags = {
+                
+            }
+        },
+        mast3 = {
+            masts = {
+                mainmast = true,
+                yard_main_1 = true,
+                yard_main_2 = true,
+                yard_main_3 = true,
+                gaff = true
+            },
+            sails = {
+                mainmain = true,
+                gallantmain = true,
+                topmain = true,
+                bow = true,
+            },
+            flags = {
+                pendon = true
+            }
+        }
+    },
+    masts = {
+        bow = {
+            pos_offset = {x=2.528, y=0.699, z=0},
+            scale = {x=1.9, y=1.9, z=1.9},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991356/F1A4BF2D97A108DDD1CD2127355F0B45E7D88EF9/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        mainmast = {
+            pos_offset = {x=-0.5039998, y=0.7629999, z=0},
+            scale = {x=1.5, y=1.5, z=1.5},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991616/C1B4CDFE33ED8B4F6B64FFCC83EE3F84F9077ECD/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        foremast = {
+            pos_offset = {x=2.049, y=0.818, z=0},
+            scale = {x=1.5, y=1.5, z=1.5},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991536/A547F4C4B0207429D699DCD5526C69BFCC261D2F/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        mizzenmast = {
+            pos_offset = {x=-1.950999, y=1.01, z=0},
+            scale = {x=1.4, y=1.4, z=1.4},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991536/A547F4C4B0207429D699DCD5526C69BFCC261D2F/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        gaff = {
+            pos_offset = {x=-2.001, y=1.015, z=0},
+            scale = {x=1.4, y=1.4, z=1.4},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991434/566A80FB0EAC2FF9B33F32CB8BF1C7F19E4B4C53/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        bow_spit_1 = {
+            pos_offset = {x=3.634, y=1.14, z=0},
+            scale = {x=1.7, y=1.7, z=1.7},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991256/2AD4641D2D0C1E54EF824C070D18141CC5C003DE/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        bow_spit_2 = {
+            pos_offset = {x=4.448, y=1.656, z=0},
+            scale = {x=1.3, y=1.3, z=1.3},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991256/2AD4641D2D0C1E54EF824C070D18141CC5C003DE/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_1 = {
+            scale = {x=1.7, y=1.7, z=1.7},
+            pos_offset = {x=-0.4299999, y=2.287, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_2 = {
+            scale = {x=1.6, y=1.5, z=1.2},
+            pos_offset = {x=-0.4679998, y=3.481, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_main_3 = {
+            scale = {x=1.3, y=1.2, z=1},
+            pos_offset = {x=-0.463, y=4.14, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_4 = {
+            scale = {x=1.7, y=1.5, z=1.3},
+            pos_offset = {x=2.128, y=2.092, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_5 = {
+            scale = {x=1.6, y=1.2, z=1.1},
+            pos_offset = {x=2.153, y=3.154, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_fore_6 = {
+            scale = {x=1.4, y=1.1, z=0.8},
+            pos_offset = {x=2.171, y=3.864, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_7 = {
+            scale = {x=1.5, y=1.4, z=1.187784},
+            pos_offset = {x=-1.855, y=2.188, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_8 = {
+            scale = {x=1.4, y=1.12, z=1},
+            pos_offset = {x=-1.846, y=3.171, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        },
+        yard_mizzen_9 = {
+            scale = {x=1.2, y=0.7862, z=0.6318},
+            pos_offset = {x=-1.831, y=3.831, z=0},
+            rotation = 0,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1776075791924991697/64F75CDF2B84DEEB697DA8AAB82D4FA500244EFF/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1776075791924257666/65995D4773D0524EBC307C08A98F653E29E034D1/"
+        }
+    },
+    sails = {
+        jib1 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=4.331,y=1.774,z=0},
+            scale = {x=1.2, y=1.2, z=1.2},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        jib2 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=4.187,y=1.547,z=0},
+            scale = {x=2.5, y=1.5, z=1.2},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        jib3 = {
+            rotation_vector = {x=0, y=0, z=20},
+            pos_offset = {x=3.693,y=1.444,z=-0.034},
+            scale = {x=3, y=1.2, z=1.7},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+            }
+        },
+        bow_1 = {
+            pos_offset = {x=3.634,y=1.14,z=0},
+            scale = 1.7,
+            references_sail = "bow",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        bow_2 = {
+            pos_offset = {x=4.448,y=1.656,z=0},
+            scale = 1.3,
+            references_sail = "bow",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        mainfore = {
+            pos_offset = {x=2.128,y=2.092,z=0},
+            references_sail = "main_l",
+            scale = 1.7,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantfore = {
+            pos_offset = {x=2.153,y=3.154,z=0},
+            references_sail = "gallant_l",
+            scale = 1.6,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topfore = {
+            pos_offset = {x=2.171,y=3.864,z=0},
+            references_sail = "top_s",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        mainmain = {
+            pos_offset = {x=-0.4299999,y=2.287,z=0},
+            references_sail = "main_xl",
+            scale = 1.7,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantmain = {
+            pos_offset = {x=-0.4679998,y=3.481,z=0},
+            references_sail = "gallant_xl",
+            scale = 1.6,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topmain = {
+            pos_offset = {x=-0.463,y=4.14,z=0},
+            references_sail = "top_s",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        mainmizzen = {
+            pos_offset = {x=-1.855,y=2.188,z=0},
+            references_sail = "main_l",
+            scale = 1.5,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        gallantmizzen = {
+            pos_offset = {x=-1.846,y=3.171,z=0},
+            references_sail = "gallant_l",
+            scale = 1.4,
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topmizzen = {
+            pos_offset = {x=-1.831,y=3.831,z=0},
+            references_sail = "top_s",
+            scale = 1.4,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        cat = {
+            pos_offset = {x=-2.02,y=2.027,z=-0.007},
+            references_sail = "cat",
+            scale = 1.3,
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        }
+    },
+    flags = {
+        ensign = {
+            rotation_vector = {x=0, y=200, z=15},
+            pos_offset = {x=-3.525,y=2.021,z=0.074},
+            scale = {x=1.5, y=1.5, z=1.5},
+            references_nation = "flag_ensign"
+        },
+        pendon = {
+            rotation = 180,
+            scale = {x=1.7, y=1.7, z=1.7},
+            pos_offset = {x=-0.516,y=4.272,z=0},
             references_nation = "flag_pendon"
         }
     }

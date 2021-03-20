@@ -58,6 +58,12 @@ function on_ui_ship_type_selected(player, value, id)
         g_ui_current_ship_type = 'shiptype_constitution'
     elseif value == 'HMS Indefatigable*' then
         g_ui_current_ship_type = 'shiptype_indefatigable'
+    elseif value == 'HMS Victory' then
+        g_ui_current_ship_type = 'shiptype_victory'
+    elseif value == 'L\'Orient*' then
+        g_ui_current_ship_type = 'shiptype_orient'
+    elseif value == 'Santísima Trinidad*' then
+        g_ui_current_ship_type = 'shiptype_trinidad'
     end
 end
 
