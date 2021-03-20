@@ -771,7 +771,7 @@ faction_shipnames = {
         "Rijnland",
         "Nassau"
     },
-    Sweeden = {
+    Sweden = {
         "Nordstjerna",
         "Södermanland",
         "Göteborg",
