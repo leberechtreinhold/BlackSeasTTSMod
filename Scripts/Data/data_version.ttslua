@@ -1,4 +1,4 @@
-g_current_version = "1.3.0"
+g_current_version = "1.4.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -103,5 +103,12 @@ g_release_notes = {
 - Increased the pool of Russian ship names.
 
 - Fixed a bug where sometimes the surrendering flag (or when changing factions) spawned on the wrong side of the ship.
-    ]]
+    ]],
+    ["1.4.0"] = [[
+- Tne 1st rate has arrived! Using a model based on the legendary HMS Victory, this completes the lists of essential ships for playing! With this, I also added, although not using custom models, L'Orient and Santísima Trinidad.
+
+- Fixed a typo with Sweden, it was called "Sweeden". Sorry! And thanks to Big Floyd for commenting it.
+
+- Both quick reference sheets are now aligned properly when using the Alt-view.
+]]
 }
