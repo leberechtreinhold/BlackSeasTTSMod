@@ -32,6 +32,7 @@ function onLoad()
     Wait.time(main_loop, g_seconds_main_loop, -1)
     spawn_board_start()
 
+    print_info("See complete credits on the notebook!")
     print_info("Black Seas TTS Mod ".. g_current_version .. " loaded")
 end
 
