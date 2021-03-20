@@ -48,17 +48,17 @@ ruler_24 = {
 
 qrf_critical = {
     scale = 1,
-    rotation = 0,
+    rotation = 270,
     pos_offset = {x=0,y=-0,z=0},
-    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289660859/6FFFA240139AF36FD158CED759934F9D22D918E9/",
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1760317964803204453/B8FC9DAF5D2DC634DF723C92562CD224B4AFC10B/",
     tex = "http://cloud-3.steamusercontent.com/ugc/1776075500292725222/D16848A668AAF96A41300E988CB521E6A9E9644E/"
 }
 
 qrf_shooting = {
     scale = 1,
-    rotation = 0,
+    rotation = 270,
     pos_offset = {x=0,y=-0,z=0},
-    mesh = "http://cloud-3.steamusercontent.com/ugc/1776075500289660859/6FFFA240139AF36FD158CED759934F9D22D918E9/",
+    mesh = "http://cloud-3.steamusercontent.com/ugc/1760317964803204453/B8FC9DAF5D2DC634DF723C92562CD224B4AFC10B/",
     tex = "http://cloud-3.steamusercontent.com/ugc/1776075500292725611/1E64A9B23BE13DE6387C171532149EC0D5A8026E/"
 }
 
