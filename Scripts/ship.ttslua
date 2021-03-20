@@ -495,6 +495,12 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                     else
                         sail_data.rotation_vector = base_rotation
                     end
+                    
+                    sail_data.pos_offset = sail_data.pos_offset
+                    if data_ships[self.type].fix_height then
+                        sail_data.pos_offset.y = sail_data.pos_offset.y + data_ships[self.type].fix_height
+                    end
+
                     sail_data.pos_offset = rotate_point_relative(sail_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
 
                     spawn_model(
@@ -712,6 +718,12 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                 else
                     flag_data.rotation_vector = deep_copy(base_rotation)
                 end
+                
+                flag_data.pos_offset = flag_data.pos_offset
+                if data_ships[self.type].fix_height then
+                    flag_data.pos_offset.y = flag_data.pos_offset.y + data_ships[self.type].fix_height
+                end
+                
                 print_debug('Final rotation ' .. vec_to_str(base_rotation))
                 print_debug('Base offset ' .. vec_to_str(flag_data.pos_offset))
 
@@ -760,6 +772,12 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                 else
                     flag_data.rotation_vector = deep_copy(base_rotation)
                 end
+
+                flag_data.pos_offset = flag_data.pos_offset
+                if data_ships[self.type].fix_height then
+                    flag_data.pos_offset.y = flag_data.pos_offset.y + data_ships[self.type].fix_height
+                end
+
                 flag_data.pos_offset = rotate_point_relative(flag_data.pos_offset, {x=0,y=0,z=0}, normalize_angle(math.rad(base_rotation.y)))
 
                 spawn_asset_by_data(

@@ -203,7 +203,7 @@ None</Text>
                     <Option>Ottoman</Option>
                     <Option>Russia</Option>
                     <Option>Netherlands</Option>
-                    <Option>Sweeden</Option>
+                    <Option>Sweden</Option>
                     <Option>Pirates</Option>
                     <Option>France_Kingdom</Option>
                     <Option>Denmark</Option>
@@ -229,8 +229,9 @@ None</Text>
                     <Option>Frigate (6th)*</Option>
                     <Option>Frigate (5th)</Option>
                     <Option>Frigate (4th)*</Option>
-                    <Option>Line (Small 3rd)*</Option>
-                    <Option>Line (3rd)</Option>
+                    <Option>Third Rate (Small)*</Option>
+                    <Option>Third Rate</Option>
+                    <Option>First Rate</Option>
                     <Option>Gun Emplacement</Option>
                     <Option>Mortar Emplacement</Option>
                     <Option>Martello Tower</Option>
