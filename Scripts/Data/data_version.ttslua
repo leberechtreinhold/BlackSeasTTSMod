@@ -1,4 +1,4 @@
-g_current_version = "1.4.0"
+g_current_version = "1.5.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -110,5 +110,18 @@ g_release_notes = {
 - Fixed a typo with Sweden, it was called "Sweeden". Sorry! And thanks to Big Floyd for commenting it.
 
 - Both quick reference sheets are now aligned properly when using the Alt-view.
+]],
+    ["1.5.0"] = [[
+- More terrain options! 16 new houses (4 designs on 4 different environments: eastern, mediterranean, western and northern) to make ports or small houses on islands.
+
+- When ships get damaged, sails get visibly torn, representing the state visually without looking into the ship card or the summary on the top left.
+
+- When you get wind becalmed or swell on the wind turn roll, the effect is now shown, no need to look it up anymore.
+
+- Fixed a bug where ships could still collide a bit with fog despite the terrain being fixed.
+
+- Fortifications are no longer locked when the terrain is fixed. However, they are not pickable. You can still select them by dragging a box or using ctrl click.
+
+- If you have use TTS rotation on a ship/fortification without picking them up, they will move in 1º degree angles, allowing you to easily line up that shot.
 ]]
 }
