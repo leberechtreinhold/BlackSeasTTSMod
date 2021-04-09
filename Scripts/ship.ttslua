@@ -446,7 +446,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         end
     end
 
-    function _ship:set_sail_setup(new_sail_setup)
+    function _ship:set_sail_setup(new_sail_setup, change_damage)
         if self.is_fortification then
             return
         end
@@ -467,6 +467,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         local attachs = self.hull_obj.getAttachments()
         local base_rotation = self.hull_obj.getRotation()
         local base_position = self.hull_obj.getPosition()
+        local is_damaged = self:is_damaged()
         for _,value in pairs(attachs) do
             if str_starts_with(value.name, "sail") then
                 local name = value.name
@@ -475,7 +476,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                 local is_furled = find_in_array(sail_data.furled_on, self.current_sail_setup, eq)
                 local should_be_furled = find_in_array(sail_data.furled_on, new_sail_setup, eq)
 
-                if is_furled ~= should_be_furled then
+                if is_furled ~= should_be_furled or change_damage then
                     print_debug("Found " .. name .. "(" .. value.index .. ")"
                     .. " which is " .. self:is_furled(is_furled)
                     .. " but should be " .. self:is_furled(should_be_furled))
@@ -489,7 +490,12 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
                             sail_data.mesh = sails_assets[sail_data.references_sail]
                         end
                     end
-                    sail_data.tex = sail_tex
+                    if not is_damaged or should_be_furled then
+                        sail_data.tex = sail_tex
+                    else
+                        sail_data.tex = random_element(sail_tex_damaged)
+                    end
+
                     if sail_data.rotation_vector then
                         sail_data.rotation_vector = vec_add(base_rotation, sail_data.rotation_vector)
                     else
@@ -603,8 +609,10 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         local has_more_than_half = not self:is_damaged()
 
         if had_more_than_half and not has_more_than_half then
+            self:set_sail_setup(self.current_sail_setup, true)
             self.cannons:reduce_cannons_to_half()
         elseif not had_more_than_half and has_more_than_half then
+            self:set_sail_setup(self.current_sail_setup, true)
             self.cannons:restore_cannons()
         end
 
