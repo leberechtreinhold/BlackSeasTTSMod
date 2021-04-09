@@ -99,3 +99,35 @@ function onObjectDestroy(dying_object)
         g_state:unregister_ship(ship)
     end
 end
+
+
+function onPlayerAction(player, action, objects)
+    for _, obj in pairs(objects) do
+        local ship = g_state:get_ship(obj.getGUID())
+        if not ship then
+            -- If its not a ship nor a fortification, we ignore it
+            return true
+        end
+        if action == Player.Action.PickUp 
+            and ship.is_fortification
+            and g_state.terrain_fixed then
+            -- You cannot pickup fortifications when terrain is fixed
+            return false
+        end
+        if action == Player.Action.RotateIncrementalLeft 
+            and obj.resting then
+            local rotation = obj.getRotation()
+            rotation.y = rotation.y - 1
+            obj.setRotation(rotation)
+            return false
+        end
+        if action == Player.Action.RotateIncrementalRight
+            and obj.resting then
+            local rotation = obj.getRotation()
+            rotation.y = rotation.y + 1
+            obj.setRotation(rotation)
+            return false
+        end
+        return true
+    end
+end

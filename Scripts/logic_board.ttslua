@@ -693,11 +693,6 @@ function on_fix_terrain()
             end
         end
     end
-    g_state:do_to_ships(function(ship)
-        if ship.is_fortification then
-            ship.hull_obj.setLock(true)
-        end
-    end)
     print_important("Terrain fixed, fortifications locked!")
 end
 
