@@ -671,11 +671,26 @@ function on_sea_calm(obj, color, alt_click)
 end
 
 function on_fix_terrain()
+    g_state.terrain_fixed = true
     local all_objs = getAllObjects()
     for _,obj in ipairs(all_objs) do
         if str_starts_with(obj.getName(), 'Terrain') then
             obj.setLock(true)
             obj.interactable = false
+            
+            if str_has_substr(obj.getName(), 'fog') then
+                local children = obj.getChildren()
+                local child = nil
+                if children then
+                    child = children[1]
+                end
+                if child then
+                    local collider = child.getComponent("BoxCollider")
+                    if collider then
+                        collider.set("enabled", false)
+                    end
+                end
+            end
         end
     end
     g_state:do_to_ships(function(ship)
@@ -687,11 +702,26 @@ function on_fix_terrain()
 end
 
 function on_unfix_terrain()
+    g_state.terrain_fixed = false
     local all_objs = getAllObjects()
     for _,obj in ipairs(all_objs) do
         if str_starts_with(obj.getName(), 'Terrain') then
             obj.setLock(false)
             obj.interactable = true
+            
+            if str_has_substr(obj.getName(), 'fog') then
+                local children = obj.getChildren()
+                local child = nil
+                if children then
+                    child = children[1]
+                end
+                if child then
+                    local collider = child.getComponent("BoxCollider")
+                    if collider then
+                        collider.set("enabled", true)
+                    end
+                end
+            end
         end
     end
     print_important("Terrain unfixed, you can interact with it")
