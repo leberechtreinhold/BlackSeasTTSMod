@@ -639,13 +639,13 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
 
         local description = ""
         local max_sail = ""
-        if rounded_angle <= math.rad(turn_angles.Yellow / 2) then
+        if rounded_angle <= math.rad(turn_angles.Yellow) then
             description = "running downwind"
             max_sail = "Battle Sails"
         elseif rounded_angle <= (math.pi / 2) then
             description = "in broad reach"
             max_sail = "Full Sails"
-        elseif rounded_angle <= math.rad(180 - (turn_angles.Red / 2)) then
+        elseif rounded_angle <= math.rad(180 - turn_angles.Red) then
             description = "close hauled"
             max_sail = "Light Sails"
         else
