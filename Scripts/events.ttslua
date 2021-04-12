@@ -119,6 +119,7 @@ function onPlayerAction(player, action, objects)
             local rotation = obj.getRotation()
             rotation.y = rotation.y - 1
             obj.setRotation(rotation)
+            ship:display_wind_attitude()
             return false
         end
         if action == Player.Action.RotateIncrementalRight
@@ -126,6 +127,7 @@ function onPlayerAction(player, action, objects)
             local rotation = obj.getRotation()
             rotation.y = rotation.y + 1
             obj.setRotation(rotation)
+            ship:display_wind_attitude()
             return false
         end
         return true

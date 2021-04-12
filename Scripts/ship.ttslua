@@ -148,6 +148,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         Wait.time(function()
             self.gizmo:update_gizmo()
             self:update_flags_with_wind()
+            self:display_wind_attitude()
         end, 1)
     end
 
@@ -621,7 +622,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         return self.ship_points
     end
 
-    function _ship:display_wind_attitude()
+    function _ship:display_wind_attitude(write_on_chat)
         if data_ships[self.type].is_squadron then
             -- Squadrons dont have a wind attitude
             UI.setAttribute("text_max_sail", "text", '')
@@ -653,11 +654,13 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
             max_sail = "Anchored"
         end
 
-        print_info(self.display_name .. ' is ' .. description
-            .. ', max sail is ' .. max_sail
-            .. ' (angle: ' .. math.deg(rounded_angle) ..  ')')
+        if write_on_chat then
+            print_info(self.display_name .. ' is ' .. description
+                .. ', max sail is ' .. max_sail
+                .. ' (angle: ' .. math.deg(rounded_angle) ..  ')')
+        end
         UI.setAttribute("text_max_sail", "text",
-            '(Current max is ' .. max_sail .. ')')
+            '(Current max is ' .. max_sail .. ', ' .. math.deg(rounded_angle) .. ')')
     end
 
     function _ship:critical_roll_hull()
@@ -808,7 +811,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     function _ship:on_select()
         print_debug('Selected ' .. self.name)
         if not self.is_fortification then
-            self:display_wind_attitude()
+            self:display_wind_attitude(true)
             self:set_knots()
             self:set_turn()
         end
