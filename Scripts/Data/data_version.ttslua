@@ -1,4 +1,4 @@
-g_current_version = "1.5.0"
+g_current_version = "1.5.1"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -123,5 +123,10 @@ g_release_notes = {
 - Fortifications are no longer locked when the terrain is fixed. However, they are not pickable. You can still select them by dragging a box or using ctrl click.
 
 - If you have use TTS rotation on a ship/fortification without picking them up, they will move in 1º degree angles, allowing you to easily line up that shot.
+]],
+["1.5.1"] = [[
+- Fixed a bug where the angle of irons/downwind was wrong, it was 45º/30º when it should be 90º/60º, making it way way more permissive than it should be. Thanks to Dread to pointing this out.
+
+- The ship UI now shows the specific wind angle, which can be helpful in some situations to not do trial and error. Furthermore, this message also updates on each turn, so using q/e you can also nail that position "just before irons" and similar.
 ]]
 }
