@@ -56,7 +56,7 @@ function Gizmo:create(ship)
         local cannons = self.ship.cannons:get_cannons('Starboard')
         for cannon_type, number in pairs(cannons) do
             if cannon_type ~= 'mortar' and number > 0 then
-                local range = self.ship.cannons:get_range('Stern', cannon_type)
+                local range = self.ship.cannons:get_range('Starboard', cannon_type)
                 table.insert(strokes, self:get_strokes_cannon_starboard(range))
             elseif cannon_type == 'mortar' and number > 0 then
                 has_mortar = true
