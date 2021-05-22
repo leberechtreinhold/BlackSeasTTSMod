@@ -810,7 +810,18 @@ faction_shipnames = {
 		"Royal Fortune",
 		"Whydah",
 		"Fancy",
-		"Delivery"
+		"Delivery",
+		"Levrette",
+		"Dragon Vert",
+		"Adventure",
+		"Jackal",
+		"La Gata",
+		"Zaragozana",
+		"Diaboleto",
+		"Congress",
+		"Revenge",
+		"Marianne",
+		"Ramger"
 	},
 	France_Kingdom = {
 		"Soleil Royal",
