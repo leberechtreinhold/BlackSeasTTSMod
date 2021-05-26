@@ -292,7 +292,7 @@ data_ships.shiptype_brig = {
 }
 
 data_ships.shiptype_cutter = {
-    ship_points = 16,
+    ship_points = 12,
     break_value = 4,
     points = 50,
     turn_angle = turn_angles.Red,
