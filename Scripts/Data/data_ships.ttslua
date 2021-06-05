@@ -13,6 +13,7 @@ ship_types = {
     shiptype_gunbrig_squadron = 10,
     shiptype_gunboat_squadron = 11,
     shiptype_1st = 12,
+    shiptype_schooner = 13,
     
     fortification_gun_emplacement = 100,
     fortification_mortar_emplacement = 101,
@@ -447,6 +448,183 @@ data_ships.shiptype_cutter = {
             rotation = 180,
             scale = {x=0.8, y=0.8, z=0.8},
             pos_offset = {x=0.08,y=1.95,z=0},
+            references_nation = "flag_pendon"
+        }
+    }
+}
+
+data_ships.shiptype_schooner = {
+    ship_points = 12,
+    break_value = 4,
+    points = 40,
+    turn_angle = turn_angles.Red,
+    size = "S",
+    knots = 5,
+    cannons = {
+        Bow = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        },
+        Port = {
+            heavy = 0,
+            light = 1,
+            mortar = 0,
+            carronade = 0
+        },
+        Starboard = {
+            heavy = 0,
+            light = 1,
+            mortar = 0,
+            carronade = 0
+        },
+        Stern = {
+            heavy = 0,
+            light = 0,
+            mortar = 0,
+            carronade = 0
+        }
+    },
+    firing_effects = {
+        Starboard = 1,
+        Port = 0,
+        Bow = 0,
+        Stern = 0
+    },
+    hull = {
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1768205409879641659/6AD278229273F3A0FA3194D8C331198590CDBDFE/"
+    },
+    broken_masts = {
+        mast1 = {
+            masts = {
+                bow = true,
+            },
+            sails = {
+                jib1 = true,
+                jib2 = true,
+                jib3 = true
+            },
+            flags = {
+                
+            }
+        },
+        mast2 = {
+            masts = {
+                mainmast = true,
+            },
+            sails = {
+                cat = true
+            },
+            flags = {
+            }
+        }
+    },
+    masts = {
+        bow = {
+            pos_offset = {x=1.063, y=0.2838, z=-0.005},
+            scale = {x=0.4, y=0.4, z=0.4},
+            rotation_vector = {x=0, y=180, z=-10},
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1770449977192781470/BFC746E7CB13053275E532499B48D4EFF9DF41D5/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1770449977192781112/CC329839EFFFFC1AB1B2E89629676AD06620299A/",
+            tex_normal = "http://cloud-3.steamusercontent.com/ugc/1770449977192781278/BA591A9AB6D6A69FEFC8EBBB7ACABFA7F8257EF2/"
+        },
+        mainmast = {
+            pos_offset = {x=-0.359, y=0.271, z=-0.014},
+            scale = {x=0.5, y=0.5, z=0.5},
+            rotation = 185,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1770449977192781763/B2A4FAE6AE1760477CE4969766A7EC63A13E851E/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1770449977192781112/CC329839EFFFFC1AB1B2E89629676AD06620299A/",
+            tex_normal = "http://cloud-3.steamusercontent.com/ugc/1770449977192781278/BA591A9AB6D6A69FEFC8EBBB7ACABFA7F8257EF2/"
+        },
+        foremast = {
+            pos_offset = {x=0.5790001, y=0.245, z=-0.014},
+            scale = {x=0.5, y=0.5, z=0.5},
+            rotation = 185,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1770449977192781763/B2A4FAE6AE1760477CE4969766A7EC63A13E851E/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1770449977192781112/CC329839EFFFFC1AB1B2E89629676AD06620299A/",
+            tex_normal = "http://cloud-3.steamusercontent.com/ugc/1770449977192781278/BA591A9AB6D6A69FEFC8EBBB7ACABFA7F8257EF2/"
+        },
+        yard = {
+            pos_offset = {x=0.617,y=1.906,z=0},
+            scale = {x=0.5, y=0.5, z=0.5},
+            rotation = 180,
+            mesh = "http://cloud-3.steamusercontent.com/ugc/1770449977192781899/302091FB3F3BCEDE37863A5BD88E2EC6D4396638/",
+            tex = "http://cloud-3.steamusercontent.com/ugc/1770449977192781112/CC329839EFFFFC1AB1B2E89629676AD06620299A/",
+            tex_normal = "http://cloud-3.steamusercontent.com/ugc/1770449977192781278/BA591A9AB6D6A69FEFC8EBBB7ACABFA7F8257EF2/"
+        }
+    },
+    sails = {
+        jib1 = {
+            rotation_vector = {x=0, y=0, z=13},
+            scale = {x=1.8, y=1, z=0.1},
+            pos_offset = {x=1.276,y=0.415,z=0},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        jib2 = {
+            rotation_vector = {x=0, y=0, z=15},
+            scale = {x=1.93, y=0.77, z=0.1},
+            pos_offset = {x=1.654,y=0.497,z=0},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        jib3 = {
+            rotation_vector = {x=0, y=0, z=8},
+            scale = {x=1.6, y=0.66, z=0.1},
+            pos_offset = {x=1.964,y=0.578,z=0},
+            references_sail = "jib",
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+        topsail = {
+            pos_offset = {x=0.617,y=1.906,z=0},
+            scale = {x=0.9, y=0.9, z=0.9},
+            references_sail = "top_s",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails,
+                sails_setups.Battle_Sails
+            }
+        },
+        cat = {
+            rotation_vector = {x=4.19, y=5, z=9.585},
+            pos_offset = {x=-0.392,y=1.404,z=0},
+            scale = {x=0.5, y=0.5, z=0.5},
+            references_sail = "cat_cutter",
+            furled_on = {
+                sails_setups.Anchored,
+                sails_setups.Light_Sails
+            }
+        },
+        cat_fore = {
+            rotation_vector = {x=4.19, y=5, z=9.585},
+            pos_offset = {x=0.558,y=1.368,z=0},
+            scale = {x=0.5, y=0.5, z=0.5},
+            references_sail = "cat_cutter",
+            furled_on = {
+                sails_setups.Anchored
+            }
+        },
+    },
+    flags = {
+        ensign = {
+            rotation_vector = {x=0, y=200, z=10},
+            scale = {x=0.8, y=0.8, z=0.8},
+            pos_offset = {x=-1.512,y=0.898,z=-0.1},
+            references_nation = "flag_ensign"
+        },
+        pendon = {
+            rotation = 180,
+            scale = {x=0.8, y=0.8, z=0.8},
+            pos_offset = {x=0.564,y=2.107,z=0},
             references_nation = "flag_pendon"
         }
     }
