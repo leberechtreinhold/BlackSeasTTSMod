@@ -570,3 +570,52 @@ None</Text>
         </Row>
     </TableLayout>
 </Panel>
+
+<Panel id="panel_select_sea_settings_bg" width="450" height="350" rectAlignment="MiddleCenter" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <Image image="ship_creation"></Image>
+</Panel>
+
+<Panel id="panel_select_sea_settings" width="450" height="350" rectAlignment="MiddleCenter" color="#00000000" active="false" raycastTarget="true" showAnimation="FadeIn" hideAnimation="FadeOut">
+    <TableLayout padding="30 30 30 30 " cellSpacing="20">
+        <Row preferredHeight="36">
+            <Text fontSize="32">Weather</Text>
+        </Row>
+        <Row preferredHeight="36">
+            <ToggleGroup id="togglegroup_weather" onValueChanged="on_toggle_sea_weather">
+                <HorizontalLayout>
+                    <Toggle id="togglegroup_weather_0" fontSize="16">Calm</Toggle>
+                    <Toggle id="togglegroup_weather_1" fontSize="16" isOn="true">Normal</Toggle>
+                    <Toggle id="togglegroup_weather_2" fontSize="16">Rough</Toggle>
+                    <Toggle id="togglegroup_weather_3" fontSize="16">Storm</Toggle>
+                </HorizontalLayout>
+            </ToggleGroup>
+        </Row>
+        <Row preferredHeight="36">
+            <Text fontSize="32">Environment</Text>
+        </Row>
+        <Row preferredHeight="36">
+            <ToggleGroup id="togglegroup_environmentr" onValueChanged="on_toggle_sea_environment">
+                <HorizontalLayout>
+                    <Toggle id="togglegroup_env_0" fontSize="16" isOn="true">Atlantic</Toggle>
+                    <Toggle id="togglegroup_env_1" fontSize="16">Mediterranean</Toggle>
+                    <Toggle id="togglegroup_env_2" fontSize="16">Lake</Toggle>
+                    <Toggle id="togglegroup_env_3" fontSize="16">Caribbean</Toggle>
+                </HorizontalLayout>
+            </ToggleGroup>
+        </Row>
+        <Row preferredHeight="5">
+        <!--Filler-->
+        </Row>
+        <Row preferredHeight="36">
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <Button columnSpan="2" fontSize="20" onClick="on_cancel_sea_settings">Cancel</Button>
+            </Cell>
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <!-- Filler -->
+            </Cell>
+            <Cell columnSpan="2" dontUseTableCellBackground="true">
+                <Button fontSize="20" onClick="on_accept_sea_settings">Load</Button>
+            </Cell>
+        </Row>
+    </TableLayout>
+</Panel>

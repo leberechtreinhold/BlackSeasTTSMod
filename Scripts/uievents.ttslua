@@ -235,11 +235,48 @@ function on_accept_board_change(obj, color, alt_click)
     spawn_board_start(g_boards[board_sizes_reverse[g_ui_table_size_selected]])
 end
 
+function on_change_sea_settings(obj, color, alt_click)
+    UI.show('panel_select_sea_settings_bg')
+    UI.show('panel_select_sea_settings')
+
+    UI.setAttribute('togglegroup_weather_' .. g_state.weather, 'isOn', true)
+    UI.setAttribute('togglegroup_env_' .. g_state.environment, 'isOn', true)
+end
+
+function on_cancel_sea_settings(obj, color, alt_click)
+    UI.hide('panel_select_sea_settings_bg')
+    UI.setAttribute('panel_select_board_size_bg', 'active', false)
+    UI.hide('panel_select_sea_settings')
+    UI.setAttribute('panel_select_sea_settings', 'active', false)
+end
+
+function on_accept_sea_settings(obj, color, alt_click)
+    UI.hide('panel_select_sea_settings_bg')
+    UI.setAttribute('panel_select_sea_settings_bg', 'active', false)
+    UI.hide('panel_select_sea_settings')
+    UI.setAttribute('panel_select_sea_settings', 'active', false)
+
+    g_state:set_water_to_state(g_ui_weather_selected)
+    g_state:set_water_to_environment(g_ui_environment_selected)
+end
+
 g_ui_table_size_in_use = board_sizes.medium
 g_ui_table_size_selected = board_sizes.medium
 function on_toggle_table_size(player, value, id)
     g_ui_table_size_selected = tonumber(value)
     UI.setAttribute('togglegroup_table_size_' .. value, 'isOn', true)
+end
+
+g_ui_weather_selected = sea_weathers.normal
+function on_toggle_sea_weather(player, value, id)
+    g_ui_weather_selected = tonumber(value)
+    UI.setAttribute('togglegroup_weather_' .. value, 'isOn', true)
+end
+
+g_ui_environment_selected = sea_environments.atlantic
+function on_toggle_sea_environment(player, value, id)
+    g_ui_environment_selected = tonumber(value)
+    UI.setAttribute('togglegroup_env_' .. value, 'isOn', true)
 end
 
 function on_toggle_sail_setup(player, value, id)

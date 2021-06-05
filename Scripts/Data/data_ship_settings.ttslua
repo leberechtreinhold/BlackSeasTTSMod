@@ -167,17 +167,31 @@ board_sizes_reverse = {
 }
 
 sea_weathers = {
+    calm = 0,
     normal = 1,
-    calm = 2,
-    rough = 3,
-    storm = 4
+    rough = 2,
+    storm = 3
 }
 
 sea_weathers_reverse = {
+    [0] = "calm",
     [1] = "normal",
-    [2] = "calm",
-    [3] = "rough",
-    [4] = "storm"
+    [2] = "rough",
+    [3] = "storm"
+}
+
+sea_environments = {
+    atlantic = 0,
+    mediterranean = 1,
+    lake = 2,
+    caribbean = 3
+}
+
+sea_environments_reverse = {
+    [0] = "atlantic",
+    [1] = "mediterranean",
+    [2] = "lake",
+    [3] = "caribbean"
 }
 
 crew_levels = {

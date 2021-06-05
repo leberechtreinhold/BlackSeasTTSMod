@@ -15,6 +15,9 @@ function State:create()
     _state.water_core_obj = nil
     _state.water_exterior_obj = nil
 
+    _state.weather = sea_weathers.normal
+    _state.environment = sea_environments.atlantic
+
     _state.current_wind = 'North'
     _state.board_size = 'medium'
     _state.wind_order_obj = nil
@@ -33,20 +36,105 @@ function State:create()
     end
 
     function _state:set_water_to_state(state)
+        if not state then
+            state = self.weather
+        end
+
         if not sea_weathers_reverse[state] then
             print_error('The state given does not exist')
             log(state)
         end
+
+        self.weather = state
+
         if state == sea_weathers.normal then
             print_info('Normal weather, no modifiers.')
+            self:set_water_frequency(1)
+            self:set_water_wave_size(1)
+            self:set_water_foam_size(0.1)
+            self:set_water_normal_speed(0.6)
         elseif state == sea_weathers.storm then
             print_info('Storm! -2 to hit. Only travel at Light Sails.')
+            self:set_water_frequency(2.3)
+            self:set_water_wave_size(2)
+            self:set_water_foam_size(0.1)
+            self:set_water_normal_speed(0.8)
         elseif state == sea_weathers.rough then
             print_info('Rough seas! -1 to hit. Change above Light Sails requires a Skill Test. Full Sails not allowed.')
+            self:set_water_frequency(1.5)
+            self:set_water_wave_size(1.5)
+            self:set_water_foam_size(0.1)
+            self:set_water_normal_speed(0.7)
         elseif state == sea_weathers.calm then
             print_info('The sea is smooth as glass! +1 to hit.')
+            self:set_water_frequency(0.7)
+            self:set_water_wave_size(0.7)
+            self:set_water_foam_size(0.1)
+            self:set_water_normal_speed(0.2)
         end
-        set_seas(self.water_core_obj, self.water_exterior_obj, state)
+    end
+
+    function _state:set_water_to_environment(env)
+        if not env then
+            env = self.environment
+        end
+
+        if not sea_environments_reverse[env] then
+            print_error('The envinroment given does not exist')
+            log(env)
+        end
+
+        self.environment = env
+
+        if env == sea_environments.atlantic then
+            print_info('Using the dark waters of the Atlantic.')
+            self:set_water_color({R=0, G=20, B=40})
+        elseif env == sea_environments.mediterranean then
+            print_info('Using the blue waters of the Mediterranean.')
+            self:set_water_color({R=17, G=77, B=141})
+        elseif env == sea_environments.lake then
+            print_info('Using the shallow waters of a lake.')
+            self:set_water_color({R=42, G=88, B=134})
+        elseif env == sea_environments.caribbean then
+            print_info('Using the crystalline waters of the Caribbean.')
+            self:set_water_color({R=28, G=116, B=138})
+        end
+    end
+
+
+    function _state:set_water_color(new_color)
+        self.water_core_obj.setMaterialValue(0, "_AlbedoColorR", 1, new_color.R/255)
+        self.water_core_obj.setMaterialValue(0, "_AlbedoColorG", 1, new_color.G/255)
+        self.water_core_obj.setMaterialValue(0, "_AlbedoColorB", 1, new_color.B/255)
+
+        self.water_exterior_obj.setMaterialValue(0, "_AlbedoColorR", 1, new_color.R/255)
+        self.water_exterior_obj.setMaterialValue(0, "_AlbedoColorG", 1, new_color.G/255)
+        self.water_exterior_obj.setMaterialValue(0, "_AlbedoColorB", 1, new_color.B/255)
+    end
+
+    function _state:set_water_frequency(frequency)
+        self.water_core_obj.setMaterialValue(0, "_WaveFrequency", 1, frequency)
+        self.water_exterior_obj.setMaterialValue(0, "_WaveFrequency", 1, frequency)
+    end
+
+    function _state:set_water_wave_size(wave_height)
+        self.water_core_obj.setMaterialValue(0, "_WaveSize", 1, wave_height)
+        self.water_exterior_obj.setMaterialValue(0, "_WaveSize", 1, wave_height)
+    end
+
+    function _state:set_water_foam_size(foam_size)
+        self.water_core_obj.setMaterialValue(0, "_FoamSize", 1, foam_size)
+        self.water_exterior_obj.setMaterialValue(0, "_FoamSize", 1, foam_size)
+    end
+
+    function _state:set_water_normal_speed(normal_speed)
+        self.water_core_obj.setMaterialValue(0, "_NormalSpeed", 1, normal_speed)
+        self.water_exterior_obj.setMaterialValue(0, "_NormalSpeed", 1, normal_speed)
+    end
+
+    function _state:set_water_normal_strength(normal_strength)
+        self.water_core_obj.setMaterialValue(0, "_NormalStrength", 1, normal_strength)
+        self.water_exterior_obj.setMaterialValue(0, "_NormalStrength", 1, normal_strength)
     end
 
     function _state:register_ship(ship)

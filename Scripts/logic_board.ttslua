@@ -60,7 +60,7 @@ end
 function spawn_board_start(board_size)
     delete_all_boards_and_water()
     Wait.frames(function()
-        spawn_water(function ()
+        spawn_water(function()
             if not board_size then
                 board_size = g_boards.medium
             end
@@ -68,65 +68,15 @@ function spawn_board_start(board_size)
             spawn_board(board_size)
             spawn_rulers(board_size)
             spawn_qrf(board_size)
-            -- spawn_terrain(board_size)
+
+            Wait.time(function()
+                g_state:set_water_to_state()
+                g_state:set_water_to_environment()
+            end, 5)
         end)
     end, 1)
 end
 
-function set_seas(water_core, water_exterior, sea_weather)
-    if sea_weather == sea_weathers.normal then
-        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
-        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.05,w=9})
-        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.1,w=5})
-        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
-        water_core.setMaterialValue(0, '_NormalSpeed', 1, 1)
-        
-        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
-        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.005,w=9})
-        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.01,w=5})
-        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
-        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 1)
-        
-    elseif sea_weather == sea_weathers.storm then
-        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.03,w=92})
-        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.11,w=9})
-        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.3,w=5})
-        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.01,w=200})
-        water_core.setMaterialValue(0, '_NormalSpeed', 1, 2)
-        
-        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.03,w=92})
-        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.03,w=9})
-        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.05,w=5})
-        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.01,w=200})
-        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 2)
-
-    elseif sea_weather == sea_weathers.rough then
-        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.02,w=70})
-        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.08,w=5})
-        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.12,w=3})
-        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.005,w=120})
-        water_core.setMaterialValue(0, '_NormalSpeed', 1, 1.5)
-        
-        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.02,w=70})
-        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.008,w=5})
-        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.02,w=3})
-        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.005,w=120})
-        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 1.5)
-
-    elseif sea_weather == sea_weathers.calm then
-        water_core.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
-        water_core.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.01,w=3})
-        water_core.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.02,w=2})
-        water_core.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
-        water_core.setMaterialValue(0, '_NormalSpeed', 1, 0.6)
-        
-        water_exterior.setMaterialValue(0, '_WaveA', 2, {x=1,y=0,z=0.01,w=92})
-        water_exterior.setMaterialValue(0, '_WaveB', 2, {x=0,y=1,z=0.001,w=3})
-        water_exterior.setMaterialValue(0, '_WaveC', 2, {x=1,y=1,z=0.002,w=2})
-        water_exterior.setMaterialValue(0, '_WaveD', 2, {x=-1,y=1,z=0.003,w=173})
-        water_exterior.setMaterialValue(0, '_NormalSpeed', 1, 0.6)
-    end
-end
 
 function spawn_water(callback_after_water)
     local water_core = spawn_asset('water_core_assetbundle', 'Water Core', 
@@ -255,6 +205,24 @@ function spawn_board(board_data)
         function_owner = self,
         label          = "Change board size",
         position       = bottom_left_corner_relative,
+        rotation       = {0, 180, 0},
+        width          = 7000,
+        height         = 1000,
+        font_size      = 700,
+        color          = {0.5, 0.5, 0.5},
+        font_color     = {1, 1, 1},
+        tooltip        = "Click to change the board size. It will not alter current pieces.",
+    }
+    board_limit.createButton(params)
+    local params = {
+        click_function = "on_change_sea_settings",
+        function_owner = self,
+        label          = "Change sea settings",
+        position       = {
+            x = bottom_left_corner_relative.x,
+            y = bottom_left_corner_relative.y,
+            z = bottom_left_corner_relative.z - 3
+        },
         rotation       = {0, 180, 0},
         width          = 7000,
         height         = 1000,
