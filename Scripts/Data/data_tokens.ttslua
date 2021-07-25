@@ -6,12 +6,12 @@ windrose_assetbundle = {
 
 water_core_assetbundle = {
     rotation = 0,
-    customasset = "http://cloud-3.steamusercontent.com/ugc/1769332113172646747/8E25F3D343B3497341F1012F03B72E278B7A3542/"
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1769332368144016475/3B7ACC6EAA64342C4AF093D388DA00363C75D3C3/"
 }
 
 water_exterior_assetbundle = {
     rotation = 0,
-    customasset = "http://cloud-3.steamusercontent.com/ugc/1769332113172647412/22017BF86470DD9A224DF4E3514BC2FD723AD1CA/"
+    customasset = "http://cloud-3.steamusercontent.com/ugc/1769332368144021521/C26A27BA1F6C04890AE5BE9A18BDF787DFBB1BEA/"
 }
 
 ruler_3 = {
