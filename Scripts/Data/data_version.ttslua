@@ -1,4 +1,4 @@
-g_current_version = "1.5.1"
+g_current_version = "1.6.2"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -128,5 +128,22 @@ g_release_notes = {
 - Fixed a bug where the angle of irons/downwind was wrong, it was 45º/30º when it should be 90º/60º, making it way way more permissive than it should be. Thanks to Dread to pointing this out.
 
 - The ship UI now shows the specific wind angle, which can be helpful in some situations to not do trial and error. Furthermore, this message also updates on each turn, so using q/e you can also nail that position "just before irons" and similar.
+]],
+["1.6.0"] = [[
+- Added the Schooner! One of the classical small ships that can find usage in all but the largest scenarios! Like the brig, it's a ship used by almost all militaries. The ship is based on a free designed made by Tobias de Maine. I would also like to give thanks to GMT Gina, which provided some schooners and sloops for the mod. I didn't end up using them as the one by Tobias is already textured and more appropiate than 3D printing files, but it was still a great gesture.
+
+- Large improvements to the sea, including shorelines, depth transparency, different presets for different seas (color) and weather.
+
+- Fixed a bug where starboard weapon ammo didn't show the appropiate range.
+
+- Fixed a bug where cutters had 16 ship points instead of the 12 they should have.
+
+- Significantly increased the ship name list, especially commerce UK, but also greece, sweeden, pirates and the kingdom of france.
+]],
+["1.6.1"] = [[
+- Fixed a bug where the new water blocked the gizmo lines. This is a TTS limitation, and therefore some of the shoreline improvements have been rolled back.
+]],
+["1.6.2"] = [[
+- Fixed a bug where the schooner wasn't loading correctly.
 ]]
 }

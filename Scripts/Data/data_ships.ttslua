@@ -493,7 +493,7 @@ data_ships.shiptype_schooner = {
         Stern = 0
     },
     hull = {
-        customasset = "http://cloud-3.steamusercontent.com/ugc/1768205409879641659/6AD278229273F3A0FA3194D8C331198590CDBDFE/"
+        customasset = "http://cloud-3.steamusercontent.com/ugc/1709663569600670388/D7E776FB3F3D1EA2BAAB302B7184465A8FBCFA6F/"
     },
     broken_masts = {
         mast1 = {
