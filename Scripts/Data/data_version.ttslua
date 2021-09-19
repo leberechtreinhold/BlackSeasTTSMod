@@ -1,4 +1,4 @@
-g_current_version = "1.6.2"
+g_current_version = "1.7.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
@@ -145,5 +145,9 @@ g_release_notes = {
 ]],
 ["1.6.2"] = [[
 - Fixed a bug where the schooner wasn't loading correctly.
+]],
+["1.7.0"] = [[
+- Added the Sloop. There are many variants of the sloop, usually it's refered to the corvette-sloop, but the attributes in Black Seas are closer to a brig-sloop, so this is reusing the sloop model.
+- Fixed a bug where changing the name a ship didn't update the top-left summary.
 ]]
 }
