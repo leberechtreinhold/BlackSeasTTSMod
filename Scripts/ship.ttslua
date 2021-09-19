@@ -759,6 +759,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         self.display_name = new_name
         self.hull_obj.setName(new_name)
         self.ui:show_ui()
+        Wait.time(function()
+            ui_update_summary()
+    end, 1)
     end
 
     function _ship:set_faction(new_faction)
