@@ -17,6 +17,7 @@
 #include scripts/ship_ui
 #include scripts/logic_board
 #include scripts/uievents
+#include ui/translations
 
 g_state = nil
 
@@ -26,14 +27,14 @@ function onLoad()
     -- We'll clear it ourselves to avoid having other modules corrupt ours.
     Global.script_state = ""
 
-    print_info("Black Seas TTS Mod loading...")
-    
+    print_info(texts[g_lang]._Black_Seas_TTS_Mod .. texts[g_lang]._loading)
+
     g_state = State:create()
     Wait.time(main_loop, g_seconds_main_loop, -1)
     spawn_board_start()
 
-    print_info("See complete credits on the notebook!")
-    print_info("Black Seas TTS Mod ".. g_current_version .. " loaded")
+    print_info(texts[g_lang]._See_complete_credits_on_the_notebook)
+    print_info(texts[g_lang]._Black_Seas_TTS_Mod.. " ".. g_current_version .. texts[g_lang]._loaded)
 end
 
 -- There's no event in TTS for selection change, so we loop and recheck
