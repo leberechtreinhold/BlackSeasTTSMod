@@ -1,0 +1,180 @@
+g_lang = 'french'
+
+translations = {
+    french = {
+        "Ship points" = "Points de structure du navire",
+
+        "Full Sails" = "Toutes voiles dehors",
+        "Battle Sails" = "Voilure de combat",
+        "Light Sails" = "Voilure légère",
+        "Anchor" = "A l'ancre",
+
+        "Port" = "Bâbord",
+        "Starboard" = "Tribord", 
+        "Bow" = "Proue",
+        "Stern" = "Poupe",
+
+        -- Move X amount of knots
+        "Move " = "Mouvement",
+        "knots" = "Vitesse (noeuds)",
+        "Turn" = "Virage", 
+
+        "Undo" = "Annuler",
+        "Skill Test" = "Test de compétence",
+        "Roll Critical (Hull)" = "Jet de dommages critiques (coque)",
+        "Roll Critical (High)" = "Jet de dommages crtiques (haut)",
+        "Surrender" = "Se rendre",
+        "Knots" = "Noeuds",
+        "Crew" = "Equipage",
+        "Regular" = "Régulier",
+        "Inexperienced" = "Inexpérimenté",
+        "Veteran" = "Vétéran",
+        "Break Value" = "Valeur de rupture",
+        "Size" = "Taille",
+        "Faction" = "Camps",
+        "Upgrades" = "Améliorations",
+        "(Current max is Full Sails)" = "La voilure maximum actuelle est",
+        "Mast hit" = "Mât touché",
+        "Guns" = "Armement",
+        -- Gizmo is a marker of length
+        "Gizmo" = "Portée",
+        -- Fire as in shooting
+        "Fire" = "Tirer",
+
+        -- "X ship has surrendered"
+        "has surrendered!" = "s'est rendu"
+        
+        -- X ship is wind_position, max sail is Full Sails (angle: 79º)
+        "running downwind" = "vent arrière",
+        "in broad reach" = "au largue",
+        "close hauled" = "au près",
+        "in irons" = "vent de face",
+        " is " = " est ", 
+        ", max sail is " = ", vitesse maximum est",
+
+        " has surpassed a Skill Test! (Roll: " = "a réussi son test de compétence",
+        " has failed a Skill Test! (Roll: " = "a échoué son test de compétence",
+
+        " has loaded " = "a chargé",
+        -- Loaded ammo on position
+        " on " = "par", 
+
+        "Ship Creation" = "Créer un navire",
+
+        "Nation" = "Nation",
+        "Spain" = "Espagne",
+        "USA" = "Etats-Unis",
+        "UK" = "Royaume-Uni",
+        "UK_Canada" = "Canada britanique",
+        "UK_Commerce" = "Royaume-Uni commerce",
+        "France_Napoleonic" = "France napoléonienne",
+        "Ottoman" = "Empire ottoman",
+        "Russia" = "Russie",
+        "Netherlands" = "Pays-Bas",
+        "Sweden" = "Suède",
+        "Pirates" = "Pirates",
+        "France_Kingdom" = "Royaume de France",
+        "Denmark" = "Danemark",
+        "Barbary_Pirates" = "Barbaresques",
+        "Greece" = "Grèce",
+        "Black" = "Noir",
+
+        "Type" = "Type de navires",
+        "Brig" = "Brick",
+        "Bomb Ketch" = "Bombarde",
+        "Small Merchant" = "Petit navire marchand",
+        "Small Galley" = "Petite galère",
+        "Cutter" = "Cutter",
+        "Schooner" = "Goélette",
+        "Sloop*" = "Sloop",
+        "Gunbrig Squadron" = "",
+        "Gunboat Squadron" = "",
+        "Frigate (6th)*" = "Sixième rang",
+        "Frigate (5th)" = "Cinqiuème rang",
+        "Frigate (4th)*" = "Quatrième rang",
+        "Third Rate (Small)*" = "Troisème rang (petit)",
+        "Third Rate" = "Troisième rang",
+        "First Rate" = "Premier rang",
+        "Gun Emplacement" = "Canons terrestres",
+        "Mortar Emplacement" = "Mortiers terrestres",
+        "Martello Tower" = "Tour Martello",
+        "Floating Battery" = "Batterie flottante",
+        "Bucentaure*" = "Le Bucentaure",
+        "L'Orient*" = "L'Orient",
+        "HMS Bellerophon*" = "Le HMS Bellerophon",
+        "HMS Indefatigable*" = "Le HMS Indefatigable",
+        "HMS Victory" = "Le HMS Victory",
+        "La Princesa*" = "La Princesa",
+        "Santísima Trinidad*" = "Le Santísima Trinidad",
+        "USS Essex*" = "Le USS Essex",
+        "USS Constitution*" = "Le USS Constitution",
+        "Ships with * are temporary and don't have custom models", = "Les navires avec un * n'ont pas encore de modèle 3D personnalisé"
+
+        "Boarding Nets" = "Filets d'abordage",
+        "Grappling Hooks" = "Grappins",
+        "Grenades" = "Grenades",
+        "Lucky" = "Chanceux",
+        "Master Carpenter" = "Maître charpentier",
+        "Master Caulker" = "Maître calfeutreur",
+        "Master Gunner" = "Maître artilleur",
+        "Over Gunned" = "Surarmé",
+        "Carronades" = "Caronades",
+        "Privateer" = "Cordaires",
+        "Sharpshooters" = "Tireurs d'élite",
+        "Surgeon" = "Chirurgien de bord",
+        "Streamlined Hull" = "Coque profilée",
+        "Sturdy" = "Robuste",
+        "Swivel Guns" = "Canons pivotants",
+        "Trained Marines" = "Equipage entraîné",
+
+        "Cancel" = "Annuler",
+        "Deploy" = "Deployer",
+        "Load" = "Charger",
+        "Change" = "Changer",
+
+        "Table Size" = "Taille de la table",
+        "Small (4x3)" = "Petite (4x3)",
+        "Medium (6x4)" = "Moyenne (6x4)",
+        "Large (8x6)" = "Grande (8x6)",
+
+        "Ammo Type" = "Type de munitions",
+        "Round" = "Boulet",
+        "No special effect" = "Pas d'effet special",
+        "Double" = "Boulet double",
+        "Chain" = "Boulet enchaîné",
+        "Red Hot" = "Boulet rouge",
+        "Grape" = "Mitraille",
+        "Change Ammo" = "Changer de type munitions",
+
+        "Name Change" = "Changer le nom",
+        "Current name" = "Nom actuel",
+        "New name" = "Nouveau nom",
+
+        "Faction Change" = "Changer le camps",
+        "Current faction" = "Camps actuel",
+        "New faction" = "Nouveau camps",
+
+        "Weather" = "Méteo",
+        "Calm" = "Mer d'huile",
+        "Normal" = "Mer calme",
+        "Rough" = "Mer agitée",
+        "Storm" = "Tempête",
+
+        "Environment" = "Type de mer",
+        "Atlantic" = "Atlantique",
+        "Mediterranean" = "Méditerranée",
+        "Lake" = "Lac",
+        "Caribbean" = "Caraïbes",
+
+        "East" = "Est",
+        "Southeast" = "Sud-Est",
+        "South" = "Sud",
+        "Southwest" = "Sud-Ouest",
+        "West" = "Ouest",
+        "Northwest" = "Nord-Ouest",
+        "North" = "Nord",
+        "Northeast" = "Nord-Est"
+
+        "Board" = "Tableau"
+    }
+}
