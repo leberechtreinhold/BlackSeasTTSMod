@@ -60,6 +60,8 @@ texts = {
         -- Loaded ammo on position
         _on = " on ",
 
+        _Deploy_Ship = "Deploy ship",
+        _Deploy_Ship_Tooltip = "Click to create a ship on the table",
         _Ship_Creation = "Ship Creation",
 
         _Nation = "Nation",
@@ -133,6 +135,9 @@ texts = {
         _Load = "Load",
         _Change = "Change",
 
+        _Change_Board = "Change board size",
+        _Change_Board_Tooltip = "Click to change the board size. It will not alter current pieces.",
+        _Board = "Board",
         _Table_Size = "Table Size",
         _Small_4x3 = "Small (4x3)",
         _Medium_6x4 = "Medium (6x4)",
@@ -155,6 +160,9 @@ texts = {
         _Current_faction = "Current faction",
         _New_faction = "New faction",
 
+        _Change_Sea = "Change sea settings",
+        _Change_Sea_Tooltip = "Click to change the board size. It will not alter current pieces.",
+        
         _Weather = "Weather",
         _Calm = "Calm",
         _Normal = "Normal",
@@ -170,7 +178,15 @@ texts = {
         _Mediterranean = "Mediterranean",
         _Lake = "Lake",
         _Caribbean = "Caribbean",
+        _Using_Atlantic = "Using the dark waters of the Atlantic.",
+        _Using_Mediterranean = "Using the blue waters of the Mediterranean.",
+        _Using_Lake = "Using the shallow waters of a lake.",
+        _Using_Caribbean = "Using the crystalline waters of the Caribbean.",
 
+        _Random_Wind = "Random Wind",
+        _Random_Wind_Tooltip = "Click to randomly select a wind direction",
+        _Wind_Turn_Roll = "Wind Turn Roll",
+        _Wind_Turn_Roll_Tooltip = "Roll in the wind table to see what happens",
         _East = "East",
         _Southeast = "Southeast",
         _South = "South",
@@ -179,8 +195,6 @@ texts = {
         _Northwest = "Northwest",
         _North = "North",
         _Northeast = "Northeast",
-
-        _Board = "Board",
 
         _Black_Seas_TTS_Mod = "Black Seas TTS Mod",
         _loaded = " loaded",
@@ -247,12 +261,14 @@ texts = {
         -- Loaded ammo on position
         _on = " par ",
 
+        _Deploy_Ship = "Deployer Navire",
+        _Deploy_Ship_Tooltip = "^Click to create a ship on the table",
         _Ship_Creation = "Créer un navire",
 
-        _Nation = "Espagne",
-        _Spain = "Etats-Unis",
-        _USA = "Royaume-Uni",
-        _UK = "UK",
+        _Nation = "Nation",
+        _Spain = "Espagne",
+        _USA = "Etats-Unis",
+        _UK = "Royaume-Uni",
         _UK_Canada = "Canada britanique",
         _UK_Commerce = "Royaume-Uni commerce",
         _France_Napoleonic = "France napoléonienne",
@@ -267,7 +283,7 @@ texts = {
         _Greece = "Grèce",
         _Black = "Noir",
 
-        _Type = "Type de navires",
+        _Type = "Type",
         _Brig = "Brick",
         _Bomb_Ketch = "Bombarde",
         _Small_Merchant = "Petit navire marchand",
@@ -306,7 +322,7 @@ texts = {
         _Master_Caulker = "Maître calfeutreur",
         _Master_Gunner = "Maître artilleur",
         _Over_Gunned = "Surarmé",
-        _Carronades = "Caronades",
+        _Carronades = "More Carronades",
         _Privateer = "Cordaires",
         _Sharpshooters = "Tireurs d'élite",
         _Surgeon = "Chirurgien de bord",
@@ -320,6 +336,9 @@ texts = {
         _Load = "Charger",
         _Change = "Changer",
 
+        _Change_Board = "^Change board size",
+        _Change_Board_Tooltip = "^Click to change the board size. It will not alter current pieces.",
+        _Board = "Tableau",
         _Table_Size = "Taille de la table",
         _Small_4x3 = "Petite (4x3)",
         _Medium_6x4 = "Moyenne (6x4)",
@@ -342,6 +361,9 @@ texts = {
         _Current_faction = "Camps actuel",
         _New_faction = "Nouveau camps",
 
+        _Change_Sea = "^Change sea settings",
+        _Change_Sea_Tooltip = "^Click to change the board size. It will not alter current pieces.",
+
         _Weather = "Méteo",
         _Calm = "Mer d'huile",
         _Normal = "Mer calme",
@@ -357,7 +379,15 @@ texts = {
         _Mediterranean = "Méditerranée",
         _Lake = "Lac",
         _Caribbean = "Caraïbes",
+        _Using_Atlantic = "^Using the dark waters of the Atlantic.",
+        _Using_Mediterranean = "^Using the blue waters of the Mediterranean.",
+        _Using_Lake = "^Using the shallow waters of a lake.",
+        _Using_Caribbean = "^Using the crystalline waters of the Caribbean.",
 
+        _Random_Wind = "^Random Wind",
+        _Random_Wind_Tooltip = "^Click to randomly select a wind direction",
+        _Wind_Turn_Roll = "^Wind Turn Roll",
+        _Wind_Turn_Roll_Tooltip = "^Roll in the wind table to see what happens",
         _East = "Est",
         _Southeast = "Sud-Est",
         _South = "Sud",
@@ -366,8 +396,6 @@ texts = {
         _Northwest = "Nord-Ouest",
         _North = "Nord",
         _Northeast = "Nord-Est",
-
-        _Board = "Tableau",
 
         _Black_Seas_TTS_Mod = "^Black Seas TTS Mod",
         _loaded = "^ loaded",

@@ -193,7 +193,7 @@ function spawn_board(board_data)
         y = 1,
         z = -board_data.height / 2 - 2}
     spawn_text(
-        'Board ' .. board_data.size_cm .. '/' .. board_data.size_feet,
+        texts[g_lang]._Board  .. ' ' .. board_data.size_cm .. '/' .. board_data.size_feet,
         'Board title', bottom_left_corner_absolute)
 
     local bottom_left_corner_relative = {
@@ -203,7 +203,7 @@ function spawn_board(board_data)
     local params = {
         click_function = "on_change_board_size",
         function_owner = self,
-        label          = "Change board size",
+        label          = texts[g_lang]._Change_Board,
         position       = bottom_left_corner_relative,
         rotation       = {0, 180, 0},
         width          = 7000,
@@ -211,13 +211,13 @@ function spawn_board(board_data)
         font_size      = 700,
         color          = {0.5, 0.5, 0.5},
         font_color     = {1, 1, 1},
-        tooltip        = "Click to change the board size. It will not alter current pieces.",
+        tooltip        = texts[g_lang]._Change_Board_Tooltip,
     }
     board_limit.createButton(params)
     local params = {
         click_function = "on_change_sea_settings",
         function_owner = self,
-        label          = "Change sea settings",
+        label          = texts[g_lang]._Change_Sea,
         position       = {
             x = bottom_left_corner_relative.x,
             y = bottom_left_corner_relative.y,
@@ -229,7 +229,7 @@ function spawn_board(board_data)
         font_size      = 700,
         color          = {0.5, 0.5, 0.5},
         font_color     = {1, 1, 1},
-        tooltip        = "Click to change the board size. It will not alter current pieces.",
+        tooltip        = texts[g_lang]._Change_Sea_Tooltip
     }
     board_limit.createButton(params)
 
@@ -389,7 +389,7 @@ function spawn_board(board_data)
     local params = {
         click_function = "on_random_wind",
         function_owner = self,
-        label          = "Random Wind",
+        label          = texts[g_lang]._Random_Wind,
         position       = {
             x = bottom_left_corner_relative.x - board_data.width / 2 - 1,
             y = bottom_left_corner_relative.y,
@@ -401,7 +401,7 @@ function spawn_board(board_data)
         font_size      = 600,
         color          = {0.5, 0.5, 0.5},
         font_color     = {1, 1, 1},
-        tooltip        = "Click to randomly select a wind direction",
+        tooltip        = texts[g_lang]._Random_Wind_Tooltip,
     }
     board_limit.createButton(params)
 
@@ -415,7 +415,7 @@ function spawn_board(board_data)
     local params = {
         click_function = "on_wind_turn",
         function_owner = self,
-        label          = "Wind Turn Roll",
+        label          = texts[g_lang]._Wind_Turn_Roll,
         position       = {
             x = bottom_left_corner_relative.x - board_data.width / 2 + 6,
             y = bottom_left_corner_relative.y,
@@ -427,7 +427,7 @@ function spawn_board(board_data)
         font_size      = 700,
         color          = {0.5, 0.5, 0.5},
         font_color     = {1, 1, 1},
-        tooltip        = "Roll in the wind table to see what happens",
+        tooltip        = _Wind_Turn_Roll_Tooltip,
     }
     board_limit.createButton(params)
 
@@ -515,7 +515,7 @@ function spawn_board(board_data)
     local params = {
         click_function = "on_deploy_ship",
         function_owner = self,
-        label          = "Deploy ship",
+        label          = texts[g_lang]._Deploy_Ship,
         position       = bottom_right_corner_relative,
         rotation       = {0, 180, 0},
         width          = 5000,
@@ -523,7 +523,7 @@ function spawn_board(board_data)
         font_size      = 700,
         color          = {0.5, 0.5, 0.5},
         font_color     = {1, 1, 1},
-        tooltip        = "Click to create a ship on the table",
+        tooltip        = texts[g_lang]._Deploy_Ship_Tooltip,
     }
     board_limit.createButton(params)
 

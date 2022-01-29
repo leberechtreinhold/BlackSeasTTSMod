@@ -48,25 +48,25 @@ function State:create()
         self.weather = state
 
         if state == sea_weathers.normal then
-            print_info('Normal weather, no modifiers.')
+            print_info(texts[g_lang]._Normal_Effect)
             self:set_water_frequency(1)
             self:set_water_wave_size(1)
             self:set_water_foam_size(0.1)
             self:set_water_normal_speed(0.6)
         elseif state == sea_weathers.storm then
-            print_info('Storm! -2 to hit. Only travel at Light Sails.')
+            print_info(texts[g_lang]._Storm_Effect)
             self:set_water_frequency(2.3)
             self:set_water_wave_size(2)
             self:set_water_foam_size(0.1)
             self:set_water_normal_speed(0.8)
         elseif state == sea_weathers.rough then
-            print_info('Rough seas! -1 to hit. Change above Light Sails requires a Skill Test. Full Sails not allowed.')
+            print_info(texts[g_lang]._Rough_Effect)
             self:set_water_frequency(1.5)
             self:set_water_wave_size(1.5)
             self:set_water_foam_size(0.1)
             self:set_water_normal_speed(0.7)
         elseif state == sea_weathers.calm then
-            print_info('The sea is smooth as glass! +1 to hit.')
+            print_info(texts[g_lang]._Calm_Effect)
             self:set_water_frequency(0.7)
             self:set_water_wave_size(0.7)
             self:set_water_foam_size(0.1)
@@ -87,16 +87,16 @@ function State:create()
         self.environment = env
 
         if env == sea_environments.atlantic then
-            print_info('Using the dark waters of the Atlantic.')
+            print_info(texts[g_lang]._Using_Atlantic)
             self:set_water_color({R=0, G=20, B=40})
         elseif env == sea_environments.mediterranean then
-            print_info('Using the blue waters of the Mediterranean.')
+            print_info(texts[g_lang]._Using_Mediterranean)
             self:set_water_color({R=17, G=77, B=141})
         elseif env == sea_environments.lake then
-            print_info('Using the shallow waters of a lake.')
+            print_info(texts[g_lang]._Using_Lake)
             self:set_water_color({R=42, G=88, B=134})
         elseif env == sea_environments.caribbean then
-            print_info('Using the crystalline waters of the Caribbean.')
+            print_info(texts[g_lang]._Using_Caribbean)
             self:set_water_color({R=28, G=116, B=138})
         end
     end

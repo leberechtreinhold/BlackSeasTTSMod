@@ -18,6 +18,7 @@
 #include scripts/logic_board
 #include scripts/uievents
 #include ui/translations
+#include ui/translation_updater
 
 g_state = nil
 
@@ -28,6 +29,7 @@ function onLoad()
     Global.script_state = ""
 
     print_info(texts[g_lang]._Black_Seas_TTS_Mod .. texts[g_lang]._loading)
+    update_translation()
 
     g_state = State:create()
     Wait.time(main_loop, g_seconds_main_loop, -1)
