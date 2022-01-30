@@ -115,8 +115,8 @@ function from_ship_type_to_ui_ship_type(value)
         return texts[g_lang]._Brig
     elseif value == 'shiptype_bomb_ketch' then
         return texts[g_lang]._Bomb_Ketch
-    elseif value == texts[g_lang]._Small_Merchant then
-        return 'shiptype_small_merchant'
+    elseif value == 'shiptype_small_merchant'then
+        return texts[g_lang]._Small_Merchant 
     elseif value == 'shiptype_small_galley' then
         return texts[g_lang]._Small_Galley 
     elseif value == 'shiptype_gunbrig_squadron' then
