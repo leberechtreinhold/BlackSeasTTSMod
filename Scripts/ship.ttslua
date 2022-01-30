@@ -399,9 +399,9 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         self.history:push()
         self.hull_obj.setLock(false)
         if not self.is_fortification then
-            print_important(self.display_name .. ' ready!')
+            print_important(self.display_name .. texts[g_lang]._ready)
         else
-            print_important(self.display_name .. ' created.')
+            print_important(self.display_name .. texts[g_lang]._created)
         end
     end
 
@@ -567,11 +567,11 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
 
     function _ship:capsize()
         if self.is_fortification then
-            print_important("The ship " .. self.display_name .. " has capsized")
+            print_important(texts[g_lang]._the_fortication .. self.display_name .. texts[g_lang]._has_been_destroyed)
             return
         end
 
-        print_important("The ship " .. self.display_name .. " has capsized")
+        print_important(texts[g_lang]._the_ship .. self.display_name .. texts[g_lang]._has_capsized)
         self.hull_obj.setLock(true)
         self.hull_obj.interactable = false
         local rotation = self.hull_obj.getRotation()
@@ -679,21 +679,19 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         local roll = math.random(1,6)
         if self.crew_level == crew_levels.inexperienced then
             if roll == 6 then
-                print_important(self.display_name .. ' has surpassed a Skill Test! (Roll: ' .. roll .. ')')
+                print_important(self.display_name .. texts[g_lang]._has_surpassed_a_Skill_Test .. ' (' .. texts[g_lang]._roll .. ': ' .. roll .. ')')
             else
-                print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
-            end
+                print_important(self.display_name .. texts[g_lang]._has_failed_a_Skill_Test .. ' (' .. texts[g_lang]._roll .. ': ' .. roll .. ')')            end
         elseif self.crew_level == crew_levels.regular then
             if roll >= 5 then
-                print_important(self.display_name .. ' has surpassed a Skill Test! (Roll: ' .. roll .. ')')
+                print_important(self.display_name .. texts[g_lang]._has_surpassed_a_Skill_Test .. ' (' .. texts[g_lang]._roll .. ': ' .. roll .. ')')
             else
-                print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
-            end
+                print_important(self.display_name .. texts[g_lang]._has_failed_a_Skill_Test .. ' (' .. texts[g_lang]._roll .. ': ' .. roll .. ')')            end
         elseif self.crew_level == crew_levels.veteran then
             if roll >= 4 then
-                print_important(self.display_name .. ' has surpassed a Skill Test! (Roll: ' .. roll .. ')')
+                print_important(self.display_name .. texts[g_lang]._has_surpassed_a_Skill_Test .. ' (' .. texts[g_lang]._roll .. ': ' .. roll .. ')')
             else
-                print_important(self.display_name .. ' has failed a Skill Test! (Roll: ' .. roll .. ')')
+                print_important(self.display_name .. texts[g_lang]._has_failed_a_Skill_Test .. ' (' .. texts[g_lang]._roll .. ': ' .. roll .. ')')
             end
         end
     end
@@ -703,16 +701,16 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         local pos_str = cannon_positions_reverse[pos]:lower()
         local ammo_str = ammo_types_reverse[ammo]:lower()
         if self.is_fortification then
-            print_important(self.display_name .. ' has loaded ' .. ammo_str)
+            print_important(self.display_name .. texts[g_lang]._has_loaded .. ammo_str)
         else
-            print_important(self.display_name .. ' has loaded ' .. ammo_str .. " on " .. pos_str)
+            print_important(self.display_name .. texts[g_lang]._has_loaded .. ammo_str .. texts[g_lang]._on .. pos_str)
         end
         self.ui:update_ammo()
         self.gizmo:update_gizmo()
     end
 
     function _ship:surrender()
-        print_important(self.display_name .. ' has surrendered!')
+        print_important(self.display_name .. texts[g_lang]._has_surrendered)
         self.surrendered = true
         local attachs = self.hull_obj.getAttachments()
         local base_rotation = self.hull_obj.getRotation()

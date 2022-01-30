@@ -43,6 +43,11 @@ texts = {
 
         -- "X ship has surrendered"
         _has_surrendered = "has surrendered!",
+        _has_capsized = " has capsized",
+        _has_been_destroyed = " has been destroyed",
+        _the_ship = "The ship ",
+        _the_fortication = "The fortification ",
+
 
         -- X ship is wind_position, max sail is Full Sails (angle: 79º)
         _running_downwind = "running downwind",
@@ -63,6 +68,10 @@ texts = {
         _Deploy_Ship = "Deploy ship",
         _Deploy_Ship_Tooltip = "Click to create a ship on the table",
         _Ship_Creation = "Ship Creation",
+        -- ShipName created
+        _created = " created.",
+        -- ShipName ready!
+        _ready = " ready!",
 
         _Nation = "Nation",
         _Spain = "Spain",
@@ -205,8 +214,7 @@ texts = {
         _dispersed = "dispersed",
         _to = " to ",
         _mortar_shot = "Mortar shot ",
-        _angle = "angle",
-        _on = " on"
+        _angle = "angle"
     },
     french = {
         _Ship_points = "Points de structure",
@@ -250,6 +258,10 @@ texts = {
 
         -- "X ship has surrendered"
         _has_surrendered = "s'est rendu!",
+        _has_capsized = "^ has capsized",
+        _has_been_destroyed = "^ has been destroyed",
+        _the_ship = "^The ship ",
+        _the_fortication = "^The fortification ",
 
         -- X ship is wind_position, max sail is Full Sails (angle: 79º)
         _running_downwind = "vent arrière",
@@ -270,6 +282,11 @@ texts = {
         _Deploy_Ship = "Déployer Navire",
         _Deploy_Ship_Tooltip = "Cliquer ici pour déployer un nouveau navire sur la table",
         _Ship_Creation = "Créer un navire",
+        -- ShipName created
+        _created = "^ created.",
+        -- ShipName ready!
+        _ready = "^ ready!",
+
 
         _Nation = "Nation",
         _Spain = "Espagne",
@@ -408,11 +425,10 @@ texts = {
         _loading = " chargement...",
         _See_complete_credits_on_the_notebook = "Consultez le notebook pour les crédits détaillés",
 
-        _received_mortar_fire = "has received mortar fire",
-        _dispersed = "dispersed",
-        _to = " to ",
-        _mortar_shot = "Mortar shot ",
-        _angle = "angle",
-        _on = " on"
+        _received_mortar_fire = "^has received mortar fire",
+        _dispersed = "^dispersed",
+        _to = "^ to ",
+        _mortar_shot = "^Mortar shot ",
+        _angle = "^angle"
     }
 }
