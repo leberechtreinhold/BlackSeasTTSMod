@@ -25,7 +25,7 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
     else
         _ship.display_name = random_element(faction_shipnames[faction])
                             .. " (" ..
-                            ship_type:gsub("shiptype_", ""):gsub("_", " "):gsub("^%l", string.upper)
+                            from_ship_type_to_ui_ship_type(ship_type)
                             .. ")"
     end
     _ship.display_name = _ship.display_name.. " #" .. g_ship_index
