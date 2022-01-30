@@ -199,8 +199,14 @@ texts = {
         _Black_Seas_TTS_Mod = "Black Seas TTS Mod",
         _loaded = " loaded",
         _loading  = " loading...",
-        _See_complete_credits_on_the_notebook = "See complete credits on the notebook!"
+        _See_complete_credits_on_the_notebook = "See complete credits on the notebook!",
 
+        _received_mortar_fire = "has received mortar fire",
+        _dispersed = "dispersed",
+        _to = " to ",
+        _mortar_shot = "Mortar shot ",
+        _angle = "angle",
+        _on = " on"
     },
     french = {
         _Ship_points = "Points de structure",
@@ -397,9 +403,16 @@ texts = {
         _North = "Nord",
         _Northeast = "Nord-Est",
 
-        _Black_Seas_TTS_Mod = "^Black Seas TTS Mod",
-        _loaded = "^ loaded",
-        _loading = "^ loading...",
-        _See_complete_credits_on_the_notebook = "^See complete credits on the notebook!"
+        _Black_Seas_TTS_Mod = "Black Seas TTS Mod",
+        _loaded = " chargé",
+        _loading = " chargement...",
+        _See_complete_credits_on_the_notebook = "Consultez le notebook pour les crédits détaillés",
+
+        _received_mortar_fire = "has received mortar fire",
+        _dispersed = "dispersed",
+        _to = " to ",
+        _mortar_shot = "Mortar shot ",
+        _angle = "angle",
+        _on = " on"
     }
 }

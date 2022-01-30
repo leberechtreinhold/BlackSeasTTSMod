@@ -98,11 +98,15 @@ function Ship:create(ship_type, faction, crew_level, upgrades)
         elseif angle_deg > (270+45/2) and angle_deg <= (360-45/2) then
             angle_direction = 'Southeast'
         end
-        print_important(self.display_name .. ' has received mortar fire, dispersed ' .. dice_roll .. ' to ' .. angle_direction)
+        print_important(self.display_name .. ' ' .. texts[g_lang]._received_mortar_fire  
+            .. ', ' texts[g_lang]._dispersed .. ' ' .. dice_roll 
+            .. texts[g_lang]._to .. from_cardinal_to_ui_cardinal(angle_direction))
         local destination_local = vec_mul_escalar(rad_to_vector_xz(angle), dice_roll)
         local destination = vec_add(self.hull_obj.getPosition(), vec_mul_escalar(rad_to_vector_xz(math.rad(angle_deg)), dice_roll))
 
-        print_info('Mortar shot (angle:' .. string.format('%.1f',angle_deg) .. ') on: ' .. vec_to_str(destination))
+        print_info(texts[g_lang]._mortar_shot .. ' (' .. texts[g_lang]._angle 
+            .. ': ' .. string.format('%.1f',angle_deg) .. ') '
+            .. texts[g_lang]._on .. ': ' .. vec_to_str(destination))
         spawn_asset('water_splash', 'Water Splash', destination, 0, function (obj)
             Wait.time(function ()
                 destroyObject(obj)

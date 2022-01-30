@@ -172,6 +172,28 @@ function from_ship_type_to_ui_ship_type(value)
     end
 end
 
+function from_cardinal_to_ui_cardinal(value)
+    if value == 'East' then
+        return texts[g_lang]._East
+    elseif value == 'Southeast' then
+        return texts[g_lang]._Southeast
+    elseif value == 'South' then
+        return texts[g_lang]._South
+    elseif value == 'Southwest' then
+        return texts[g_lang]._Southwest
+    elseif value == 'West' then
+        return texts[g_lang]._West
+    elseif value == 'Northwest' then
+        return texts[g_lang]._Northwest
+    elseif value == 'North' then
+        return texts[g_lang]._North
+    elseif value == 'Northeast' then
+        return texts[g_lang]._Northeast
+    else
+        return nil
+    end
+end
+
 g_ui_current_ship_type = 'shiptype_brig'
 function on_ui_ship_type_selected(player, value, id)
     g_ui_current_ship_type = from_ui_ship_type_to_ship_type(value)
