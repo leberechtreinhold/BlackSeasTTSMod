@@ -18,6 +18,11 @@ texts = {
         _Move_ = "Move ",
         _knots = "knots",
         _Turn = "Turn",
+        _has_turned = " has turned ",
+        _to_port = " to port",
+        _to_starboard = " to starboard",
+        _is_moving_forward = " is moving forward ",
+        _yards = " yards",
 
         _Undo = "Undo",
         _Skill_Test = "Skill Test",
@@ -33,7 +38,7 @@ texts = {
         _Size = "Size",
         _Faction = "Faction",
         _Upgrades = "Upgrades",
-        _Current_max_is_Full_Sails = "(Current max is Full Sails)",
+        _Current_max_is = "Current max is ",
         _Mast_hit = "Mast hit",
         _Guns = "Guns",
         -- Gizmo is a marker of length
@@ -47,6 +52,9 @@ texts = {
         _has_been_destroyed = " has been destroyed",
         _the_ship = "The ship ",
         _the_fortication = "The fortification ",
+        _has_a_broken_mast = " has a broken mast!",
+        _suffered = "Suffered ",
+        _damage = " damage"
 
 
         -- X ship is wind_position, max sail is Full Sails (angle: 79º)
@@ -54,8 +62,8 @@ texts = {
         _in_broad_reach = "in broad reach",
         _close_hauled = "close hauled",
         _in_irons = "in irons",
-        _is_ = " is ",
-        max_sail_is_ = "max sail is ",
+        _is = " is ",
+        _max_sail_is = "max sail is ",
 
         _has_surpassed_a_Skill_Test = " has surpassed a Skill Test!",
         _has_failed_a_Skill_Test = " has failed a Skill Test!",
@@ -233,6 +241,11 @@ texts = {
         _Move_ = "Mouvement ",
         _knots = "Vitesse (noeuds)",
         _Turn = "Virage",
+        _has_turned = "^ has turned ",
+        _to_port = "^ to port",
+        _to_starboard = "^ to starboard",
+        _is_moving_forward = "^ is moving forward ",
+        _yards = "^ yards",
 
         _Undo = "Annuler",
         _Skill_Test = "Test de compétence",
@@ -248,7 +261,7 @@ texts = {
         _Size = "Taille",
         _Faction = "Camps",
         _Upgrades = "Améliorations",
-        _Current_max_is_= "La voilure maximum actuelle est",
+        _Current_max_is = "La voilure maximum actuelle est ",
         _Mast_hit = "Mât touché",
         _Guns = "Armement",
         -- Gizmo is a marker of length
@@ -262,14 +275,17 @@ texts = {
         _has_been_destroyed = "^ has been destroyed",
         _the_ship = "^The ship ",
         _the_fortication = "^The fortification ",
+        _has_a_broken_mast = "^ has a broken mast!",
+        _suffered = "^Suffered ",
+        _damage = "^ damage",
 
         -- X ship is wind_position, max sail is Full Sails (angle: 79º)
         _running_downwind = "vent arrière",
         _in_broad_reach = "au largue",
         _close_hauled = "au près",
         _in_irons = "vent de face",
-        _is_ = " est ",
-        max_sail_is_ = "vitesse maximum est ",
+        _is = " est ",
+        _max_sail_is = "vitesse maximum est ",
 
         _has_surpassed_a_Skill_Test = " a réussi son test de compétence!",
         _has_failed_a_Skill_Test = " a échoué son test de compétence!",
