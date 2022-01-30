@@ -1,6 +1,44 @@
+function from_ui_nation_to_nation(value)
+    if value == texts[g_lang]._Spain then
+        return 'Spain'
+    elseif value == texts[g_lang]._USA then
+        return 'USA'
+    elseif value == texts[g_lang]._UK then
+        return 'UK'
+    elseif value == texts[g_lang]._UK_Canada then
+        return 'UK_Canada'
+    elseif value == texts[g_lang]._UK_Commerce then
+        return 'UK_Commerce'
+    elseif value == texts[g_lang]._France_Napoleonic then
+        return 'France_Napoleonic'
+    elseif value == texts[g_lang]._Ottoman then
+        return 'Ottoman'
+    elseif value == texts[g_lang]._Russia then
+        return 'Russia'
+    elseif value == texts[g_lang]._Netherlands then
+        return 'Netherlands'
+    elseif value == texts[g_lang]._Sweden then
+        return 'Sweden'
+    elseif value == texts[g_lang]._Pirates then
+        return 'Pirates'
+    elseif value == texts[g_lang]._France_Kingdom then
+        return 'France_Kingdom'
+    elseif value == texts[g_lang]._Denmark then
+        return 'Denmark'
+    elseif value == texts[g_lang]._Barbary_Pirates then
+        return 'Barbary_Pirates'
+    elseif value == texts[g_lang]._Greece then
+        return 'Greece'
+    elseif value == texts[g_lang]._Black then
+        return 'Black'
+    else
+        return nil
+    end
+end
+
 g_ui_nation_selected = "Spain"
 function on_ui_nation_selected(player, value, id)
-    g_ui_nation_selected = value
+    g_ui_nation_selected = from_ui_nation_to_nation(value)
 end
 
 function on_ui_cancel_deploy_fleet(player, value, id)
@@ -10,65 +48,133 @@ function on_ui_cancel_deploy_fleet(player, value, id)
     UI.setAttribute('panel_fleet_selection', 'active', false)
 end
 
+function from_ui_ship_type_to_ship_type(value)
+    if value == texts[g_lang]._Brig then
+        return 'shiptype_brig'
+    elseif value == texts[g_lang]._Bomb_Ketch then
+        return 'shiptype_bomb_ketch'
+    elseif value == texts[g_lang]._Small_Merchant then
+        return 'shiptype_small_merchant'
+    elseif value == texts[g_lang]._Small_Galley then
+        return 'shiptype_small_galley'
+    elseif value == texts[g_lang]._Gunbrig_Squadron then
+        return 'shiptype_gunbrig_squadron'
+    elseif value == texts[g_lang]._Gunboat_Squadron then
+        return 'shiptype_gunboat_squadron'
+    elseif value == texts[g_lang]._Cutter then
+        return 'shiptype_cutter'
+    elseif value == texts[g_lang]._Schooner then
+        return 'shiptype_schooner'
+    elseif value == texts[g_lang]._Sloop then
+        return 'shiptype_sloop'
+    elseif value == texts[g_lang]._Frigate_5th then
+        return 'shiptype_frigate'
+    elseif value == texts[g_lang]._Frigate_6th then
+        return 'shiptype_frigate_6th'
+    elseif value == texts[g_lang]._Frigate_4th then
+        return 'shiptype_frigate_4th'
+    elseif value == texts[g_lang]._Third_Rate then
+        return 'shiptype_3rd'
+    elseif value == texts[g_lang]._Third_Rate_Small then
+        return 'shiptype_small_3rd'
+    elseif value == texts[g_lang]._First_Rate then
+        return 'shiptype_1st'
+    elseif value == texts[g_lang]._Gun_Emplacement then
+        return 'fortification_gun_emplacement'
+    elseif value == texts[g_lang]._Mortar_Emplacement then
+        return 'fortification_mortar_emplacement'
+    elseif value == texts[g_lang]._Martello_Tower then
+        return 'fortification_martello'
+    elseif value == texts[g_lang]._Floating_Battery then
+        return 'fortification_floating_battery'
+    elseif value == texts[g_lang]._Bucentaure then
+        return 'shiptype_bucentaure'
+    elseif value == texts[g_lang]._HMS_Bellerophon then
+        return 'shiptype_bellerophon'
+    elseif value == texts[g_lang]._La_Princesa then
+        return 'shiptype_la_princesa'
+    elseif value == texts[g_lang]._USS_Essex then
+        return 'shiptype_essex'
+    elseif value == texts[g_lang]._USS_Constitution then
+        return 'shiptype_constitution'
+    elseif value == texts[g_lang]._HMS_Indefatigable then
+        return 'shiptype_indefatigable'
+    elseif value == texts[g_lang]._HMS_Victory then
+        return 'shiptype_victory'
+    elseif value == texts[g_lang]._LOrient then
+        return 'shiptype_orient'
+    elseif value == texts[g_lang]._Santisima_Trinidad then
+        return 'shiptype_trinidad'
+    else
+        return nil
+    end
+end
+
+function from_ship_type_to_ui_ship_type(value)
+    if value == 'shiptype_brig' then
+        return texts[g_lang]._Brig
+    elseif value == 'shiptype_bomb_ketch' then
+        return texts[g_lang]._Bomb_Ketch
+    elseif value == texts[g_lang]._Small_Merchant then
+        return 'shiptype_small_merchant'
+    elseif value == 'shiptype_small_galley' then
+        return texts[g_lang]._Small_Galley 
+    elseif value == 'shiptype_gunbrig_squadron' then
+        return texts[g_lang]._Gunbrig_Squadron
+    elseif value == 'shiptype_gunboat_squadron' then
+        return texts[g_lang]._Gunboat_Squadron
+    elseif value == 'shiptype_cutter' then
+        return texts[g_lang]._Cutter
+    elseif value == 'shiptype_schooner' then
+        return texts[g_lang]._Schooner
+    elseif value == 'shiptype_sloop' then
+        return texts[g_lang]._Sloop
+    elseif value == 'shiptype_frigate' then
+        return texts[g_lang]._Frigate_5th
+    elseif value == 'shiptype_frigate_6th' then
+        return texts[g_lang]._Frigate_6th
+    elseif value == 'shiptype_frigate_4th' then
+        return texts[g_lang]._Frigate_4th
+    elseif value == 'shiptype_3rd' then
+        return texts[g_lang]._Third_Rate
+    elseif value == 'shiptype_small_3rd' then
+        return texts[g_lang]._Third_Rate_Small
+    elseif value == 'shiptype_1st' then
+        return texts[g_lang]._First_Rate
+    elseif value == 'fortification_gun_emplacement' then
+        return texts[g_lang]._Gun_Emplacement
+    elseif value == 'fortification_mortar_emplacement' then
+        return texts[g_lang]._Mortar_Emplacement
+    elseif value == 'fortification_martello' then
+        return texts[g_lang]._Martello_Tower
+    elseif value == 'fortification_floating_battery' then
+        return texts[g_lang]._Floating_Battery
+    elseif value == 'shiptype_bucentaure' then
+        return texts[g_lang]._Bucentaure
+    elseif value == 'shiptype_bellerophon' then
+        return texts[g_lang]._HMS_Bellerophon
+    elseif value == 'shiptype_la_princesa' then
+        return texts[g_lang]._La_Princesa
+    elseif value == 'shiptype_essex' then
+        return texts[g_lang]._USS_Essex
+    elseif value == 'shiptype_constitution' then
+        return texts[g_lang]._USS_Constitution
+    elseif value == 'shiptype_indefatigable' then
+        return texts[g_lang]._HMS_Indefatigable
+    elseif value == 'shiptype_victory' then
+        return texts[g_lang]._HMS_Victory
+    elseif value == 'shiptype_orient' then
+        return texts[g_lang]._LOrient
+    elseif value == 'shiptype_trinidad'then
+        return texts[g_lang]._Santisima_Trinidad 
+    else
+        return nil
+    end
+end
+
 g_ui_current_ship_type = 'shiptype_brig'
 function on_ui_ship_type_selected(player, value, id)
-    if value == 'Brig' then
-        g_ui_current_ship_type = 'shiptype_brig'
-    elseif value == 'Bomb Ketch' then
-        g_ui_current_ship_type = 'shiptype_bomb_ketch'
-    elseif value == 'Small Merchant' then
-        g_ui_current_ship_type = 'shiptype_small_merchant'
-    elseif value == 'Small Galley' then
-        g_ui_current_ship_type = 'shiptype_small_galley'
-    elseif value == 'Gunbrig Squadron' then
-        g_ui_current_ship_type = 'shiptype_gunbrig_squadron'
-    elseif value == 'Gunboat Squadron' then
-        g_ui_current_ship_type = 'shiptype_gunboat_squadron'
-    elseif value == 'Cutter' then
-        g_ui_current_ship_type = 'shiptype_cutter'
-    elseif value == 'Schooner' then
-        g_ui_current_ship_type = 'shiptype_schooner'
-    elseif value == 'Sloop*' then
-        g_ui_current_ship_type = 'shiptype_sloop'
-    elseif value == 'Frigate (5th)' then
-        g_ui_current_ship_type = 'shiptype_frigate'
-    elseif value == 'Frigate (6th)*' then
-        g_ui_current_ship_type = 'shiptype_frigate_6th'
-    elseif value == 'Frigate (4th)*' then
-        g_ui_current_ship_type = 'shiptype_frigate_4th'
-    elseif value == 'Third Rate' then
-        g_ui_current_ship_type = 'shiptype_3rd'
-    elseif value == 'Third Rate (Small)*' then
-        g_ui_current_ship_type = 'shiptype_small_3rd'
-    elseif value == 'First Rate' then
-        g_ui_current_ship_type = 'shiptype_1st'
-    elseif value == 'Gun Emplacement' then
-        g_ui_current_ship_type = 'fortification_gun_emplacement'
-    elseif value == 'Mortar Emplacement' then
-        g_ui_current_ship_type = 'fortification_mortar_emplacement'
-    elseif value == 'Martello Tower' then
-        g_ui_current_ship_type = 'fortification_martello'
-    elseif value == 'Floating Battery' then
-        g_ui_current_ship_type = 'fortification_floating_battery'
-    elseif value == 'Bucentaure*' then
-        g_ui_current_ship_type = 'shiptype_bucentaure'
-    elseif value == 'HMS Bellerophon*' then
-        g_ui_current_ship_type = 'shiptype_bellerophon'
-    elseif value == 'La Princesa*' then
-        g_ui_current_ship_type = 'shiptype_la_princesa'
-    elseif value == 'USS Essex*' then
-        g_ui_current_ship_type = 'shiptype_essex'
-    elseif value == 'USS Constitution*' then
-        g_ui_current_ship_type = 'shiptype_constitution'
-    elseif value == 'HMS Indefatigable*' then
-        g_ui_current_ship_type = 'shiptype_indefatigable'
-    elseif value == 'HMS Victory' then
-        g_ui_current_ship_type = 'shiptype_victory'
-    elseif value == 'L\'Orient*' then
-        g_ui_current_ship_type = 'shiptype_orient'
-    elseif value == 'Santísima Trinidad*' then
-        g_ui_current_ship_type = 'shiptype_trinidad'
-    end
+    g_ui_current_ship_type = from_ui_ship_type_to_ship_type(value)
 end
 
 function on_ui_deploy_fleet(player, value, id)
