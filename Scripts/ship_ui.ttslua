@@ -42,7 +42,7 @@ function ShipUI:create(ship)
     function _shipui:update_knots_ui()
         UI.setAttribute('slider_knots', 'value', self.ship.current_knots)
 
-        local text = 'Move ' .. self.ship.current_knots .. ' Knots'
+        local text = texts[g_lang]._Move .. self.ship.current_knots .. texts[g_lang]._knots
         UI.setValue('button_move', text)
         UI.setAttribute('button_move', 'text', text)
     end
@@ -53,7 +53,7 @@ function ShipUI:create(ship)
         UI.setAttribute('slider_turn', 'minValue', -max_turn)
         UI.setAttribute('slider_turn', 'maxValue', max_turn)
 
-        local text = 'Turn ' .. self.ship.current_turn .. 'º'
+        local text = texts[g_lang]._Turn .. ' ' .. self.ship.current_turn .. 'º'
         UI.setValue('button_turn', text)
         UI.setAttribute('button_turn', 'text', text)
     end
@@ -113,10 +113,10 @@ function ShipUI:create(ship)
         self:show_ui_cannons()
 
         UI.setAttribute('text_crew', 'text', "Crew: " .. crew_levels_reverse[self.ship.crew_level])
-        UI.setAttribute('text_knots', 'text', "Knots: " .. data_ships[self.ship.type].knots)
-        UI.setAttribute("text_break_value", "text", "Break Value: " .. data_ships[self.ship.type].break_value)
-        UI.setAttribute("text_size", "text", "Size: " .. data_ships[self.ship.type].size)
-        UI.setAttribute("text_faction", "text", "Faction: " .. self.ship.faction)
+        UI.setAttribute('text_knots', 'text', texts[g_lang]._Knots .. ": " .. data_ships[self.ship.type].knots)
+        UI.setAttribute("text_break_value", "text", texts[g_lang]._Break_Value .. ": " .. data_ships[self.ship.type].break_value)
+        UI.setAttribute("text_size", "text", texts[g_lang]._Size .. ": " .. data_ships[self.ship.type].size)
+        UI.setAttribute("text_faction", "text", texts[g_lang]._Faction .. ": " .. from_nation_to_ui_nation(self.ship.faction))
 
         if self.ship.is_fortification then
             UI.setAttribute("image_card", "image", "ship_fortification_card")
@@ -148,9 +148,9 @@ function ShipUI:create(ship)
             UI.setAttribute("button_turn", "interactable", true)
 
             if data_ships[self.ship.type].turn_angle == turn_angles.Red then
-                UI.setAttribute("text_turn", "text", "Turn: Red")
+                UI.setAttribute("text_turn", "text", texts[g_lang]._Turn .. ': ' .. texts[g_lang]._Red)
             else
-                UI.setAttribute("text_turn", "text", "Turn: Yellow")
+                UI.setAttribute("text_turn", "text", texts[g_lang]._Turn .. ': ' .. texts[g_lang]._Yellow)
             end
         end
 
@@ -271,11 +271,11 @@ function ShipUI:create(ship)
 
     function _shipui:update_ship_points()
         if self.ship.is_fortification then
-            UI.setAttribute("text_ship_points", "text", "Structure points: "
+            UI.setAttribute("text_ship_points", "text", texts[g_lang]._Structure_points .. ": "
                 .. self.ship.current_ship_points .. "/"
                 ..  self.ship.max_ship_points)
         else
-            UI.setAttribute("text_ship_points", "text", "Ship points: "
+            UI.setAttribute("text_ship_points", "text", texts[g_lang]._Ship_points .. ": "
                 .. self.ship.current_ship_points .. "/"
                 ..  self.ship.max_ship_points)
         end

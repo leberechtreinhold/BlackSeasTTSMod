@@ -1,8 +1,9 @@
-g_lang = 'french'
+g_lang = 'english'
 
 texts = {
     english = {
         _Ship_points = "Ship points",
+        _Structure_points = "Structure points",
 
         _Full_Sails = "Full Sails",
         _Battle_Sails = "Battle Sails",
@@ -15,9 +16,11 @@ texts = {
         _Stern = "Stern",
 
         -- Move X amount of knots
-        _Move_ = "Move ",
+        _Move = "Move ",
         _knots = "knots",
         _Turn = "Turn",
+        _Red = "Red",
+        _Yellow = "Yellow",
         _has_turned = " has turned ",
         _to_port = " to port",
         _to_starboard = " to starboard",
@@ -54,7 +57,7 @@ texts = {
         _the_fortication = "The fortification ",
         _has_a_broken_mast = " has a broken mast!",
         _suffered = "Suffered ",
-        _damage = " damage"
+        _damage = " damage",
 
 
         -- X ship is wind_position, max sail is Full Sails (angle: 79º)
@@ -179,7 +182,7 @@ texts = {
 
         _Change_Sea = "Change sea settings",
         _Change_Sea_Tooltip = "Click to change the board size. It will not alter current pieces.",
-        
+
         _Weather = "Weather",
         _Calm = "Calm",
         _Normal = "Normal",
@@ -226,6 +229,7 @@ texts = {
     },
     french = {
         _Ship_points = "Points de structure",
+        _Structure_points = "^Structure points",
 
         _Full_Sails = "Toutes voiles dehors",
         _Battle_Sails = "Voilure de combat",
@@ -238,9 +242,11 @@ texts = {
         _Stern = "Poupe",
 
         -- Move X amount of knots
-        _Move_ = "Mouvement ",
-        _knots = "Vitesse (noeuds)",
+        _Move = "Mouve ",
+        _knots = " noeuds",
         _Turn = "Virage",
+        _Red = "^Red",
+        _Yellow = "^Yellow",
         _has_turned = "^ has turned ",
         _to_port = "^ to port",
         _to_starboard = "^ to starboard",
@@ -252,7 +258,7 @@ texts = {
         _Roll_Critical_Hull = "Dommages critiques (coque)",
         _Roll_Critical_High = "Dommages crtiques (haut)",
         _Surrender = "Se rendre",
-        _Knots = "noeuds",
+        _Knots = "Noeuds",
         _Crew = "Equipage",
         _Regular = "Régulier",
         _Inexperienced = "Inexpérimenté",

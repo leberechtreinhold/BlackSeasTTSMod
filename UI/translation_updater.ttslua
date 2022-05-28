@@ -18,7 +18,12 @@ function update_translation()
     UI.setAttribute("toggle_swivel_guns", "text", texts[g_lang]._Swivel_Guns)
     UI.setAttribute("toggle_trained_marines", "text", texts[g_lang]._Trained_Marines)
     UI.setAttribute("btn_cancel_deploy_fleet", "text", texts[g_lang]._Cancel)
-    UI.setAttribute("bt_deploy_fleet", "text", texts[g_lang]._Deploy)
+    UI.setAttribute("btn_deploy_fleet", "text", texts[g_lang]._Deploy)
+    UI.setAttribute("btn_mast_hit", "text", texts[g_lang]._Mast_hit)
+    UI.setAttribute("btn_critical_hull", "text", texts[g_lang]._Roll_Critical_Hull)
+    UI.setAttribute("btn_critical_high", "text", texts[g_lang]._Roll_Critical_High)
+    UI.setAttribute("btn_on_surrender", "text", texts[g_lang]._Surrender)
+    UI.setAttribute("btn_undo", "text", texts[g_lang]._Undo)
 
     -- TTS API doesnt allow setAttribute to <Option>
     local xml = UI.getXml()
@@ -66,6 +71,12 @@ function update_translation()
     xml = xml:gsub("{Santísima Trinidad}", texts[g_lang]._Santisima_Trinidad)
     xml = xml:gsub("{USS Essex}", texts[g_lang]._USS_Essex)
     xml = xml:gsub("{USS Constitution}", texts[g_lang]._USS_Constitution)
+
+    
+    xml = xml:gsub("{Full Sails}", texts[g_lang]._Full_Sails)
+    xml = xml:gsub("{Battle Sails}", texts[g_lang]._Battle_Sails)
+    xml = xml:gsub("{Light Sails}", texts[g_lang]._Light_Sails)
+    xml = xml:gsub("{Anchor}", texts[g_lang]._Anchor)
     UI.setXml(xml)
 
 end

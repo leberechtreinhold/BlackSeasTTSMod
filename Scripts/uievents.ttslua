@@ -36,6 +36,44 @@ function from_ui_nation_to_nation(value)
     end
 end
 
+function from_nation_to_ui_nation(value)
+    if value == 'Spain' then
+        return texts[g_lang]._Spain
+    elseif value == 'USA' then
+        return texts[g_lang]._USA
+    elseif value == 'UK' then
+        return texts[g_lang]._UK
+    elseif value == 'UK_Canada' then
+        return texts[g_lang]._UK_Canada
+    elseif value == 'UK_Commerce' then
+        return texts[g_lang]._UK_Commerce
+    elseif value == 'France_Napoleonic' then
+        return texts[g_lang]._France_Napoleonic
+    elseif value == 'Ottoman' then
+        return texts[g_lang]._Ottoman
+    elseif value == 'Russia' then
+        return texts[g_lang]._Russia
+    elseif value == 'Netherlands' then
+        return texts[g_lang]._Netherlands
+    elseif value == 'Sweden' then
+        return texts[g_lang]._Sweden
+    elseif value == 'Pirates' then
+        return texts[g_lang]._Pirates
+    elseif value == 'France_Kingdom' then
+        return texts[g_lang]._France_Kingdom
+    elseif value == 'Denmark' then
+        return texts[g_lang]._Denmark
+    elseif value == 'Barbary_Pirates' then
+        return texts[g_lang]._Barbary_Pirates
+    elseif value == 'Greece' then
+        return texts[g_lang]._Greece
+    elseif value == 'Black' then
+        return texts[g_lang]._Black
+    else
+        return nil
+    end
+end
+
 g_ui_nation_selected = "Spain"
 function on_ui_nation_selected(player, value, id)
     g_ui_nation_selected = from_ui_nation_to_nation(value)

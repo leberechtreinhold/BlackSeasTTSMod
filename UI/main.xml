@@ -40,10 +40,10 @@
     <Panel id="panel_ship_sails" width="200" height="100" position="-180 -110">
         <ToggleGroup id="togglegroup_sail_setup" onValueChanged="on_toggle_sail_setup">
             <VerticalLayout>
-                <Toggle id="togglegroup_sail_setup_0" fontSize="18" selected="true" verticalOverflow="overflow">Full Sails</Toggle>
-                <Toggle id="togglegroup_sail_setup_1" fontSize="18" verticalOverflow="overflow">Battle Sails</Toggle>
-                <Toggle id="togglegroup_sail_setup_2" fontSize="18" verticalOverflow="overflow">Light Sails</Toggle>
-                <Toggle id="togglegroup_sail_setup_3" fontSize="18" verticalOverflow="overflow">Anchor</Toggle>
+                <Toggle id="togglegroup_sail_setup_0" fontSize="18" selected="true" verticalOverflow="overflow">{Full Sails}</Toggle>
+                <Toggle id="togglegroup_sail_setup_1" fontSize="18" verticalOverflow="overflow">{Battle Sails}</Toggle>
+                <Toggle id="togglegroup_sail_setup_2" fontSize="18" verticalOverflow="overflow">{Light Sails}</Toggle>
+                <Toggle id="togglegroup_sail_setup_3" fontSize="18" verticalOverflow="overflow">{Anchor}</Toggle>
             </VerticalLayout>
         </ToggleGroup>
     </Panel>
@@ -56,11 +56,11 @@
         <HorizontalLayout spacing="10">
             <VerticalLayout>
                 <Slider id="slider_knots" minValue="0" maxValue="10" wholeNumbers="true" value="3" onValueChanged="on_slider_knots_changed"></Slider>
-                <Button id="button_move" onClick="on_move">Move 3 knots</Button>
+                <Button id="button_move" fontSize="11" onClick="on_move">Move 3 knots</Button>
             </VerticalLayout>
             <VerticalLayout>
                 <Slider id="slider_turn" minValue="-45" maxValue="45" wholeNumbers="true" value="0" fillColor="#00000000" onValueChanged="on_slider_wheel_changed"></Slider>
-                <Button id="button_turn" onClick="on_turn">Turn 0º</Button>
+                <Button id="button_turn" fontSize="11" onClick="on_turn">Turn 0º</Button>
             </VerticalLayout>
         </HorizontalLayout>
 
@@ -68,10 +68,10 @@
 
     <Panel id="panel_actions" width="140" height="110" position="-575 -135" color="#00000000">
             <VerticalLayout spacing="3">
-                <Button onClick="on_skill_test">Skill Test</Button>
-                <Button onClick="on_critical_roll_hull">Roll Critical (Hull)</Button>
-                <Button onClick="on_critical_roll_high">Roll Critical (High)</Button>
-                <Button onClick="on_surrender">Surrender</Button>
+                <Button id="btn_skill_test" onClick="on_skill_test">Skill Test</Button>
+                <Button id="btn_critical_hull" onClick="on_critical_roll_hull">Roll Critical (Hull)</Button>
+                <Button id="btn_critical_high" onClick="on_critical_roll_high">Roll Critical (High)</Button>
+                <Button id="btn_on_surrender" onClick="on_surrender">Surrender</Button>
             </VerticalLayout>
     </Panel>
     <Text id="text_max_sail" alignment="MiddleLeft" fontSize="14" ignoreLayout="true" position="25 -180" >(Current max is Full Sails)</Text>
@@ -115,7 +115,7 @@ None</Text>
         </VerticalLayout>
     </Panel>
     <Panel width="100" height="30" color="#00000000"  outline="#00000000" ignoreLayout="true" position="-400 -180">
-        <Button onClick="on_click_masthit">Mast hit</Button>
+        <Button id="btn_mast_hit" onClick="on_click_masthit">Mast hit</Button>
     </Panel>
 </Panel>
 
@@ -339,7 +339,7 @@ None</Text>
                 <!-- Filler -->
             </Cell>
             <Cell columnSpan="4" dontUseTableCellBackground="true">
-                <Button columnSpan="1" id="bt_deploy_fleet" fontSize="18" onClick="on_ui_deploy_fleet">Deploy</Button>
+                <Button columnSpan="1" id="btn_deploy_fleet" fontSize="18" onClick="on_ui_deploy_fleet">Deploy</Button>
             </Cell>
         </Row>
     </TableLayout>
