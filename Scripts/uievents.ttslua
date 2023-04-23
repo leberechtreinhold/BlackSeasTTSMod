@@ -154,9 +154,9 @@ function from_ship_type_to_ui_ship_type(value)
     elseif value == 'shiptype_bomb_ketch' then
         return texts[g_lang]._Bomb_Ketch
     elseif value == 'shiptype_small_merchant'then
-        return texts[g_lang]._Small_Merchant 
+        return texts[g_lang]._Small_Merchant
     elseif value == 'shiptype_small_galley' then
-        return texts[g_lang]._Small_Galley 
+        return texts[g_lang]._Small_Galley
     elseif value == 'shiptype_gunbrig_squadron' then
         return texts[g_lang]._Gunbrig_Squadron
     elseif value == 'shiptype_gunboat_squadron' then
@@ -204,7 +204,7 @@ function from_ship_type_to_ui_ship_type(value)
     elseif value == 'shiptype_orient' then
         return texts[g_lang]._LOrient
     elseif value == 'shiptype_trinidad'then
-        return texts[g_lang]._Santisima_Trinidad 
+        return texts[g_lang]._Santisima_Trinidad
     else
         return nil
     end
@@ -423,6 +423,9 @@ function on_accept_sea_settings(obj, color, alt_click)
     UI.setAttribute('panel_select_sea_settings_bg', 'active', false)
     UI.hide('panel_select_sea_settings')
     UI.setAttribute('panel_select_sea_settings', 'active', false)
+
+    print_debug(g_ui_weather_selected)
+    print_debug(g_ui_environment_selected)
 
     g_state:set_water_to_state(g_ui_weather_selected)
     g_state:set_water_to_environment(g_ui_environment_selected)
@@ -646,7 +649,7 @@ function on_toggle_upgrade(player, value, id)
     end
     if enabled then
         g_ui_upgrades_selected[upgrade] = true
-    else 
+    else
         g_ui_upgrades_selected[upgrade] = nil
     end
 end
@@ -664,7 +667,7 @@ function on_change_name()
     if not ship then
         return
     end
-    
+
     UI.show('panel_rename_bg')
     UI.show('panel_rename')
 
@@ -706,7 +709,7 @@ function on_change_faction()
     if not ship then
         return
     end
-    
+
     UI.show('panel_change_faction_bg')
     UI.show('panel_change_faction')
 
@@ -747,5 +750,5 @@ function on_toggle_gizmo(player, value, id)
     if not ship then
         return
     end
-    ship.gizmo:update_gizmo()    
+    ship.gizmo:update_gizmo()
 end

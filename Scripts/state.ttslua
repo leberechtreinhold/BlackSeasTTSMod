@@ -108,28 +108,28 @@ function State:create()
     end
 
     function _state:set_water_frequency(frequency)
-        set_material_value(water_core_obj, "_WaveFrequency", frequency)
-        set_material_value(water_exterior_obj, "_WaveFrequency", frequency)
+        set_material_value(self.water_core_obj, "_WaveFrequency", frequency)
+        set_material_value(self.water_exterior_obj, "_WaveFrequency", frequency)
     end
 
     function _state:set_water_wave_size(wave_height)
-        set_material_value(water_core_obj, "_WaveSize", wave_height)
-        set_material_value(water_exterior_obj, "_WaveSize", wave_height)
+        set_material_value(self.water_core_obj, "_WaveSize", wave_height)
+        set_material_value(self.water_exterior_obj, "_WaveSize", wave_height)
     end
 
     function _state:set_water_foam_size(foam_size)
-        set_material_value(water_core_obj, "_FoamSize", foam_size)
-        set_material_value(water_exterior_obj, "_FoamSize", foam_size)
+        set_material_value(self.water_core_obj, "_FoamSize", foam_size)
+        set_material_value(self.water_exterior_obj, "_FoamSize", foam_size)
     end
 
     function _state:set_water_normal_speed(normal_speed)
-        set_material_value(water_core_obj, "_NormalSpeed", normal_speed)
-        set_material_value(water_exterior_obj, "_NormalSpeed", normal_speed)
+        set_material_value(self.water_core_obj, "_NormalSpeed", normal_speed)
+        set_material_value(self.water_exterior_obj, "_NormalSpeed", normal_speed)
     end
 
     function _state:set_water_normal_strength(normal_strength)
-        set_material_value(water_core_obj, "_NormalStrength", normal_strength)
-        set_material_value(water_exterior_obj, "_NormalStrength", normal_strength)
+        set_material_value(self.water_core_obj, "_NormalStrength", normal_strength)
+        set_material_value(self.water_exterior_obj, "_NormalStrength", normal_strength)
     end
 
     function _state:register_ship(ship)

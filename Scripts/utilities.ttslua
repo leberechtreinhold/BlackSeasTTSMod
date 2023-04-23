@@ -504,6 +504,10 @@ end
 
 
 function set_material_color(assetbundle, property_name, new_color)
+    if assetbundle == nil then
+        print_err("Assetbundle is nil, cannot proceed to change material")
+        return
+    end
     local mats = assetbundle.getMaterialsInChildren()
     for _,mat in ipairs(mats) do
       mat.set(property_name .. "R", new_color.R/255)
@@ -513,6 +517,10 @@ function set_material_color(assetbundle, property_name, new_color)
 end
 
 function set_material_value(assetbundle, property_name, value)
+    if assetbundle == nil then
+        print_err("Assetbundle is nil, cannot proceed to change material")
+        return
+    end
     local mats = assetbundle.getMaterialsInChildren()
     for _,mat in ipairs(mats) do
       mat.set(property_name, value)
