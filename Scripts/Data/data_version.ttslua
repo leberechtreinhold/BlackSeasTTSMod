@@ -1,9 +1,9 @@
-g_current_version = "1.7.0"
+g_current_version = "1.8.0"
 
 g_release_notes = {
     ["0.1.0"] = "Initial Release. Limited to brig.",
     ["0.2.0"] = [[
-- New ship added: The Bomb Ketch. While the two most famous ships of this class were not known for their martial prowess but for the ill-fated polar exploration  of HMS Eberus and HMS Terror, they have an important presence in the Age of Sail era. With the main armament being a mortar on the bow, they can deliver significant, but not accurate, damage to the enemies from afar. 
+- New ship added: The Bomb Ketch. While the two most famous ships of this class were not known for their martial prowess but for the ill-fated polar exploration  of HMS Eberus and HMS Terror, they have an important presence in the Age of Sail era. With the main armament being a mortar on the bow, they can deliver significant, but not accurate, damage to the enemies from afar.
 
 - Mortar shot: To accomodate the newcomer, I have implemented a new mortar shot feature. Rightclick the ship you want to fire upon, and select "Mortar fire". The game will roll a dice and more importante, determine the direction of the dispersion and show a line where the shot will land. Much more precise and comfortable than even in the physical game!
 
@@ -149,5 +149,8 @@ g_release_notes = {
 ["1.7.0"] = [[
 - Added the Sloop. There are many variants of the sloop, usually it's refered to the corvette-sloop, but the attributes in Black Seas are closer to a brig-sloop, so this is reusing the sloop model.
 - Fixed a bug where changing the name a ship didn't update the top-left summary.
-]]
+]],
+["1.8.0"] = [[
+- Fixed a bug with recent TTS version when using setMaterialValue which is not available anymore.
+]],
 }
