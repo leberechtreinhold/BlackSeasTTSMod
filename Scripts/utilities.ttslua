@@ -501,3 +501,20 @@ function spawn_text(text, tts_name, pos, left_align_optional, font_size_optional
     end
     return obj
 end
+
+
+function set_material_color(assetbundle, property_name, new_color)
+    local mats = assetbundle.getMaterialsInChildren()
+    for _,mat in ipairs(mats) do
+      mat.set(property_name .. "R", new_color.R/255)
+      mat.set(property_name .. "G", new_color.G/255)
+      mat.set(property_name .. "B", new_color.B/255)
+    end
+end
+
+function set_material_value(assetbundle, property_name, value)
+    local mats = assetbundle.getMaterialsInChildren()
+    for _,mat in ipairs(mats) do
+      mat.set(property_name, value)
+    end
+end

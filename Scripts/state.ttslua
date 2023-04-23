@@ -103,38 +103,33 @@ function State:create()
 
 
     function _state:set_water_color(new_color)
-        self.water_core_obj.setMaterialValue(0, "_AlbedoColorR", 1, new_color.R/255)
-        self.water_core_obj.setMaterialValue(0, "_AlbedoColorG", 1, new_color.G/255)
-        self.water_core_obj.setMaterialValue(0, "_AlbedoColorB", 1, new_color.B/255)
-
-        self.water_exterior_obj.setMaterialValue(0, "_AlbedoColorR", 1, new_color.R/255)
-        self.water_exterior_obj.setMaterialValue(0, "_AlbedoColorG", 1, new_color.G/255)
-        self.water_exterior_obj.setMaterialValue(0, "_AlbedoColorB", 1, new_color.B/255)
+        set_material_color(self.water_core_obj, "_AlbedoColor", new_color)
+        set_material_color(self.water_exterior_obj, "_AlbedoColor", new_color)
     end
 
     function _state:set_water_frequency(frequency)
-        self.water_core_obj.setMaterialValue(0, "_WaveFrequency", 1, frequency)
-        self.water_exterior_obj.setMaterialValue(0, "_WaveFrequency", 1, frequency)
+        set_material_value(water_core_obj, "_WaveFrequency", frequency)
+        set_material_value(water_exterior_obj, "_WaveFrequency", frequency)
     end
 
     function _state:set_water_wave_size(wave_height)
-        self.water_core_obj.setMaterialValue(0, "_WaveSize", 1, wave_height)
-        self.water_exterior_obj.setMaterialValue(0, "_WaveSize", 1, wave_height)
+        set_material_value(water_core_obj, "_WaveSize", wave_height)
+        set_material_value(water_exterior_obj, "_WaveSize", wave_height)
     end
 
     function _state:set_water_foam_size(foam_size)
-        self.water_core_obj.setMaterialValue(0, "_FoamSize", 1, foam_size)
-        self.water_exterior_obj.setMaterialValue(0, "_FoamSize", 1, foam_size)
+        set_material_value(water_core_obj, "_FoamSize", foam_size)
+        set_material_value(water_exterior_obj, "_FoamSize", foam_size)
     end
 
     function _state:set_water_normal_speed(normal_speed)
-        self.water_core_obj.setMaterialValue(0, "_NormalSpeed", 1, normal_speed)
-        self.water_exterior_obj.setMaterialValue(0, "_NormalSpeed", 1, normal_speed)
+        set_material_value(water_core_obj, "_NormalSpeed", normal_speed)
+        set_material_value(water_exterior_obj, "_NormalSpeed", normal_speed)
     end
 
     function _state:set_water_normal_strength(normal_strength)
-        self.water_core_obj.setMaterialValue(0, "_NormalStrength", 1, normal_strength)
-        self.water_exterior_obj.setMaterialValue(0, "_NormalStrength", 1, normal_strength)
+        set_material_value(water_core_obj, "_NormalStrength", normal_strength)
+        set_material_value(water_exterior_obj, "_NormalStrength", normal_strength)
     end
 
     function _state:register_ship(ship)
@@ -265,11 +260,11 @@ function State:create()
         if new_wind_direction == 'East' then
             order_fn = function(t,a,b)
                 return t[a].hull_obj.getPosition().x < t[b].hull_obj.getPosition().x
-            end        
+            end
         elseif new_wind_direction == 'Southeast' then
             order_fn = function(t,a,b)
                 return (t[a].hull_obj.getPosition().z - t[a].hull_obj.getPosition().x) > (t[b].hull_obj.getPosition().z - t[b].hull_obj.getPosition().x)
-            end        
+            end
         elseif new_wind_direction == 'South' then
             order_fn = function(t,a,b)
                 return t[a].hull_obj.getPosition().z > t[b].hull_obj.getPosition().z
@@ -281,11 +276,11 @@ function State:create()
         elseif new_wind_direction == 'West' then
             order_fn = function(t,a,b)
                 return t[a].hull_obj.getPosition().x > t[b].hull_obj.getPosition().x
-            end        
+            end
         elseif new_wind_direction == 'Northwest' then
             order_fn = function(t,a,b)
                 return (t[a].hull_obj.getPosition().x - t[a].hull_obj.getPosition().z) > (t[b].hull_obj.getPosition().x - t[b].hull_obj.getPosition().z)
-            end        
+            end
         elseif new_wind_direction == 'North' then
             order_fn = function(t,a,b)
                 return t[a].hull_obj.getPosition().z < t[b].hull_obj.getPosition().z
@@ -293,14 +288,14 @@ function State:create()
         elseif new_wind_direction == 'Northeast' then
             order_fn = function(t,a,b)
                 return (t[a].hull_obj.getPosition().x + t[a].hull_obj.getPosition().z) < (t[b].hull_obj.getPosition().x + t[b].hull_obj.getPosition().z)
-            end        
+            end
         end
 
         local msg = 'The new ship order is: '
         local txt = 'Ship order:\n'
         local i = 1
         for _, el in sorted_array(self.ships, order_fn) do
-            if not el.is_fortification and 
+            if not el.is_fortification and
                 not (el.surrendered or el.current_ship_points <= 0) then
                 msg = msg .. el.display_name .. ", "
                 txt = txt .. i .. ': ' .. el.display_name .. '\n'
